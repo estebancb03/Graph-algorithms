@@ -1,6 +1,9 @@
 #ifndef MENU_H
 #define MENU_H
 #include <iostream>
+#include "../Graphs/AdjacencyListGraph.h"
+//#include "../Graphs/AdjacencyMatrixGraph.h"
+#include "../Graphs/GenericGraphAlgorithms.h"
 using namespace std;
 template < class T, class Q >
 class Menu {
