@@ -11,7 +11,9 @@ class Graph {
     public:
         void create();
         void destroy();
+        void clear();
         bool empty();
+        Vertex< T > *addVertex(T);
 };
 
 /*
@@ -42,7 +44,20 @@ void Graph< T, Q > :: destroy() {
 */
 template < typename T, typename Q >
 bool Graph< T, Q > :: empty() {
-    return vertexNumber == 0 ? true ; false;
+    return vertexNumber == 0 ? true : false;
 }
+
+/*
+    EFECTO:
+    REQUIERE:
+    MODIFICA:
+*/
+template < typename T, typename Q >
+Vertex< T >* Graph< T, Q > :: addVertex(T tag) {
+    Vertex< T > *temp = new Vertex< T >(tag);
+    vertexArray[vertexNumber] = temp;
+    ++vertexNumber;
+    return temp;
+} 
 
 #endif //ADJACENCYMATRIXGRAPH_H
