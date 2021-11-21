@@ -5,7 +5,7 @@
 
 template < class T, class Q >
 class Graph {
-
+    
     public:
 };
 
