@@ -88,10 +88,36 @@ void Menu< T, Q > :: principalManu() {
                 
             }   break;
             case 7: {
-                
+                if(!graph -> empty()) {
+                    T tag;
+                    cout << "Vertice: "; cin >> tag;
+                    Vertex< T > *vertex = graph -> searchTag(tag);
+                    if(vertex) {
+                        T newTag;
+                        cout << "Nueva etiqueta: "; cin >> newTag;
+                        graph -> modifyTag(vertex, newTag);
+                        cout << "Etiqueta modificada correctamente" << endl << endl; 
+                    }
+                    else
+                        cout << "Error: vertice no existe" << endl << endl;
+                }
+                else
+                    cout << "Error: grafo vacio" << endl << endl;
             }   break;
             case 8: {
-                
+                if(!graph -> empty()) {
+                    T tag;
+                    cout << "Vertice: "; cin >> tag;
+                    Vertex< T > *vertex = graph -> searchTag(tag);
+                    if(vertex) {
+                        tag = vertex -> getTag();
+                        cout << "Etiqueta: " << tag << endl << endl;
+                    }
+                    else
+                        cout << "Error: vertice no existe" << endl << endl;
+                }
+                else
+                    cout << "Error: grafo vacio" << endl << endl;
             }   break;
             case 9: {
                 
@@ -109,10 +135,30 @@ void Menu< T, Q > :: principalManu() {
                 
             }   break;
             case 14: {
-                
+                if(!graph -> empty()) {
+                    Vertex< T > *vertex = graph -> firstVertex();
+                    T tag = graph -> tag(vertex);
+                    cout << "Primer vertice: " << tag << endl << endl; 
+                }
+                else
+                    cout << "Error: grafo vacio" << endl << endl;
             }   break;
             case 15: {
-                
+                if(!graph -> empty()) {
+                    T tag;
+                    cout << "Vertice: "; cin >> tag;
+                    Vertex< T > *vertex = graph -> searchTag(tag);
+                    if(vertex) {
+                        Vertex< T > *next = graph -> nextVertex(vertex);
+                        cout << "Siguiente vertice: ";
+                        next ? cout << next -> getTag() : cout << "nullptr";
+                        cout << endl << endl;
+                    }
+                    else
+                        cout << "Error: vertice no existe" << endl << endl;
+                }
+                else
+                    cout << "Error: grafo vacio" << endl << endl;
             }   break;
             case 16: {
                 
@@ -124,7 +170,8 @@ void Menu< T, Q > :: principalManu() {
                 
             }   break;
             case 19: {
-                
+                int number = graph -> getVertexNumber();
+                cout << "Numero de vertices: " << number << endl << endl;
             }   break;
             case 20: {
                 
