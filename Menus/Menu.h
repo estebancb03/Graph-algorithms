@@ -5,10 +5,10 @@
 //#include "../Graphs/AdjacencyMatrixGraph.h"
 #include "../Graphs/GenericGraphAlgorithms.h"
 using namespace std;
+
 template < class T, class Q >
 class Menu {
-    public: 
-        void principalManu();
+    public: void principalManu();
 };
 
 /*
@@ -143,7 +143,8 @@ void Menu< T, Q > :: principalManu() {
                 enabled = false;    
             }   break;
         }
-        system("pause");
+        if(option > 0 || option < 30)
+            system("pause");
     }
 }
 
