@@ -39,8 +39,8 @@ void Graph< T, Q > :: create() {
 */
 template < typename T, typename Q >
 void Graph< T, Q > :: destroy() {
-    //delete[ ]adjacencyMatrix;
-    //delete []vertexArray;
+    delete[ ]adjacencyMatrix;
+    delete []vertexArray;
 }
 
 /*
