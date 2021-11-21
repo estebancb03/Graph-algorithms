@@ -1,13 +1,15 @@
 #ifndef MENU_H
 #define MENU_H
 #include <iostream>
-#include "../Graphs/AdjacencyListGraph.h"
-//#include "../Graphs/AdjacencyMatrixGraph.h"
+//#include "../Graphs/AdjacencyListGraph.h"
+#include "../Graphs/AdjacencyMatrixGraph.h"
 #include "../Graphs/GenericGraphAlgorithms.h"
 using namespace std;
 
 template < class T, class Q >
 class Menu {
+    Graph< T, Q > *graph;
+    GenericGraphAlgorithms< T, Q > *graphAlgoritms;
     public: void principalManu();
 };
 
@@ -56,7 +58,10 @@ void Menu< T, Q > :: principalManu() {
         system("cls");
         switch (option) {
             case 1: {
-
+                graph = new Graph< T, Q >();
+                graph -> create();
+                graphAlgoritms = new GenericGraphAlgorithms< T, Q>(graph);
+                cout << "Grafo creado correctamente" << endl << endl;
             }   break;
             case 2: {
                 
