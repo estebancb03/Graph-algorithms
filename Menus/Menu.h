@@ -64,16 +64,25 @@ void Menu< T, Q > :: principalManu() {
                 cout << "Grafo creado correctamente" << endl << endl;
             }   break;
             case 2: {
-                
+                graph -> destroy();
+                cout << "Grafo destruido correctamente" << endl << endl;
             }   break;
             case 3: {
                 
             }   break;
             case 4: {
-                
+                cout << "Estado del grafo: ";
+                graph -> empty() ? cout << "vacio" : cout << "no vacio";
+                cout << endl << endl;
             }   break;
             case 5: {
-                
+                T tag;
+                cout << "Etiqueta: "; cin >> tag;
+                Vertex< T > *newVertex = graph -> addVertex(tag);
+                if(newVertex)
+                    cout << "Vertice agregado correctamente" << endl << endl;
+                else
+                    cout << "Error: el vertice no pudo ser agregado al grafo" << endl << endl;
             }   break;
             case 6: {
                 

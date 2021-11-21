@@ -14,6 +14,8 @@ class Graph {
         void clear();
         bool empty();
         Vertex< T > *addVertex(T);
+        void modifyTag(Vertex< T >*, T);
+        T tag(Vertex< T >*);
 };
 
 /*
@@ -54,10 +56,38 @@ bool Graph< T, Q > :: empty() {
 */
 template < typename T, typename Q >
 Vertex< T >* Graph< T, Q > :: addVertex(T tag) {
-    Vertex< T > *temp = new Vertex< T >(tag);
-    vertexArray[vertexNumber] = temp;
-    ++vertexNumber;
+    Vertex< T > *temp = nullptr;
+    Q invalid = -1.0;
+    if(vertexNumber < size) {
+        temp = new Vertex< T >(tag);
+        vertexArray[vertexNumber] = temp;
+        for(int i = 0; i < vertexNumber; ++i) {
+            for(int j = 0; j < vertexNumber; ++j)
+                adjacencyMatrix[i][j] = invalid;
+        }
+        ++vertexNumber;
+    }
     return temp;
 } 
+
+/*
+    EFECTO:
+    REQUIERE:
+    MODIFICA:
+*/
+template < typename T, typename Q >
+void Graph< T, Q > :: modifyTag(Vertex< T > *vertex, T newTag) {
+    vertex -> setTag(newTag);
+}
+
+/*
+    EFECTO:
+    REQUIERE:
+    MODIFICA:
+*/
+template < typename T, typename Q >
+T Graph< T, Q > :: tag(Vertex< T > *vertex) {
+    return vertex -> getTag();
+}
 
 #endif //ADJACENCYMATRIXGRAPH_H
