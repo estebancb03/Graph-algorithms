@@ -11,6 +11,7 @@ class Graph {
     public:
         void create();
         void destroy();
+        bool empty();
 };
 
 /*
@@ -32,6 +33,16 @@ template < typename T, typename Q >
 void Graph< T, Q > :: destroy() {
     delete []adjacencyMatrix;
     delete []vertexArray;
+}
+
+/*
+    EFECTO:
+    REQUIERE:
+    MODIFICA:
+*/
+template < typename T, typename Q >
+bool Graph< T, Q > :: empty() {
+    return vertexNumber == 0 ? true ; false;
 }
 
 #endif //ADJACENCYMATRIXGRAPH_H
