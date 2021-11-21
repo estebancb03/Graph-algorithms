@@ -14,6 +14,7 @@ class Graph {
         void clear();
         bool empty();
         Vertex< T > *addVertex(T);
+        void deleteVertex(Vertex< T >*);
         void modifyTag(Vertex< T >*, T);
         T tag(Vertex< T >*);
         Vertex< T > *firstVertex();
@@ -39,7 +40,7 @@ void Graph< T, Q > :: create() {
 */
 template < typename T, typename Q >
 void Graph< T, Q > :: destroy() {
-    delete[ ]adjacencyMatrix;
+    delete []adjacencyMatrix;
     delete []vertexArray;
 }
 
@@ -73,6 +74,21 @@ Vertex< T >* Graph< T, Q > :: addVertex(T tag) {
     }
     return temp;
 } 
+
+/*
+    EFECTO:
+    REQUIERE:
+    MODIFICA:
+*/
+template < typename T, typename Q >
+void Graph< T, Q > :: deleteVertex(Vertex< T > *vertex) {
+    if(vertex -> getPosition() > 0 && vertex -> getPosition() < vertexNumber - 1) {
+        for(int i = vertex -> getPosition(); i < vertexNumber; ++i)
+            vertexArray[i] = vertexArray[i + 1];
+    }
+    else
+        delete vertexArray[vertex -> getPosition()];
+}
 
 /*
     EFECTO:
