@@ -1,19 +1,13 @@
 #ifndef VERTEX_H
 #define VERTEX_H
 
-template < class Q >
+template < class T >
 class Vertex {
-    Q weight;
-    Vertex< Q > *originVertex;
-    Vertex< Q > *destinationVertex;
+    T tag;
     public:
-        Vertex(Q w) { weight = w; originVertex = nullptr; destinationVertex = nullptr; };
-        Q getWeight() { return weight; };
-        Vertex< Q > *getOriginVertex() { return originVertex; };
-        Vertex< Q > *getDestinationVertex() { return destinationVertex; };
-        void setWeight(Q w) { weight = w; };
-        void setOriginVertex(Vertex< Q > *ov) { originVertex = ov; };
-        void setDestinationVertex(Vertex< Q > *dv) { destinationVertex = dv; };
+        Vertex(T t) { tag = t; };
+        T getTag() { return tag; };
+        void setTag(T t) { tag = t; };
 };
 
 #endif //VERTEX_H

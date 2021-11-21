@@ -2,13 +2,13 @@
 #define ARISTA_H
 #include "../Vertex/Vertex.h"
 
-template < class T >
+template < class Q >
 class Arista {
     Q weight;
     Vertex< Q > *originVertex;
     Vertex< Q > *destinationVertex;
     public:
-        Vertex(Q w) { weight = w; originVertex = nullptr; destinationVertex = nullptr; };
+        Arista(Q w) { weight = w; originVertex = nullptr; destinationVertex = nullptr; };
         Q getWeight() { return weight; };
         Vertex< Q > *getOriginVertex() { return originVertex; };
         Vertex< Q > *getDestinationVertex() { return destinationVertex; };
