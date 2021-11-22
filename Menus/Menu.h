@@ -35,25 +35,24 @@ void Menu< T, Q > :: principalManu() {
         cout << "8. Etiqueta?" << endl;
         cout << "9. Agregar arista" << endl;
         cout << "10. Eliminar arista" << endl;
-        cout << "11. Modificar arista" << endl;
-        cout << "12. Modifica peso" << endl;
-        cout << "13. Peso?" << endl;
-        cout << "14. Primer vertice?" << endl;
-        cout << "15. Siguiente vertice?" << endl;
-        cout << "16. Primer vertice adyacente?" << endl;
-        cout << "17. Siguiente vertice adyacente?" << endl;
-        cout << "18. Existe arista?" << endl;
-        cout << "19. Numero de vertices" << endl;
-        cout << "20. Averiguar si el grafo tiene ciclos" << endl;
-        cout << "21. Averiguar si un grafo es conexo" << endl;
-        cout << "22. Averiguar si un grafo es conexo (Warshall)" << endl;
-        cout << "23. Buscar un vertice por su etiqueta" << endl;
-        cout << "24. Encontrar el camino mas corto de un vertice a todos los demas" << endl;
-        cout << "25. Encontrar el camino mas corto entre un par de vertices (Floyd)" << endl;
-        cout << "26. Encontrar el camino mas corto entre un par de vertices (Dijkstra)" << endl;
-        cout << "27. Encontrar el circuito Hamilton de menor costo" << endl;
-        cout << "28. Colorear el grafo" << endl;
-        cout << "29. Salir" << endl << endl;
+        cout << "11. Modifica peso" << endl;
+        cout << "12. Peso?" << endl;
+        cout << "13. Primer vertice?" << endl;
+        cout << "14. Siguiente vertice?" << endl;
+        cout << "15. Primer vertice adyacente?" << endl;
+        cout << "16. Siguiente vertice adyacente?" << endl;
+        cout << "17. Existe arista?" << endl;
+        cout << "18. Numero de vertices" << endl;
+        cout << "19. Averiguar si el grafo tiene ciclos" << endl;
+        cout << "20. Averiguar si un grafo es conexo" << endl;
+        cout << "21. Averiguar si un grafo es conexo (Warshall)" << endl;
+        cout << "22. Buscar un vertice por su etiqueta" << endl;
+        cout << "23. Encontrar el camino mas corto de un vertice a todos los demas" << endl;
+        cout << "24. Encontrar el camino mas corto entre un par de vertices (Floyd)" << endl;
+        cout << "25. Encontrar el camino mas corto entre un par de vertices (Dijkstra)" << endl;
+        cout << "26. Encontrar el circuito Hamilton de menor costo" << endl;
+        cout << "27. Colorear el grafo" << endl;
+        cout << "28. Salir" << endl << endl;
         cout << "Opcion: "; cin >> option;
         system("cls");
         switch (option) {
@@ -172,15 +171,42 @@ void Menu< T, Q > :: principalManu() {
                     cout << "Error: grafo vacio" << endl << endl;
             }   break;
             case 11: {
-                graph -> print();
+                if(!graph -> empty()) {
+                    T tag1, tag2;
+                    cout << "Vertice1: "; cin >> tag1;
+                    cout << "Vertice2: "; cin >> tag2;
+                    Vertex< T > *vertex1 = graph -> searchTag(tag1);
+                    Vertex< T > *vertex2 = graph -> searchTag(tag2);
+                    if(vertex1 && vertex2 && graph -> arista(vertex1, vertex2)) {
+                        Q newWeight;
+                        cout << "Nuevo Peso: "; cin >> newWeight;
+                        graph -> modifyWeight(vertex1, vertex2, newWeight);
+                        cout << "Peso modificado correctamente" << endl << endl;
+                    }
+                    else
+                        cout << "Error: vertice o arista no existe" << endl << endl;
+                }
+                else 
+                    cout << "Error: grafo vacio" << endl << endl;
             }   break;
             case 12: {
-                
+                if(!graph -> empty()) {
+                    T tag1, tag2;
+                    cout << "Vertice1: "; cin >> tag1;
+                    cout << "Vertice2: "; cin >> tag2;
+                    Vertex< T > *vertex1 = graph -> searchTag(tag1);
+                    Vertex< T > *vertex2 = graph -> searchTag(tag2);
+                    if(vertex1 && vertex2 && graph -> arista(vertex1, vertex2)) {
+                        Q weight = graph -> weight(vertex1, vertex2);
+                        cout << "Peso: " << weight << endl << endl;
+                    }
+                    else
+                        cout << "Error: vertice o arista no existe" << endl << endl;
+                }
+                else 
+                    cout << "Error: grafo vacio" << endl << endl;
             }   break;
             case 13: {
-                
-            }   break;
-            case 14: {
                 if(!graph -> empty()) {
                     Vertex< T > *vertex = graph -> firstVertex();
                     T tag = graph -> tag(vertex);
@@ -189,7 +215,7 @@ void Menu< T, Q > :: principalManu() {
                 else
                     cout << "Error: grafo vacio" << endl << endl;
             }   break;
-            case 15: {
+            case 14: {
                 if(!graph -> empty()) {
                     T tag;
                     cout << "Vertice: "; cin >> tag;
@@ -206,13 +232,27 @@ void Menu< T, Q > :: principalManu() {
                 else
                     cout << "Error: grafo vacio" << endl << endl;
             }   break;
+            case 15: {
+                if(!graph -> empty()) {
+                    T tag;
+                    cout << "Vertice: "; cin >> tag;
+                    Vertex< T > *vertex = graph -> searchTag(tag);
+                    if(vertex) {
+                        Vertex< T > *adjacent = graph -> firstAdjacentVertex(vertex);
+                        cout << "Primer vertice adyacente: ";
+                        adjacent ? cout << adjacent -> getTag() : cout << "nullptr";
+                        cout << endl << endl;
+                    }
+                    else
+                        cout << "Error: vertice no existe" << endl << endl;
+                }
+                else
+                    cout << "Error: grafo vacio" << endl << endl;
+            }   break;
             case 16: {
                 
             }   break;
             case 17: {
-                
-            }   break;
-            case 18: {
                 if(!graph -> empty()) {
                     T tag1, tag2;
                     cout << "Vertice1: "; cin >> tag1;
@@ -231,9 +271,12 @@ void Menu< T, Q > :: principalManu() {
                 else 
                     cout << "Error: grafo vacio" << endl << endl;
             }   break;
-            case 19: {
+            case 18: {
                 int number = graph -> getVertexNumber();
                 cout << "Numero de vertices: " << number << endl << endl;
+            }   break;
+            case 19: {
+                
             }   break;
             case 20: {
                 
@@ -257,13 +300,10 @@ void Menu< T, Q > :: principalManu() {
                 
             }   break;
             case 27: {
-                
+                graph -> print();
             }   break;
             case 28: {
-                
-            }   break;
-            case 29: {
-                enabled = false;    
+                enabled = false;
             }   break;
         }
         if(option > 0 || option < 30)
