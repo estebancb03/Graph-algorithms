@@ -33,9 +33,9 @@ class Graph {
 };
 
 /*
-    EFECTO:
-    REQUIERE:
-    MODIFICA:
+    EFECTO: crea la instancia del grafo
+    REQUIERE: grafo sin crear o destruido
+    MODIFICA: grafo
 */
 template < typename T, typename Q >
 void Graph< T, Q > :: create() {
@@ -43,9 +43,9 @@ void Graph< T, Q > :: create() {
 }
 
 /*
-    EFECTO:
-    REQUIERE:
-    MODIFICA:
+    EFECTO: destruye el grafo
+    REQUIERE: grafo creado
+    MODIFICA: grafo
 */
 template < typename T, typename Q >
 void Graph< T, Q > :: destroy() {
@@ -53,9 +53,9 @@ void Graph< T, Q > :: destroy() {
 }
 
 /*
-    EFECTO:
-    REQUIERE:
-    MODIFICA:
+    EFECTO: elimina los elementos del grafo
+    REQUIERE: grafo creado
+    MODIFICA: grafo
 */
 template < typename T, typename Q >
 void Graph< T, Q > :: clear() {
@@ -64,9 +64,9 @@ void Graph< T, Q > :: clear() {
 }
 
 /*
-    EFECTO:
-    REQUIERE:
-    MODIFICA:
+    EFECTO: devuelve el verdadero si el grafo tiene elementos y falso si no
+    REQUIERE: grafo creado
+    MODIFICA: no hace modificaciones
 */
 template < typename T, typename Q >
 bool Graph< T, Q > :: empty() {
@@ -74,9 +74,9 @@ bool Graph< T, Q > :: empty() {
 }
 
 /*
-    EFECTO:
-    REQUIERE:
-    MODIFICA:
+    EFECTO: agrega un vértice al grafo
+    REQUIERE: grafo creado
+    MODIFICA: grafo
 */
 template < typename T, typename Q >
 Vertex< T >* Graph< T, Q > :: addVertex(T tag) {
@@ -92,9 +92,9 @@ Vertex< T >* Graph< T, Q > :: addVertex(T tag) {
 } 
 
 /*
-    EFECTO:
-    REQUIERE:
-    MODIFICA:
+    EFECTO: elimina un vértice del grafo
+    REQUIERE: grafo creado y no vacío, vértice válido y aislado
+    MODIFICA: grafo
 */
 template < typename T, typename Q >
 void Graph< T, Q > :: deleteVertex(Vertex< T > *vertex) {
@@ -110,9 +110,9 @@ void Graph< T, Q > :: deleteVertex(Vertex< T > *vertex) {
 }
 
 /*
-    EFECTO:
-    REQUIERE:
-    MODIFICA:
+    EFECTO: modifica la etiqueta de un vértice
+    REQUIERE: grafo creado y no vacío, vértice válido y etiqueta válida
+    MODIFICA: vértice, grafo
 */
 template < typename T, typename Q >
 void Graph< T, Q > :: modifyTag(Vertex< T > *vertex, T newTag) {
@@ -120,9 +120,9 @@ void Graph< T, Q > :: modifyTag(Vertex< T > *vertex, T newTag) {
 }
 
 /*
-    EFECTO:
-    REQUIERE:
-    MODIFICA:
+    EFECTO: devuelve la etiqueta de un vértice
+    REQUIERE: grafo creado y no vacío, vértice válido
+    MODIFICA: no hace modificaciones
 */
 template < typename T, typename Q >
 T Graph< T, Q > :: tag(Vertex< T > *vertex) {
@@ -130,9 +130,9 @@ T Graph< T, Q > :: tag(Vertex< T > *vertex) {
 }
 
 /*
-    EFECTO:
-    REQUIERE:
-    MODIFICA:
+    EFECTO: agrega una arista al grafo
+    REQUIERE: grafo creado, vértices válidos y peso válido
+    MODIFICA: grafo
 */
 template < typename T, typename Q >
 void Graph< T, Q > :: addArista(Vertex< T > *vertex, Vertex< T > *vertex2, Q weight) {
@@ -145,9 +145,9 @@ void Graph< T, Q > :: addArista(Vertex< T > *vertex, Vertex< T > *vertex2, Q wei
 }
 
 /*
-    EFECTO:
-    REQUIERE:
-    MODIFICA:
+    EFECTO: elimina arista
+    REQUIERE: grafo creado y no vacío, vértices válidos y la existencia de la arista entre ellos
+    MODIFICA: grafo
 */
 template < typename T, typename Q >
 void Graph< T, Q > :: deleteArista(Vertex< T > *vertex, Vertex< T > *vertex2) {
@@ -158,9 +158,9 @@ void Graph< T, Q > :: deleteArista(Vertex< T > *vertex, Vertex< T > *vertex2) {
 }
 
 /*
-    EFECTO:
-    REQUIERE:
-    MODIFICA:
+    EFECTO: modifica el peso de una arista
+    REQUIERE: grafo creado y no vacío, vértices válidos, peso válido y la existencia de la arista entre ellos
+    MODIFICA: arista, grafo
 */
 template < typename T, typename Q >
 void Graph< T, Q > :: modifyWeight(Vertex< T > *vertex, Vertex< T > *vertex2, Q newWeight) {
@@ -173,9 +173,9 @@ void Graph< T, Q > :: modifyWeight(Vertex< T > *vertex, Vertex< T > *vertex2, Q 
 }
 
 /*
-    EFECTO:
-    REQUIERE:
-    MODIFICA:
+    EFECTO: devuelve el peso de una arista
+    REQUIERE: grafo creado y no vacío, vértices válidos y la existencia de la arista entre ellos
+    MODIFICA: no hace modificaciones
 */
 template < typename T, typename Q >
 Q Graph< T, Q > :: weight(Vertex< T > *vertex, Vertex< T > *vertex2) {
@@ -183,9 +183,9 @@ Q Graph< T, Q > :: weight(Vertex< T > *vertex, Vertex< T > *vertex2) {
 }
 
 /*
-    EFECTO:
-    REQUIERE:
-    MODIFICA:
+    EFECTO: devuelve el primer vértice agregado al grafo
+    REQUIERE: grafo creado y no vacío
+    MODIFICA: no hace modificaciones
 */
 template < typename T, typename Q >
 Vertex< T >* Graph< T, Q > :: firstVertex() {
@@ -193,9 +193,9 @@ Vertex< T >* Graph< T, Q > :: firstVertex() {
 }
 
 /*
-    EFECTO:
-    REQUIERE:
-    MODIFICA:
+    EFECTO: devuelve el siguiente vértice de un vértice
+    REQUIERE: grafo creado y no vacío, vértice válido
+    MODIFICA: no hace modificaciones
 */
 template < typename T, typename Q >
 Vertex< T >* Graph< T, Q > :: nextVertex(Vertex< T > *vertex) {
@@ -204,9 +204,9 @@ Vertex< T >* Graph< T, Q > :: nextVertex(Vertex< T > *vertex) {
 }
 
 /*
-    EFECTO:
-    REQUIERE:
-    MODIFICA:
+    EFECTO: devuelve el primer vértice adyacente de un vértice
+    REQUIERE: grafo creado y no vacío, vértice válido
+    MODIFICA: no hace modificaciones
 */
 template < typename T, typename Q >
 Vertex< T >* Graph< T, Q > :: firstAdjacentVertex(Vertex< T > *vertex) {
@@ -229,9 +229,9 @@ Vertex< T >* Graph< T, Q > :: firstAdjacentVertex(Vertex< T > *vertex) {
 }
 
 /*
-    EFECTO:
-    REQUIERE:
-    MODIFICA:
+    EFECTO: devuelve el siguiente vértice adyacente
+    REQUIERE: grafo creado y no vacío, vértices válidos, y vértice adyacente
+    MODIFICA: no hace modificaciones
 */
 template < typename T, typename Q >
 Vertex< T >* Graph< T, Q > :: nextAdjacentVertex(Vertex< T > *vertex, Vertex< T > *adjacent) {
@@ -254,9 +254,9 @@ Vertex< T >* Graph< T, Q > :: nextAdjacentVertex(Vertex< T > *vertex, Vertex< T 
 }
 
 /*
-    EFECTO:
-    REQUIERE:
-    MODIFICA:
+    EFECTO: devuelve verdadero si hay arista entre dos vértices y falso si no
+    REQUIERE: grafo creado y no vacío, vértices válidos
+    MODIFICA: grafo
 */
 template < typename T, typename Q >
 bool Graph< T, Q > :: arista(Vertex< T > *vertex, Vertex< T > *vertex2) {
@@ -267,9 +267,9 @@ bool Graph< T, Q > :: arista(Vertex< T > *vertex, Vertex< T > *vertex2) {
 }
 
 /*
-    EFECTO:
-    REQUIERE:
-    MODIFICA:
+    EFECTO: devuelve el número de vértices en el grafo
+    REQUIERE: grafo creado
+    MODIFICA: no hace modificaciones
 */
 template < typename T, typename Q >
 int Graph< T, Q > :: getVertexNumber() {
@@ -277,9 +277,9 @@ int Graph< T, Q > :: getVertexNumber() {
 }
 
 /*
-    EFECTO:
-    REQUIERE:
-    MODIFICA:
+    EFECTO: busca un vértice en el grafo
+    REQUIERE: grafo creado y etiqueta válida
+    MODIFICA: no hace modificaciones 
 */
 template < typename T, typename Q >
 Vertex< T >* Graph< T, Q > :: searchTag(T tag) {
@@ -301,9 +301,9 @@ Vertex< T >* Graph< T, Q > :: searchTag(T tag) {
 }
 
 /*
-    EFECTO:
-    REQUIERE:
-    MODIFICA:
+    EFECTO: imprime la matriz de adyacencia
+    REQUIERE: grafo creado
+    MODIFICA: no hace modificaciones
 */
 template < typename T, typename Q >
 void Graph< T, Q > :: print() {
