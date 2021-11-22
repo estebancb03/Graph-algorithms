@@ -20,6 +20,7 @@ class Graph {
         T tag(Vertex< T >*);
         void addArista(Vertex< T >*, Vertex< T >*, Q);
         void deleteArista(Vertex< T >*, Vertex< T >*);
+        void modifyWeight(Vertex< T >*, Vertex< T >*, Q);
         Q weight(Vertex< T >*, Vertex< T >*);
         Vertex< T > *firstVertex();
         Vertex< T > *nextVertex(Vertex< T >*);
@@ -152,6 +153,21 @@ void Graph< T, Q > :: deleteArista(Vertex< T > *vertex, Vertex< T > *vertex2) {
     int position2 = vertex2 -> getPosition();
     adjacencyMatrix[position1][position2] = 0;
     adjacencyMatrix[position2][position1] = 0;
+}
+
+/*
+    EFECTO:
+    REQUIERE:
+    MODIFICA:
+*/
+template < typename T, typename Q >
+void Graph< T, Q > :: modifyWeight(Vertex< T > *vertex, Vertex< T > *vertex2, Q newWeight) {
+    if(vertex != vertex2) {
+        int position1 = vertex -> getPosition();
+        int position2 = vertex2 -> getPosition();
+        adjacencyMatrix[position1][position2] = newWeight;
+        adjacencyMatrix[position2][position1] = newWeight;
+    }  
 }
 
 /*
