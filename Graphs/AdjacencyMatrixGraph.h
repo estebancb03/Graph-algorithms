@@ -1,6 +1,7 @@
 #ifndef ADJACENCYMATRIXGRAPH_H
 #define ADJACENCYMATRIXGRAPH_H
 #include "../Vertex/Vertex2.h"
+using namespace std;
 
 template < class T, class Q >
 class Graph {
@@ -40,8 +41,7 @@ void Graph< T, Q > :: create() {
 */
 template < typename T, typename Q >
 void Graph< T, Q > :: destroy() {
-    delete []adjacencyMatrix;
-    delete []vertexArray;
+    delete this;
 }
 
 /*
@@ -82,12 +82,14 @@ Vertex< T >* Graph< T, Q > :: addVertex(T tag) {
 */
 template < typename T, typename Q >
 void Graph< T, Q > :: deleteVertex(Vertex< T > *vertex) {
-    if(vertex -> getPosition() > 0 && vertex -> getPosition() < vertexNumber - 1) {
-        for(int i = vertex -> getPosition(); i < vertexNumber; ++i)
-            vertexArray[i] = vertexArray[i + 1];
-    }
-    else
+    if(vertexNumber < 2 || vertex -> getPosition() == size - 1) 
         delete vertexArray[vertex -> getPosition()];
+    else {
+        for(int i = vertex -> getPosition(); i < vertexNumber - 1; ++i) 
+            vertexArray[i] = vertexArray[i + 1];
+        delete vertexArray[vertexNumber - 1];
+    }
+    --vertexNumber;
 }
 
 /*
@@ -128,9 +130,7 @@ Vertex< T >* Graph< T, Q > :: firstVertex() {
 template < typename T, typename Q >
 Vertex< T >* Graph< T, Q > :: nextVertex(Vertex< T > *vertex) {
     Vertex< T > *next = nullptr;
-    if(vertexNumber < size - 1 && vertex -> getPosition() < vertexNumber);
-        next = vertexArray[vertex -> getPosition() + 1];
-    return next;
+    return vertex -> getPosition() != vertexNumber - 1 ? vertexArray[vertex -> getPosition() + 1] : nullptr;
 }
 
 /*

@@ -85,7 +85,19 @@ void Menu< T, Q > :: principalManu() {
                     cout << "Error: el vertice no pudo ser agregado al grafo" << endl << endl;
             }   break;
             case 6: {
-                
+                if(!graph -> empty()) {
+                    T tag;
+                    cout << "Vertice: "; cin >> tag;
+                    Vertex< T > *vertex = graph -> searchTag(tag);
+                    if(vertex) {
+                        graph -> deleteVertex(vertex);
+                        cout << "Vertice eliminado correctamente" << endl << endl;
+                    }
+                    else
+                        cout << "Error: vertice no existe" << endl << endl;
+                }
+                else
+                    cout << "Error: grafo vacio" << endl << endl;
             }   break;
             case 7: {
                 if(!graph -> empty()) {
