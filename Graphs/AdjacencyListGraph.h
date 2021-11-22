@@ -146,7 +146,18 @@ void Graph< T, Q > :: addArista(Vertex< T, Q > *vertex, Vertex< T, Q > *vertex2,
 */
 template < typename T, typename Q >
 void Graph< T, Q > :: deleteArista(Vertex< T, Q > *vertex, Vertex< T, Q > *vertex2) {
-    
+    Arista< T, Q > *past;
+    Arista< T, Q > *current = vertex -> getAdjacent();
+    if(current -> getAdjacent() != vertex2) {
+        while(current -> getAdjacent() != vertex2) {
+            past = current;
+            current = current -> getNext();
+        }
+        past -> setNext(current -> getNext());
+    }
+    else 
+        vertex -> getAdjacent() = current -> getNext();
+    delete(current);
 }
 
 /*
