@@ -132,7 +132,7 @@ void Menu< T, Q > :: principalManu() {
                     cout << "Error: grafo vacio" << endl << endl;
             }   break;
             case 9: {
-                
+                graph -> print();
             }   break;
             case 10: {
                 

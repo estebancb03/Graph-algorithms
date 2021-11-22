@@ -22,6 +22,7 @@ class Graph {
         Vertex< T > *nextVertex(Vertex< T >*);
         int getVertexNumber();
         Vertex< T > *searchTag(T); //Provisional, hay que hacerlo general para cualquier TDA
+        void print(); //Provisional
 };
 
 /*
@@ -82,13 +83,14 @@ Vertex< T >* Graph< T, Q > :: addVertex(T tag) {
 */
 template < typename T, typename Q >
 void Graph< T, Q > :: deleteVertex(Vertex< T > *vertex) {
-    if(vertexNumber < 2 || vertex -> getPosition() == size - 1) 
-        delete vertexArray[vertex -> getPosition()];
-    else {
-        for(int i = vertex -> getPosition(); i < vertexNumber - 1; ++i) 
+    if(vertexNumber > 1 && vertex -> getPosition() < vertexNumber - 1) {
+        for(int i = vertex -> getPosition(); i < vertexNumber - 1; ++i) {
+            vertexArray[i + 1] -> setPosition(vertexArray[i + 1] -> getPosition() - 1);
             vertexArray[i] = vertexArray[i + 1];
-        delete vertexArray[vertexNumber - 1];
+        }
     }
+    else 
+        delete vertexArray[vertex -> getPosition()];
     --vertexNumber;
 }
 
@@ -165,6 +167,18 @@ Vertex< T >* Graph< T, Q > :: searchTag(T tag) {
             enabled = false;
     }
     return temp;
+}
+
+/*
+    EFECTO:
+    REQUIERE:
+    MODIFICA:
+*/
+template < typename T, typename Q >
+void Graph< T, Q > :: print() {
+    for(int i = 0; i < vertexNumber; ++i) 
+        cout << "[" << i << "]: " << vertexArray[i] -> getTag() << endl;
+    cout << endl << endl;   
 }
 
 #endif //ADJACENCYMATRIXGRAPH_H
