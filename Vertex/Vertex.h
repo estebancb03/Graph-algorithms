@@ -1,16 +1,20 @@
 #ifndef VERTEX_H
 #define VERTEX_H
+#include "../Arista/Arista.h"
 
-template < class T, class Q >
+template < class T, class Q>
 class Vertex {
     T tag;
-    int position;
+    Vertex< T, Q > *next;
+    Arista< T, Q > *adjacent;
     public:
-        Vertex(T t, int p) { tag = t; position = p; };
+        Vertex(T t) { tag = t; next = nullptr; adjacent = nullptr; }; 
         T getTag() { return tag; };
-        int getPosition() { return position; };
+        Vertex< T, Q > *getNext() { return next; };
+        Arista< T, Q > *getAdjacent() { return adjacent; };
         void setTag(T t) { tag = t; };
-        void setPosition(int p) { position = p; };
+        void setNext(Vertex< T, Q > *n) { next = n; };
+        void setAdjacent(Arista< T, Q > *a) { adjacent = a; };
 };
 
 #endif //VERTEX_H
