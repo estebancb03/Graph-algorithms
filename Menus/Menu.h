@@ -138,10 +138,14 @@ void Menu< T, Q > :: principalManu() {
                     Vertex< T, Q > *vertex1 = graph -> searchTag(tag1);
                     Vertex< T, Q > *vertex2 = graph -> searchTag(tag2);
                     if(vertex1 && vertex2) {
-                        Q weight;
-                        cout << "Peso: "; cin >> weight;
-                        graph -> addArista(vertex1, vertex2, weight);
-                        cout << "Arista agregada correctamente" << endl << endl;
+                        if(vertex1 != vertex2) {
+                            Q weight;
+                            cout << "Peso: "; cin >> weight;
+                            graph -> addArista(vertex1, vertex2, weight);
+                            cout << "Arista agregada correctamente" << endl << endl;
+                        }
+                        else
+                            cout << "Error: no se aceptan lazos" << endl << endl;
                     }
                     else
                         cout << "Error: vertice no existe" << endl << endl;

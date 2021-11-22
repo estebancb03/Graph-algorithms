@@ -128,7 +128,9 @@ void Graph< T, Q > :: addArista(Vertex< T, Q > *vertex, Vertex< T, Q > *vertex2,
     Arista< T, Q > *arista = new Arista< T, Q >(weight);
     Arista< T, Q > *temp = vertex -> getAdjacent();
     arista -> setAdjacent(vertex2);
-    !temp ? vertex -> setAdjacent(arista) : arista -> setNext(temp);
+    vertex -> setAdjacent(arista); 
+    if(temp)
+        arista -> setNext(temp);
 }
 
 /*
@@ -188,7 +190,7 @@ Vertex< T, Q >* Graph< T, Q > :: nextVertex(Vertex< T, Q > *vertex) {
 */
 template < typename T, typename Q >
 Vertex< T, Q >* Graph< T, Q > :: firstAdjacentVertex(Vertex< T, Q > *vertex) {
-    return vertex -> getAdjacent();
+    return vertex -> getAdjacent() -> getAdjacent();
 }
 
 /*
