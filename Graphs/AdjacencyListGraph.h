@@ -221,7 +221,14 @@ int Graph< T, Q > :: getVertexNumber() {
 */
 template < typename T, typename Q >
 Vertex< T, Q >* Graph< T, Q > :: searchTag(T tag) {
-    
+    Vertex< T, Q > *temp = first;
+    Vertex< T, Q > *aux = nullptr;
+    while(temp) {
+        if(temp -> getTag() == tag)
+            aux = temp;
+        temp = temp -> getNext();
+    }
+    return aux;
 }
 
 /*
