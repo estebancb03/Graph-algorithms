@@ -81,7 +81,11 @@ bool Graph< T, Q > :: empty() {
 */
 template < typename T, typename Q >
 Vertex< T, Q >* Graph< T, Q > :: addVertex(T tag) {
-    
+    Vertex< T, Q > *vertex = new Vertex< T,Q >(tag);
+    if(!empty()) 
+        vertex -> setNext(first);
+    first = vertex;
+    ++veretexNumber;
 } 
 
 /*
