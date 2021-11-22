@@ -132,10 +132,26 @@ void Menu< T, Q > :: principalManu() {
                     cout << "Error: grafo vacio" << endl << endl;
             }   break;
             case 9: {
-                graph -> print();
+                if(!graph -> empty()) {
+                    T tag1, tag2;
+                    cout << "Vertice1: "; cin >> tag1;
+                    cout << "Vertice2: "; cin >> tag2;
+                    Vertex< T > *vertex1 = graph -> searchTag(tag1);
+                    Vertex< T > *vertex2 = graph -> searchTag(tag2);
+                    if(vertex1 && vertex2) {
+                        Q weight;
+                        cout << "Peso: "; cin >> weight;
+                        graph -> addArista(vertex1, vertex2, weight);
+                        cout << "Arista agregada correctamente" << endl << endl;
+                    }
+                    else
+                        cout << "Error: vertice no existe" << endl << endl;
+                }
+                else 
+                    cout << "Error: grafo vacio" << endl << endl;
             }   break;
             case 10: {
-                
+                graph -> print();
             }   break;
             case 11: {
                 

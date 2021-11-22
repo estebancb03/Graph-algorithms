@@ -18,6 +18,8 @@ class Graph {
         void deleteVertex(Vertex< T >*);
         void modifyTag(Vertex< T >*, T);
         T tag(Vertex< T >*);
+        void addArista(Vertex< T >*, Vertex< T >*, Q);
+        void deleteArista(Vertex< T >*, Vertex< T >*);
         Vertex< T > *firstVertex();
         Vertex< T > *nextVertex(Vertex< T >*);
         int getVertexNumber();
@@ -67,11 +69,11 @@ Vertex< T >* Graph< T, Q > :: addVertex(T tag) {
     if(vertexNumber < size) {
         temp = new Vertex< T >(tag, vertexNumber);
         vertexArray[vertexNumber] = temp;
+        ++vertexNumber;
         for(int i = 0; i < vertexNumber; ++i) {
             for(int j = 0; j < vertexNumber; ++j)
-                adjacencyMatrix[i][j] = invalid;
+                adjacencyMatrix[i][i] = invalid;
         }
-        ++vertexNumber;
     }
     return temp;
 } 
@@ -112,6 +114,19 @@ void Graph< T, Q > :: modifyTag(Vertex< T > *vertex, T newTag) {
 template < typename T, typename Q >
 T Graph< T, Q > :: tag(Vertex< T > *vertex) {
     return vertex -> getTag();
+}
+
+/*
+    EFECTO:
+    REQUIERE:
+    MODIFICA:
+*/
+template < typename T, typename Q >
+void Graph< T, Q > :: addArista(Vertex< T > *vertex, Vertex< T > *vertex2, Q weight) {
+    int position1 = vertex -> getPosition();
+    int position2 = vertex2 -> getPosition();
+    adjacencyMatrix[position1][position2] = weight;
+    adjacencyMatrix[position2][position1] = weight;  
 }
 
 /*
@@ -176,8 +191,11 @@ Vertex< T >* Graph< T, Q > :: searchTag(T tag) {
 */
 template < typename T, typename Q >
 void Graph< T, Q > :: print() {
-    for(int i = 0; i < vertexNumber; ++i) 
-        cout << "[" << i << "]: " << vertexArray[i] -> getTag() << endl;
+    for(int i = 0; i < vertexNumber; ++i) {
+        for (int j = 0; j < vertexNumber; ++j)
+            cout << adjacencyMatrix[i][j] << " ";
+        cout << endl << endl;
+    }
     cout << endl << endl;   
 }
 
