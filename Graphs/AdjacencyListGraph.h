@@ -8,8 +8,7 @@ using namespace std;
 template < class T, class Q >
 class Graph {
     int veretexNumber;
-    Vertex< T, Q > **vertexArray;
-    list< Arista< T, Q >* > adjacencyList;
+    Vertex< T, Q > *first;
     public:
         void create();
         void destroy();
@@ -40,7 +39,7 @@ class Graph {
 */
 template < typename T, typename Q >
 void Graph< T, Q > :: create() {
-    
+    first = nullptr;
 }
 
 /*
