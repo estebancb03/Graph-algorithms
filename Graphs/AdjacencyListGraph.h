@@ -71,7 +71,7 @@ void Graph< T, Q > :: clear() {
 */
 template < typename T, typename Q >
 bool Graph< T, Q > :: empty() {
-    
+    return !first ? true : false;
 }
 
 /*
