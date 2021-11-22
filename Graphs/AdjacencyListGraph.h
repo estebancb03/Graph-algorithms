@@ -40,6 +40,7 @@ class Graph {
 template < typename T, typename Q >
 void Graph< T, Q > :: create() {
     first = nullptr;
+    veretexNumber = 0;
 }
 
 /*
@@ -59,7 +60,8 @@ void Graph< T, Q > :: destroy() {
 */
 template < typename T, typename Q >
 void Graph< T, Q > :: clear() {
-    
+    destroy();
+    create();
 }
 
 /*
