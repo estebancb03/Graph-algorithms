@@ -8,27 +8,27 @@ class Graph {
     int size = 5;
     int vertexNumber;
     Q adjacencyMatrix[5][5];
-    Vertex< T > *vertexArray[5];
+    Vertex< T, Q > *vertexArray[5];
     public:
         void create();
         void destroy();
         void clear();
         bool empty();
-        Vertex< T > *addVertex(T);
-        void deleteVertex(Vertex< T >*);
-        void modifyTag(Vertex< T >*, T);
-        T tag(Vertex< T >*);
-        void addArista(Vertex< T >*, Vertex< T >*, Q);
-        void deleteArista(Vertex< T >*, Vertex< T >*);
-        void modifyWeight(Vertex< T >*, Vertex< T >*, Q);
-        Q weight(Vertex< T >*, Vertex< T >*);
-        Vertex< T > *firstVertex();
-        Vertex< T > *nextVertex(Vertex< T >*);
-        Vertex< T > *firstAdjacentVertex(Vertex< T >*);
-        Vertex< T > *nextAdjacentVertex(Vertex< T >*, Vertex< T >*);
-        bool arista(Vertex< T >*, Vertex< T >*);
+        Vertex< T, Q > *addVertex(T);
+        void deleteVertex(Vertex< T, Q >*);
+        void modifyTag(Vertex< T, Q >*, T);
+        T tag(Vertex< T, Q >*);
+        void addArista(Vertex< T, Q >*, Vertex< T, Q >*, Q);
+        void deleteArista(Vertex< T, Q >*, Vertex< T, Q >*);
+        void modifyWeight(Vertex< T, Q >*, Vertex< T, Q >*, Q);
+        Q weight(Vertex< T, Q >*, Vertex< T, Q >*);
+        Vertex< T, Q > *firstVertex();
+        Vertex< T, Q > *nextVertex(Vertex< T, Q >*);
+        Vertex< T, Q > *firstAdjacentVertex(Vertex< T, Q >*);
+        Vertex< T, Q > *nextAdjacentVertex(Vertex< T, Q >*, Vertex< T, Q >*);
+        bool arista(Vertex< T, Q >*, Vertex< T, Q >*);
         int getVertexNumber();
-        Vertex< T > *searchTag(T); //Provisional, hay que hacerlo general para cualquier TDA
+        Vertex< T, Q > *searchTag(T); //Provisional, hay que hacerlo general para cualquier TDA
         void print(); //Provisional
 };
 
@@ -79,11 +79,11 @@ bool Graph< T, Q > :: empty() {
     MODIFICA: grafo
 */
 template < typename T, typename Q >
-Vertex< T >* Graph< T, Q > :: addVertex(T tag) {
-    Vertex< T > *temp = nullptr;
+Vertex< T, Q >* Graph< T, Q > :: addVertex(T tag) {
+    Vertex< T, Q > *temp = nullptr;
     Q invalid = -1.0;
     if(vertexNumber < size) {
-        temp = new Vertex< T >(tag, vertexNumber);
+        temp = new Vertex< T, Q >(tag, vertexNumber);
         vertexArray[vertexNumber] = temp;
         adjacencyMatrix[vertexNumber][vertexNumber] = invalid;
         ++vertexNumber;
@@ -97,7 +97,7 @@ Vertex< T >* Graph< T, Q > :: addVertex(T tag) {
     MODIFICA: grafo
 */
 template < typename T, typename Q >
-void Graph< T, Q > :: deleteVertex(Vertex< T > *vertex) {
+void Graph< T, Q > :: deleteVertex(Vertex< T, Q > *vertex) {
     if(vertexNumber > 1 && vertex -> getPosition() < vertexNumber - 1) {
         for(int i = vertex -> getPosition(); i < vertexNumber - 1; ++i) {
             vertexArray[i + 1] -> setPosition(vertexArray[i + 1] -> getPosition() - 1);
@@ -115,7 +115,7 @@ void Graph< T, Q > :: deleteVertex(Vertex< T > *vertex) {
     MODIFICA: vértice, grafo
 */
 template < typename T, typename Q >
-void Graph< T, Q > :: modifyTag(Vertex< T > *vertex, T newTag) {
+void Graph< T, Q > :: modifyTag(Vertex< T, Q > *vertex, T newTag) {
     vertex -> setTag(newTag);
 }
 
@@ -125,7 +125,7 @@ void Graph< T, Q > :: modifyTag(Vertex< T > *vertex, T newTag) {
     MODIFICA: no hace modificaciones
 */
 template < typename T, typename Q >
-T Graph< T, Q > :: tag(Vertex< T > *vertex) {
+T Graph< T, Q > :: tag(Vertex< T, Q > *vertex) {
     return vertex -> getTag();
 }
 
@@ -135,7 +135,7 @@ T Graph< T, Q > :: tag(Vertex< T > *vertex) {
     MODIFICA: grafo
 */
 template < typename T, typename Q >
-void Graph< T, Q > :: addArista(Vertex< T > *vertex, Vertex< T > *vertex2, Q weight) {
+void Graph< T, Q > :: addArista(Vertex< T, Q > *vertex, Vertex< T, Q > *vertex2, Q weight) {
     if(vertex != vertex2) {
         int position1 = vertex -> getPosition();
         int position2 = vertex2 -> getPosition();
@@ -150,7 +150,7 @@ void Graph< T, Q > :: addArista(Vertex< T > *vertex, Vertex< T > *vertex2, Q wei
     MODIFICA: grafo
 */
 template < typename T, typename Q >
-void Graph< T, Q > :: deleteArista(Vertex< T > *vertex, Vertex< T > *vertex2) {
+void Graph< T, Q > :: deleteArista(Vertex< T, Q > *vertex, Vertex< T, Q > *vertex2) {
     int position1 = vertex -> getPosition();
     int position2 = vertex2 -> getPosition();
     adjacencyMatrix[position1][position2] = 0;
@@ -163,7 +163,7 @@ void Graph< T, Q > :: deleteArista(Vertex< T > *vertex, Vertex< T > *vertex2) {
     MODIFICA: arista, grafo
 */
 template < typename T, typename Q >
-void Graph< T, Q > :: modifyWeight(Vertex< T > *vertex, Vertex< T > *vertex2, Q newWeight) {
+void Graph< T, Q > :: modifyWeight(Vertex< T, Q > *vertex, Vertex< T, Q > *vertex2, Q newWeight) {
     if(vertex != vertex2) {
         int position1 = vertex -> getPosition();
         int position2 = vertex2 -> getPosition();
@@ -178,7 +178,7 @@ void Graph< T, Q > :: modifyWeight(Vertex< T > *vertex, Vertex< T > *vertex2, Q 
     MODIFICA: no hace modificaciones
 */
 template < typename T, typename Q >
-Q Graph< T, Q > :: weight(Vertex< T > *vertex, Vertex< T > *vertex2) {
+Q Graph< T, Q > :: weight(Vertex< T, Q > *vertex, Vertex< T, Q > *vertex2) {
     return adjacencyMatrix[vertex -> getPosition()][vertex2 -> getPosition()];
 }
 
@@ -188,7 +188,7 @@ Q Graph< T, Q > :: weight(Vertex< T > *vertex, Vertex< T > *vertex2) {
     MODIFICA: no hace modificaciones
 */
 template < typename T, typename Q >
-Vertex< T >* Graph< T, Q > :: firstVertex() {
+Vertex< T, Q >* Graph< T, Q > :: firstVertex() {
     return vertexArray[0];
 }
 
@@ -198,8 +198,8 @@ Vertex< T >* Graph< T, Q > :: firstVertex() {
     MODIFICA: no hace modificaciones
 */
 template < typename T, typename Q >
-Vertex< T >* Graph< T, Q > :: nextVertex(Vertex< T > *vertex) {
-    Vertex< T > *next = nullptr;
+Vertex< T, Q >* Graph< T, Q > :: nextVertex(Vertex< T, Q > *vertex) {
+    Vertex< T, Q > *next = nullptr;
     return vertex -> getPosition() != vertexNumber - 1 ? vertexArray[vertex -> getPosition() + 1] : nullptr;
 }
 
@@ -209,10 +209,10 @@ Vertex< T >* Graph< T, Q > :: nextVertex(Vertex< T > *vertex) {
     MODIFICA: no hace modificaciones
 */
 template < typename T, typename Q >
-Vertex< T >* Graph< T, Q > :: firstAdjacentVertex(Vertex< T > *vertex) {
+Vertex< T, Q >* Graph< T, Q > :: firstAdjacentVertex(Vertex< T, Q > *vertex) {
     int i = 0;
     bool enabled = true;
-    Vertex< T > *temp = nullptr;
+    Vertex< T, Q > *temp = nullptr;
     int position = vertex -> getPosition();
     while(enabled) {
         if(i < size) {
@@ -234,10 +234,10 @@ Vertex< T >* Graph< T, Q > :: firstAdjacentVertex(Vertex< T > *vertex) {
     MODIFICA: no hace modificaciones
 */
 template < typename T, typename Q >
-Vertex< T >* Graph< T, Q > :: nextAdjacentVertex(Vertex< T > *vertex, Vertex< T > *adjacent) {
+Vertex< T, Q >* Graph< T, Q > :: nextAdjacentVertex(Vertex< T, Q > *vertex, Vertex< T, Q > *adjacent) {
     int i = adjacent -> getPosition() + 1;
     bool enabled = true;
-    Vertex< T > *temp = nullptr;
+    Vertex< T, Q > *temp = nullptr;
     int position = vertex -> getPosition();
     while(enabled) {
         if(i < size) {
@@ -259,7 +259,7 @@ Vertex< T >* Graph< T, Q > :: nextAdjacentVertex(Vertex< T > *vertex, Vertex< T 
     MODIFICA: grafo
 */
 template < typename T, typename Q >
-bool Graph< T, Q > :: arista(Vertex< T > *vertex, Vertex< T > *vertex2) {
+bool Graph< T, Q > :: arista(Vertex< T, Q > *vertex, Vertex< T, Q > *vertex2) {
     bool result = false;
     if(vertex != vertex2 && adjacencyMatrix[vertex -> getPosition()][vertex2 -> getPosition()]) 
         result = true;
@@ -282,8 +282,8 @@ int Graph< T, Q > :: getVertexNumber() {
     MODIFICA: no hace modificaciones 
 */
 template < typename T, typename Q >
-Vertex< T >* Graph< T, Q > :: searchTag(T tag) {
-    Vertex< T > *temp = nullptr;
+Vertex< T, Q >* Graph< T, Q > :: searchTag(T tag) {
+    Vertex< T, Q > *temp = nullptr;
     bool enabled = true;
     int i = 0;
     while(enabled) {

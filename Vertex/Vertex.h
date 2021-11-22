@@ -1,7 +1,7 @@
 #ifndef VERTEX_H
 #define VERTEX_H
 
-template < class T >
+template < class T, class Q >
 class Vertex {
     T tag;
     int position;

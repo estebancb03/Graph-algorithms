@@ -7,29 +7,29 @@ using namespace std;
 
 template < class T, class Q >
 class Graph {
-    int veretxNumber;
-    Vertex< T > **vertexArray;
+    int veretexNumber;
+    Vertex< T, Q > **vertexArray;
     list< Arista< T, Q >* > adjacencyList;
     public:
         void create();
         void destroy();
         void clear();
         bool empty();
-        Vertex< T > *addVertex(T);
-        void deleteVertex(Vertex< T >*);
-        void modifyTag(Vertex< T >*, T);
-        T tag(Vertex< T >*);
-        void addArista(Vertex< T >*, Vertex< T >*, Q);
-        void deleteArista(Vertex< T >*, Vertex< T >*);
-        void modifyWeight(Vertex< T >*, Vertex< T >*, Q);
-        Q weight(Vertex< T >*, Vertex< T >*);
-        Vertex< T > *firstVertex();
-        Vertex< T > *nextVertex(Vertex< T >*);
-        Vertex< T > *firstAdjacentVertex(Vertex< T >*);
-        Vertex< T > *nextAdjacentVertex(Vertex< T >*, Vertex< T >*);
-        bool arista(Vertex< T >*, Vertex< T >*);
+        Vertex< T, Q > *addVertex(T);
+        void deleteVertex(Vertex< T, Q >*);
+        void modifyTag(Vertex< T, Q >*, T);
+        T tag(Vertex< T, Q >*);
+        void addArista(Vertex< T, Q >*, Vertex< T, Q >*, Q);
+        void deleteArista(Vertex< T, Q >*, Vertex< T, Q >*);
+        void modifyWeight(Vertex< T, Q >*, Vertex< T, Q >*, Q);
+        Q weight(Vertex< T, Q >*, Vertex< T, Q >*);
+        Vertex< T, Q > *firstVertex();
+        Vertex< T, Q > *nextVertex(Vertex< T, Q >*);
+        Vertex< T, Q > *firstAdjacentVertex(Vertex< T, Q >*);
+        Vertex< T, Q > *nextAdjacentVertex(Vertex< T, Q >*, Vertex< T, Q >*);
+        bool arista(Vertex< T, Q >*, Vertex< T, Q >*);
         int getVertexNumber();
-        Vertex< T > *searchTag(T); //Provisional, hay que hacerlo general para cualquier TDA
+        Vertex< T, Q > *searchTag(T); //Provisional, hay que hacerlo general para cualquier TDA
         void print(); //Provisional
 };
 
@@ -79,7 +79,7 @@ bool Graph< T, Q > :: empty() {
     MODIFICA: grafo
 */
 template < typename T, typename Q >
-Vertex< T >* Graph< T, Q > :: addVertex(T tag) {
+Vertex< T, Q >* Graph< T, Q > :: addVertex(T tag) {
     
 } 
 
@@ -89,7 +89,7 @@ Vertex< T >* Graph< T, Q > :: addVertex(T tag) {
     MODIFICA: grafo
 */
 template < typename T, typename Q >
-void Graph< T, Q > :: deleteVertex(Vertex< T > *vertex) {
+void Graph< T, Q > :: deleteVertex(Vertex< T, Q > *vertex) {
     
 }
 
@@ -99,7 +99,7 @@ void Graph< T, Q > :: deleteVertex(Vertex< T > *vertex) {
     MODIFICA: vértice, grafo
 */
 template < typename T, typename Q >
-void Graph< T, Q > :: modifyTag(Vertex< T > *vertex, T newTag) {
+void Graph< T, Q > :: modifyTag(Vertex< T, Q > *vertex, T newTag) {
     
 }
 
@@ -109,7 +109,7 @@ void Graph< T, Q > :: modifyTag(Vertex< T > *vertex, T newTag) {
     MODIFICA: no hace modificaciones
 */
 template < typename T, typename Q >
-T Graph< T, Q > :: tag(Vertex< T > *vertex) {
+T Graph< T, Q > :: tag(Vertex< T, Q > *vertex) {
     
 }
 
@@ -119,7 +119,7 @@ T Graph< T, Q > :: tag(Vertex< T > *vertex) {
     MODIFICA: grafo
 */
 template < typename T, typename Q >
-void Graph< T, Q > :: addArista(Vertex< T > *vertex, Vertex< T > *vertex2, Q weight) {
+void Graph< T, Q > :: addArista(Vertex< T, Q > *vertex, Vertex< T, Q > *vertex2, Q weight) {
     
 }
 
@@ -129,7 +129,7 @@ void Graph< T, Q > :: addArista(Vertex< T > *vertex, Vertex< T > *vertex2, Q wei
     MODIFICA: grafo
 */
 template < typename T, typename Q >
-void Graph< T, Q > :: deleteArista(Vertex< T > *vertex, Vertex< T > *vertex2) {
+void Graph< T, Q > :: deleteArista(Vertex< T, Q > *vertex, Vertex< T, Q > *vertex2) {
     
 }
 
@@ -139,7 +139,7 @@ void Graph< T, Q > :: deleteArista(Vertex< T > *vertex, Vertex< T > *vertex2) {
     MODIFICA: arista, grafo
 */
 template < typename T, typename Q >
-void Graph< T, Q > :: modifyWeight(Vertex< T > *vertex, Vertex< T > *vertex2, Q newWeight) {
+void Graph< T, Q > :: modifyWeight(Vertex< T, Q > *vertex, Vertex< T, Q > *vertex2, Q newWeight) {
     
 }
 
@@ -149,7 +149,7 @@ void Graph< T, Q > :: modifyWeight(Vertex< T > *vertex, Vertex< T > *vertex2, Q 
     MODIFICA: no hace modificaciones
 */
 template < typename T, typename Q >
-Q Graph< T, Q > :: weight(Vertex< T > *vertex, Vertex< T > *vertex2) {
+Q Graph< T, Q > :: weight(Vertex< T, Q > *vertex, Vertex< T, Q > *vertex2) {
     
 }
 
@@ -159,7 +159,7 @@ Q Graph< T, Q > :: weight(Vertex< T > *vertex, Vertex< T > *vertex2) {
     MODIFICA: no hace modificaciones
 */
 template < typename T, typename Q >
-Vertex< T >* Graph< T, Q > :: firstVertex() {
+Vertex< T, Q >* Graph< T, Q > :: firstVertex() {
     
 }
 
@@ -169,7 +169,7 @@ Vertex< T >* Graph< T, Q > :: firstVertex() {
     MODIFICA: no hace modificaciones
 */
 template < typename T, typename Q >
-Vertex< T >* Graph< T, Q > :: nextVertex(Vertex< T > *vertex) {
+Vertex< T, Q >* Graph< T, Q > :: nextVertex(Vertex< T, Q > *vertex) {
     
 }
 
@@ -179,7 +179,7 @@ Vertex< T >* Graph< T, Q > :: nextVertex(Vertex< T > *vertex) {
     MODIFICA: no hace modificaciones
 */
 template < typename T, typename Q >
-Vertex< T >* Graph< T, Q > :: firstAdjacentVertex(Vertex< T > *vertex) {
+Vertex< T, Q >* Graph< T, Q > :: firstAdjacentVertex(Vertex< T, Q > *vertex) {
     
 }
 
@@ -189,7 +189,7 @@ Vertex< T >* Graph< T, Q > :: firstAdjacentVertex(Vertex< T > *vertex) {
     MODIFICA: no hace modificaciones
 */
 template < typename T, typename Q >
-Vertex< T >* Graph< T, Q > :: nextAdjacentVertex(Vertex< T > *vertex, Vertex< T > *adjacent) {
+Vertex< T, Q >* Graph< T, Q > :: nextAdjacentVertex(Vertex< T, Q > *vertex, Vertex< T, Q > *adjacent) {
     
 }
 
@@ -199,7 +199,7 @@ Vertex< T >* Graph< T, Q > :: nextAdjacentVertex(Vertex< T > *vertex, Vertex< T 
     MODIFICA: grafo
 */
 template < typename T, typename Q >
-bool Graph< T, Q > :: arista(Vertex< T > *vertex, Vertex< T > *vertex2) {
+bool Graph< T, Q > :: arista(Vertex< T, Q > *vertex, Vertex< T, Q > *vertex2) {
     
 }
 
@@ -219,7 +219,7 @@ int Graph< T, Q > :: getVertexNumber() {
     MODIFICA: no hace modificaciones 
 */
 template < typename T, typename Q >
-Vertex< T >* Graph< T, Q > :: searchTag(T tag) {
+Vertex< T, Q >* Graph< T, Q > :: searchTag(T tag) {
     
 }
 

@@ -1,8 +1,8 @@
 #ifndef MENU_H
 #define MENU_H
 #include <iostream>
-#include "../Graphs/AdjacencyListGraph.h"
-//#include "../Graphs/AdjacencyMatrixGraph.h"
+//#include "../Graphs/AdjacencyListGraph.h"
+#include "../Graphs/AdjacencyMatrixGraph.h"
 #include "../Graphs/GenericGraphAlgorithms.h"
 using namespace std;
 
@@ -77,7 +77,7 @@ void Menu< T, Q > :: principalManu() {
             case 5: {
                 T tag;
                 cout << "Etiqueta: "; cin >> tag;
-                Vertex< T > *newVertex = graph -> addVertex(tag);
+                Vertex< T, Q > *newVertex = graph -> addVertex(tag);
                 if(newVertex)
                     cout << "Vertice agregado correctamente" << endl << endl;
                 else
@@ -87,7 +87,7 @@ void Menu< T, Q > :: principalManu() {
                 if(!graph -> empty()) {
                     T tag;
                     cout << "Vertice: "; cin >> tag;
-                    Vertex< T > *vertex = graph -> searchTag(tag);
+                    Vertex< T, Q > *vertex = graph -> searchTag(tag);
                     if(vertex) {
                         graph -> deleteVertex(vertex);
                         cout << "Vertice eliminado correctamente" << endl << endl;
@@ -102,7 +102,7 @@ void Menu< T, Q > :: principalManu() {
                 if(!graph -> empty()) {
                     T tag;
                     cout << "Vertice: "; cin >> tag;
-                    Vertex< T > *vertex = graph -> searchTag(tag);
+                    Vertex< T, Q > *vertex = graph -> searchTag(tag);
                     if(vertex) {
                         T newTag;
                         cout << "Nueva etiqueta: "; cin >> newTag;
@@ -119,7 +119,7 @@ void Menu< T, Q > :: principalManu() {
                 if(!graph -> empty()) {
                     T tag;
                     cout << "Vertice: "; cin >> tag;
-                    Vertex< T > *vertex = graph -> searchTag(tag);
+                    Vertex< T, Q > *vertex = graph -> searchTag(tag);
                     if(vertex) {
                         tag = vertex -> getTag();
                         cout << "Etiqueta: " << tag << endl << endl;
@@ -135,8 +135,8 @@ void Menu< T, Q > :: principalManu() {
                     T tag1, tag2;
                     cout << "Vertice1: "; cin >> tag1;
                     cout << "Vertice2: "; cin >> tag2;
-                    Vertex< T > *vertex1 = graph -> searchTag(tag1);
-                    Vertex< T > *vertex2 = graph -> searchTag(tag2);
+                    Vertex< T, Q > *vertex1 = graph -> searchTag(tag1);
+                    Vertex< T, Q > *vertex2 = graph -> searchTag(tag2);
                     if(vertex1 && vertex2) {
                         Q weight;
                         cout << "Peso: "; cin >> weight;
@@ -154,8 +154,8 @@ void Menu< T, Q > :: principalManu() {
                     T tag1, tag2;
                     cout << "Vertice1: "; cin >> tag1;
                     cout << "Vertice2: "; cin >> tag2;
-                    Vertex< T > *vertex1 = graph -> searchTag(tag1);
-                    Vertex< T > *vertex2 = graph -> searchTag(tag2);
+                    Vertex< T, Q > *vertex1 = graph -> searchTag(tag1);
+                    Vertex< T, Q > *vertex2 = graph -> searchTag(tag2);
                     if(vertex1 && vertex2) {
                         if(graph -> arista(vertex1, vertex2)) {
                             graph -> deleteArista(vertex1, vertex2);
@@ -175,8 +175,8 @@ void Menu< T, Q > :: principalManu() {
                     T tag1, tag2;
                     cout << "Vertice1: "; cin >> tag1;
                     cout << "Vertice2: "; cin >> tag2;
-                    Vertex< T > *vertex1 = graph -> searchTag(tag1);
-                    Vertex< T > *vertex2 = graph -> searchTag(tag2);
+                    Vertex< T, Q > *vertex1 = graph -> searchTag(tag1);
+                    Vertex< T, Q > *vertex2 = graph -> searchTag(tag2);
                     if(vertex1 && vertex2 && graph -> arista(vertex1, vertex2)) {
                         Q newWeight;
                         cout << "Nuevo Peso: "; cin >> newWeight;
@@ -194,8 +194,8 @@ void Menu< T, Q > :: principalManu() {
                     T tag1, tag2;
                     cout << "Vertice1: "; cin >> tag1;
                     cout << "Vertice2: "; cin >> tag2;
-                    Vertex< T > *vertex1 = graph -> searchTag(tag1);
-                    Vertex< T > *vertex2 = graph -> searchTag(tag2);
+                    Vertex< T, Q > *vertex1 = graph -> searchTag(tag1);
+                    Vertex< T, Q > *vertex2 = graph -> searchTag(tag2);
                     if(vertex1 && vertex2 && graph -> arista(vertex1, vertex2)) {
                         Q weight = graph -> weight(vertex1, vertex2);
                         cout << "Peso: " << weight << endl << endl;
@@ -208,7 +208,7 @@ void Menu< T, Q > :: principalManu() {
             }   break;
             case 13: {
                 if(!graph -> empty()) {
-                    Vertex< T > *vertex = graph -> firstVertex();
+                    Vertex< T, Q > *vertex = graph -> firstVertex();
                     T tag = graph -> tag(vertex);
                     cout << "Primer vertice: " << tag << endl << endl; 
                 }
@@ -219,9 +219,9 @@ void Menu< T, Q > :: principalManu() {
                 if(!graph -> empty()) {
                     T tag;
                     cout << "Vertice: "; cin >> tag;
-                    Vertex< T > *vertex = graph -> searchTag(tag);
+                    Vertex< T, Q > *vertex = graph -> searchTag(tag);
                     if(vertex) {
-                        Vertex< T > *next = graph -> nextVertex(vertex);
+                        Vertex< T, Q > *next = graph -> nextVertex(vertex);
                         cout << "Siguiente vertice: ";
                         next ? cout << next -> getTag() : cout << "nullptr";
                         cout << endl << endl;
@@ -236,9 +236,9 @@ void Menu< T, Q > :: principalManu() {
                 if(!graph -> empty()) {
                     T tag;
                     cout << "Vertice: "; cin >> tag;
-                    Vertex< T > *vertex = graph -> searchTag(tag);
+                    Vertex< T, Q > *vertex = graph -> searchTag(tag);
                     if(vertex) {
-                        Vertex< T > *adjacent = graph -> firstAdjacentVertex(vertex);
+                        Vertex< T, Q > *adjacent = graph -> firstAdjacentVertex(vertex);
                         cout << "Primer vertice adyacente: ";
                         adjacent ? cout << adjacent -> getTag() : cout << "nullptr";
                         cout << endl << endl;
@@ -253,13 +253,13 @@ void Menu< T, Q > :: principalManu() {
                 if(!graph -> empty()) {
                     T tag;
                     cout << "Vertice: "; cin >> tag;
-                    Vertex< T > *vertex = graph -> searchTag(tag);
+                    Vertex< T, Q > *vertex = graph -> searchTag(tag);
                     if(vertex) {
                         T adjacentTag;
                         cout << "Vertice adyacente actual: "; cin >> adjacentTag;
-                        Vertex< T > *adjacent = graph -> searchTag(adjacentTag);
+                        Vertex< T, Q > *adjacent = graph -> searchTag(adjacentTag);
                         if(graph -> arista(vertex, adjacent)) {
-                            Vertex< T > *nextAdjacent = graph -> nextAdjacentVertex(vertex, adjacent);
+                            Vertex< T, Q > *nextAdjacent = graph -> nextAdjacentVertex(vertex, adjacent);
                             cout << "Siguiente vertice adyacente: ";
                             nextAdjacent ? cout << nextAdjacent -> getTag() : cout << "nullptr";
                             cout << endl << endl;
@@ -278,8 +278,8 @@ void Menu< T, Q > :: principalManu() {
                     T tag1, tag2;
                     cout << "Vertice1: "; cin >> tag1;
                     cout << "Vertice2: "; cin >> tag2;
-                    Vertex< T > *vertex1 = graph -> searchTag(tag1);
-                    Vertex< T > *vertex2 = graph -> searchTag(tag2);
+                    Vertex< T, Q > *vertex1 = graph -> searchTag(tag1);
+                    Vertex< T, Q > *vertex2 = graph -> searchTag(tag2);
                     if(vertex1 && vertex2) {
                         bool result = graph -> arista(vertex1, vertex2);
                         cout << "Estado de arista: ";
