@@ -125,7 +125,10 @@ T Graph< T, Q > :: tag(Vertex< T, Q > *vertex) {
 */
 template < typename T, typename Q >
 void Graph< T, Q > :: addArista(Vertex< T, Q > *vertex, Vertex< T, Q > *vertex2, Q weight) {
-    
+    Arista< T, Q > *arista = new Arista< T, Q >(weight);
+    Arista< T, Q > *temp = vertex -> getAdjacent();
+    arista -> setAdjacent(vertex2);
+    !temp ? vertex -> setAdjacent(arista) : arista -> setNext(temp);
 }
 
 /*
