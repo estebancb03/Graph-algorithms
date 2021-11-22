@@ -5,16 +5,16 @@
 template < class T, class Q >
 class Arista {
     Q weight;
-    Vertex< T > *originVertex;
-    Vertex< T > *destinationVertex;
+    Arista< T, Q > *next;
+    Vertex< T, Q > *adjacent;
     public:
-        Arista(Q w) { weight = w; originVertex = nullptr; destinationVertex = nullptr; };
+        Arista(Q w) { weight = w; next = nullptr; adjacent = nullptr; };
         Q getWeight() { return weight; };
-        Vertex< T > *getOriginVertex() { return originVertex; };
-        Vertex< T > *getDestinationVertex() { return destinationVertex; };
+        Arista< T, Q > *getNext() { return next; };
+        Vertex< T, Q > *getAdjacent() { return adjacent; };
         void setWeight(Q w) { weight = w; };
-        void setOriginVertex(Vertex< T > *ov) { originVertex = ov; };
-        void setDestinationVertex(Vertex< T > *dv) { destinationVertex = dv; };
+        void setNext(Arista< T, Q > *n) { next = n; };
+        void setAdjacent(Vertex< T,Q > *a) { adjacent = a; };
 };
 
 #endif //ARISTA_H
