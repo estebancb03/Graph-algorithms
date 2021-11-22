@@ -49,7 +49,7 @@ void Graph< T, Q > :: create() {
 */
 template < typename T, typename Q >
 void Graph< T, Q > :: destroy() {
-    
+    delete first;
 }
 
 /*
