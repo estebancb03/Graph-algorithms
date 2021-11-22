@@ -195,7 +195,23 @@ void Menu< T, Q > :: principalManu() {
                 
             }   break;
             case 18: {
-                
+                if(!graph -> empty()) {
+                    T tag1, tag2;
+                    cout << "Vertice1: "; cin >> tag1;
+                    cout << "Vertice2: "; cin >> tag2;
+                    Vertex< T > *vertex1 = graph -> searchTag(tag1);
+                    Vertex< T > *vertex2 = graph -> searchTag(tag2);
+                    if(vertex1 && vertex2) {
+                        bool result = graph -> arista(vertex1, vertex2);
+                        cout << "Estado de arista: ";
+                        result ? cout << "existe" : cout << "no existe";
+                        cout << endl << endl;
+                    }
+                    else
+                        cout << "Error: vertice no existe" << endl << endl;
+                }
+                else 
+                    cout << "Error: grafo vacio" << endl << endl;
             }   break;
             case 19: {
                 int number = graph -> getVertexNumber();

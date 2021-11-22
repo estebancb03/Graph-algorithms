@@ -22,6 +22,7 @@ class Graph {
         void deleteArista(Vertex< T >*, Vertex< T >*);
         Vertex< T > *firstVertex();
         Vertex< T > *nextVertex(Vertex< T >*);
+        bool arista(Vertex< T >*, Vertex< T >*);
         int getVertexNumber();
         Vertex< T > *searchTag(T); //Provisional, hay que hacerlo general para cualquier TDA
         void print(); //Provisional
@@ -139,7 +140,7 @@ void Graph< T, Q > :: deleteArista(Vertex< T > *vertex, Vertex< T > *vertex2) {
     int position1 = vertex -> getPosition();
     int position2 = vertex2 -> getPosition();
     delete adjacencyMatrix[position1][position2];
-    delete adjacencyMatrix[position2][position1]
+    delete adjacencyMatrix[position2][position1];
 }
 
 /*
@@ -161,6 +162,16 @@ template < typename T, typename Q >
 Vertex< T >* Graph< T, Q > :: nextVertex(Vertex< T > *vertex) {
     Vertex< T > *next = nullptr;
     return vertex -> getPosition() != vertexNumber - 1 ? vertexArray[vertex -> getPosition() + 1] : nullptr;
+}
+
+/*
+    EFECTO:
+    REQUIERE:
+    MODIFICA:
+*/
+template < typename T, typename Q >
+bool Graph< T, Q > :: arista(Vertex< T > *vertex1, Vertex< T > *vertex2) {
+    return adjacencyMatrix[vertex1 -> getPosition()][vertex2 -> getPosition()] ? true : false;
 }
 
 /*
