@@ -1,6 +1,6 @@
 #ifndef ARISTA_H
 #define ARISTA_H
-#include "../Vertex/Vertex2.h"
+#include "../Vertex/Vertex.h"
 
 template < class T, class Q >
 class Arista {

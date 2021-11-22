@@ -1,6 +1,6 @@
 #ifndef ADJACENCYMATRIXGRAPH_H
 #define ADJACENCYMATRIXGRAPH_H
-#include "../Vertex/Vertex2.h"
+#include "../Vertex/Vertex.h"
 using namespace std;
 
 template < class T, class Q >
