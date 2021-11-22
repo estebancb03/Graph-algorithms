@@ -180,7 +180,7 @@ Vertex< T, Q >* Graph< T, Q > :: firstVertex() {
 */
 template < typename T, typename Q >
 Vertex< T, Q >* Graph< T, Q > :: nextVertex(Vertex< T, Q > *vertex) {
-    
+    return vertex -> getNext();
 }
 
 /*
