@@ -3,6 +3,9 @@
 #include "../Arista/Arista.h"
 
 template < class T, class Q>
+class Arista;
+
+template < class T, class Q>
 class Vertex {
     T tag;
     Vertex< T, Q > *next;
