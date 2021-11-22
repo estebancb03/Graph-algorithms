@@ -215,7 +215,7 @@ bool Graph< T, Q > :: arista(Vertex< T, Q > *vertex, Vertex< T, Q > *vertex2) {
 */
 template < typename T, typename Q >
 int Graph< T, Q > :: getVertexNumber() {
-    
+    return veretexNumber;
 }
 
 /*
