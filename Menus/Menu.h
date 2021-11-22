@@ -250,7 +250,28 @@ void Menu< T, Q > :: principalManu() {
                     cout << "Error: grafo vacio" << endl << endl;
             }   break;
             case 16: {
-                
+                if(!graph -> empty()) {
+                    T tag;
+                    cout << "Vertice: "; cin >> tag;
+                    Vertex< T > *vertex = graph -> searchTag(tag);
+                    if(vertex) {
+                        T adjacentTag;
+                        cout << "Vertice adyacente actual: "; cin >> adjacentTag;
+                        Vertex< T > *adjacent = graph -> searchTag(adjacentTag);
+                        if(graph -> arista(vertex, adjacent)) {
+                            Vertex< T > *nextAdjacent = graph -> nextAdjacentVertex(vertex, adjacent);
+                            cout << "Siguiente vertice adyacente: ";
+                            nextAdjacent ? cout << nextAdjacent -> getTag() : cout << "nullptr";
+                            cout << endl << endl;
+                        }
+                        else
+                            cout << "Error: vertice no es adyacente" << endl << endl;
+                    }
+                    else
+                        cout << "Error: vertice no existe" << endl << endl;
+                }
+                else
+                    cout << "Error: grafo vacio" << endl << endl;
             }   break;
             case 17: {
                 if(!graph -> empty()) {
@@ -300,7 +321,7 @@ void Menu< T, Q > :: principalManu() {
                 
             }   break;
             case 27: {
-                graph -> print();
+                
             }   break;
             case 28: {
                 enabled = false;
