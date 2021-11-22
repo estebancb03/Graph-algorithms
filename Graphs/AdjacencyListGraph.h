@@ -188,7 +188,7 @@ Vertex< T, Q >* Graph< T, Q > :: nextVertex(Vertex< T, Q > *vertex) {
 */
 template < typename T, typename Q >
 Vertex< T, Q >* Graph< T, Q > :: firstAdjacentVertex(Vertex< T, Q > *vertex) {
-    
+    return vertex -> getAdjacent();
 }
 
 /*
