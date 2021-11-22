@@ -20,6 +20,7 @@ class Graph {
         T tag(Vertex< T >*);
         void addArista(Vertex< T >*, Vertex< T >*, Q);
         void deleteArista(Vertex< T >*, Vertex< T >*);
+        Q weight(Vertex< T >*, Vertex< T >*);
         Vertex< T > *firstVertex();
         Vertex< T > *nextVertex(Vertex< T >*);
         bool arista(Vertex< T >*, Vertex< T >*);
@@ -81,11 +82,8 @@ Vertex< T >* Graph< T, Q > :: addVertex(T tag) {
     if(vertexNumber < size) {
         temp = new Vertex< T >(tag, vertexNumber);
         vertexArray[vertexNumber] = temp;
+        adjacencyMatrix[vertexNumber][vertexNumber] = invalid;
         ++vertexNumber;
-        for(int i = 0; i < vertexNumber; ++i) {
-            for(int j = 0; j < vertexNumber; ++j)
-                adjacencyMatrix[i][i] = invalid;
-        }
     }
     return temp;
 } 
@@ -154,6 +152,16 @@ void Graph< T, Q > :: deleteArista(Vertex< T > *vertex, Vertex< T > *vertex2) {
     int position2 = vertex2 -> getPosition();
     adjacencyMatrix[position1][position2] = 0;
     adjacencyMatrix[position2][position1] = 0;
+}
+
+/*
+    EFECTO:
+    REQUIERE:
+    MODIFICA:
+*/
+template < typename T, typename Q >
+Q Graph< T, Q > :: weight(Vertex< T > *vertex, Vertex< T > *vertex2) {
+    return adjacencyMatrix[vertex -> getPosition()][vertex2 -> getPosition()];
 }
 
 /*

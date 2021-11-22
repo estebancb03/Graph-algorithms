@@ -1,20 +1,20 @@
 #ifndef ARISTA_H
 #define ARISTA_H
-#include "../Vertex/Vertex.h"
+#include "../Vertex/Vertex2.h"
 
-template < class Q >
+template < class T, class Q >
 class Arista {
     Q weight;
-    Vertex< Q > *originVertex;
-    Vertex< Q > *destinationVertex;
+    Vertex< T > *originVertex;
+    Vertex< T > *destinationVertex;
     public:
         Arista(Q w) { weight = w; originVertex = nullptr; destinationVertex = nullptr; };
         Q getWeight() { return weight; };
-        Vertex< Q > *getOriginVertex() { return originVertex; };
-        Vertex< Q > *getDestinationVertex() { return destinationVertex; };
+        Vertex< T > *getOriginVertex() { return originVertex; };
+        Vertex< T > *getDestinationVertex() { return destinationVertex; };
         void setWeight(Q w) { weight = w; };
-        void setOriginVertex(Vertex< Q > *ov) { originVertex = ov; };
-        void setDestinationVertex(Vertex< Q > *dv) { destinationVertex = dv; };
+        void setOriginVertex(Vertex< T > *ov) { originVertex = ov; };
+        void setDestinationVertex(Vertex< T > *dv) { destinationVertex = dv; };
 };
 
 #endif //ARISTA_H
