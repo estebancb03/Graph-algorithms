@@ -135,6 +135,19 @@ void Graph< T, Q > :: addArista(Vertex< T > *vertex, Vertex< T > *vertex2, Q wei
     MODIFICA:
 */
 template < typename T, typename Q >
+void Graph< T, Q > :: deleteArista(Vertex< T > *vertex, Vertex< T > *vertex2) {
+    int position1 = vertex -> getPosition();
+    int position2 = vertex2 -> getPosition();
+    delete adjacencyMatrix[position1][position2];
+    delete adjacencyMatrix[position2][position1]
+}
+
+/*
+    EFECTO:
+    REQUIERE:
+    MODIFICA:
+*/
+template < typename T, typename Q >
 Vertex< T >* Graph< T, Q > :: firstVertex() {
     return vertexArray[0];
 }
