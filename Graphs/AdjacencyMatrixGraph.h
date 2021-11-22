@@ -25,6 +25,7 @@ class Graph {
         Vertex< T > *firstVertex();
         Vertex< T > *nextVertex(Vertex< T >*);
         Vertex< T > *firstAdjacentVertex(Vertex< T >*);
+        Vertex< T > *nextAdjacentVertex(Vertex< T >*);
         bool arista(Vertex< T >*, Vertex< T >*);
         int getVertexNumber();
         Vertex< T > *searchTag(T); //Provisional, hay que hacerlo general para cualquier TDA
@@ -210,6 +211,31 @@ Vertex< T >* Graph< T, Q > :: nextVertex(Vertex< T > *vertex) {
 template < typename T, typename Q >
 Vertex< T >* Graph< T, Q > :: firstAdjacentVertex(Vertex< T > *vertex) {
     int i = 0;
+    bool enabled = true;
+    Vertex< T > *temp = nullptr;
+    int position = vertex -> getPosition();
+    while(enabled) {
+        if(i < size) {
+            if(adjacencyMatrix[position][i] > 0) {
+                enabled = false;
+                temp =  vertexArray[i];
+            }
+            ++i;
+        }
+        else
+            enabled = false;
+    }
+    return temp;
+}
+
+/*
+    EFECTO:
+    REQUIERE:
+    MODIFICA:
+*/
+template < typename T, typename Q >
+Vertex< T >* Graph< T, Q > :: nextAdjacentVertex(Vertex< T > *vertex) {
+    int i = vertex -> getPosition();
     bool enabled = true;
     Vertex< T > *temp = nullptr;
     int position = vertex -> getPosition();
