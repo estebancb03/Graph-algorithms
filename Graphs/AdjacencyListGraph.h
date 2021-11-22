@@ -105,7 +105,7 @@ void Graph< T, Q > :: deleteVertex(Vertex< T, Q > *vertex) {
 */
 template < typename T, typename Q >
 void Graph< T, Q > :: modifyTag(Vertex< T, Q > *vertex, T newTag) {
-    
+    vertex -> setTag(newTag);
 }
 
 /*
