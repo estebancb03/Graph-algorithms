@@ -165,7 +165,7 @@ Q Graph< T, Q > :: weight(Vertex< T, Q > *vertex, Vertex< T, Q > *vertex2) {
 */
 template < typename T, typename Q >
 Vertex< T, Q >* Graph< T, Q > :: firstVertex() {
-    
+    return first;
 }
 
 /*
