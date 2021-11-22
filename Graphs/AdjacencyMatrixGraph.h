@@ -124,10 +124,12 @@ T Graph< T, Q > :: tag(Vertex< T > *vertex) {
 */
 template < typename T, typename Q >
 void Graph< T, Q > :: addArista(Vertex< T > *vertex, Vertex< T > *vertex2, Q weight) {
-    int position1 = vertex -> getPosition();
-    int position2 = vertex2 -> getPosition();
-    adjacencyMatrix[position1][position2] = weight;
-    adjacencyMatrix[position2][position1] = weight;  
+    if(vertex != vertex2) {
+        int position1 = vertex -> getPosition();
+        int position2 = vertex2 -> getPosition();
+        adjacencyMatrix[position1][position2] = weight;
+        adjacencyMatrix[position2][position1] = weight;  
+    }
 }
 
 /*
@@ -139,8 +141,8 @@ template < typename T, typename Q >
 void Graph< T, Q > :: deleteArista(Vertex< T > *vertex, Vertex< T > *vertex2) {
     int position1 = vertex -> getPosition();
     int position2 = vertex2 -> getPosition();
-    delete adjacencyMatrix[position1][position2];
-    delete adjacencyMatrix[position2][position1];
+    adjacencyMatrix[position1][position2] = 0;
+    adjacencyMatrix[position2][position1] = 0;
 }
 
 /*
@@ -170,8 +172,11 @@ Vertex< T >* Graph< T, Q > :: nextVertex(Vertex< T > *vertex) {
     MODIFICA:
 */
 template < typename T, typename Q >
-bool Graph< T, Q > :: arista(Vertex< T > *vertex1, Vertex< T > *vertex2) {
-    return adjacencyMatrix[vertex1 -> getPosition()][vertex2 -> getPosition()] ? true : false;
+bool Graph< T, Q > :: arista(Vertex< T > *vertex, Vertex< T > *vertex2) {
+    bool result = false;
+    if(vertex != vertex2 && adjacencyMatrix[vertex -> getPosition()][vertex2 -> getPosition()]) 
+        result = true;
+    return result;
 }
 
 /*
