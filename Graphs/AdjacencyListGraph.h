@@ -263,7 +263,7 @@ void Graph< T, Q > :: print() {
             aTemp = aTemp -> getNext();
         }
         vTemp = vTemp -> getNext();
-        cout << endl;
+        cout << "nullptr" << endl;
     }
 }
 

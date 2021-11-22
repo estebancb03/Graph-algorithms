@@ -325,7 +325,7 @@ void Menu< T, Q > :: principalManu() {
                 
             }   break;
             case 27: {
-                
+                graph -> print();
             }   break;
             case 28: {
                 enabled = false;
