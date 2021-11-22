@@ -115,7 +115,7 @@ void Graph< T, Q > :: modifyTag(Vertex< T, Q > *vertex, T newTag) {
 */
 template < typename T, typename Q >
 T Graph< T, Q > :: tag(Vertex< T, Q > *vertex) {
-    
+    return vertex -> getTag();
 }
 
 /*
