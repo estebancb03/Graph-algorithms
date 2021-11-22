@@ -1,5 +1,5 @@
-#ifndef VERTEX2_H
-#define VERTEX2_H
+#ifndef VERTEX_H
+#define VERTEX_H
 
 template < class T >
 class Vertex {
@@ -13,4 +13,4 @@ class Vertex {
         void setPosition(int p) { position = p; };
 };
 
-#endif //VERTEX2_H
+#endif //VERTEX_H
