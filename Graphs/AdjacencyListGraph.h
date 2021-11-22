@@ -50,7 +50,13 @@ void Graph< T, Q > :: create() {
 */
 template < typename T, typename Q >
 void Graph< T, Q > :: destroy() {
-    delete first;
+    Vertex< T, Q > *temp;
+    while(first) {
+        temp = first;
+        first = first -> getNext();
+        delete(temp);
+    }
+    veretexNumber = 0;
 }
 
 /*
@@ -247,7 +253,18 @@ Vertex< T, Q >* Graph< T, Q > :: searchTag(T tag) {
 */
 template < typename T, typename Q >
 void Graph< T, Q > :: print() {
-      
+    Arista< T, Q > *aTemp;
+    Vertex< T, Q > *vTemp = first;
+    while(vTemp) {
+        cout << vTemp -> getTag() << " -> ";
+        aTemp = vTemp -> getAdjacent();
+        while(aTemp) {
+            cout << aTemp -> getAdjacent() -> getTag() << " -> ";
+            aTemp = aTemp -> getNext();
+        }
+        vTemp = vTemp -> getNext();
+        cout << endl;
+    }
 }
 
 #endif //ADJACENCYLISTGRAPH_H
