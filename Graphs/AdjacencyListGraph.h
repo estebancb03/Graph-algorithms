@@ -283,7 +283,8 @@ Arista< T, Q >* Graph< T, Q > :: searchArista2(Vertex< T, Q > *vertex, Vertex< T
         else {
             while(current) {
                 if(current -> getAdjacent() == vertex2) 
-                    current = current -> getNext();
+                    temp = current;
+                current = current -> getNext();
             }
         }
     }
