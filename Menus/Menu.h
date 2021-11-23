@@ -67,7 +67,8 @@ void Menu< T, Q > :: principalManu() {
                 cout << "Grafo destruido correctamente" << endl << endl;
             }   break;
             case 3: {
-                
+                graph -> clear();
+                cout << "Grafo vaciado correctamente" << endl << endl;
             }   break;
             case 4: {
                 cout << "Estado del grafo: ";
@@ -138,14 +139,14 @@ void Menu< T, Q > :: principalManu() {
                     Vertex< T, Q > *vertex1 = graph -> searchTag(tag1);
                     Vertex< T, Q > *vertex2 = graph -> searchTag(tag2);
                     if(vertex1 && vertex2) {
-                        if(vertex1 != vertex2) {
+                        if(vertex1 != vertex2 && !graph -> arista(vertex1, vertex2)) {
                             Q weight;
                             cout << "Peso: "; cin >> weight;
                             graph -> addArista(vertex1, vertex2, weight);
                             cout << "Arista agregada correctamente" << endl << endl;
                         }
                         else
-                            cout << "Error: no se aceptan lazos" << endl << endl;
+                            cout << "Error: no se aceptan lazos ni aristas paralelas" << endl << endl;
                     }
                     else
                         cout << "Error: vertice no existe" << endl << endl;
@@ -262,14 +263,14 @@ void Menu< T, Q > :: principalManu() {
                         T adjacentTag;
                         cout << "Vertice adyacente actual: "; cin >> adjacentTag;
                         Vertex< T, Q > *adjacent = graph -> searchTag(adjacentTag);
-                        if(graph -> arista(vertex, adjacent)) {
+                        if(adjacent && graph -> arista(vertex, adjacent)) {
                             Vertex< T, Q > *nextAdjacent = graph -> nextAdjacentVertex(vertex, adjacent);
                             cout << "Siguiente vertice adyacente: ";
                             nextAdjacent ? cout << nextAdjacent -> getTag() : cout << "nullptr";
                             cout << endl << endl;
                         }
                         else
-                            cout << "Error: vertice no es adyacente" << endl << endl;
+                            cout << "Error: vertice no es adyacente o no existe" << endl << endl;
                     }
                     else
                         cout << "Error: vertice no existe" << endl << endl;
@@ -325,7 +326,7 @@ void Menu< T, Q > :: principalManu() {
                 
             }   break;
             case 27: {
-                graph -> print();
+                
             }   break;
             case 28: {
                 enabled = false;

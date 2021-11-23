@@ -28,6 +28,7 @@ class Graph {
         Vertex< T, Q > *nextAdjacentVertex(Vertex< T, Q >*, Vertex< T, Q >*);
         bool arista(Vertex< T, Q >*, Vertex< T, Q >*);
         int getVertexNumber();
+        //Métodos auxiliares
         Arista< T, Q > *searchArista(Vertex< T, Q >*, Vertex< T, Q >*);
         Arista< T, Q > *searchArista2(Vertex< T, Q >*, Vertex< T, Q >*);
         Vertex< T, Q > *searchTag(T); //Provisional, hay que hacerlo general para cualquier TDA
@@ -231,7 +232,11 @@ Vertex< T, Q >* Graph< T, Q > :: firstAdjacentVertex(Vertex< T, Q > *vertex) {
 */
 template < typename T, typename Q >
 Vertex< T, Q >* Graph< T, Q > :: nextAdjacentVertex(Vertex< T, Q > *vertex, Vertex< T, Q > *adjacent) {
-    
+    Vertex< T, Q > *temp = nullptr;
+    Arista< T, Q > *arista = searchArista(vertex, adjacent);
+    if(arista -> getNext())
+        temp = arista -> getNext() -> getAdjacent();
+    return temp;
 }
 
 /*
