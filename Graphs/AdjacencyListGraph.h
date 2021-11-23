@@ -28,6 +28,7 @@ class Graph {
         Vertex< T, Q > *nextAdjacentVertex(Vertex< T, Q >*, Vertex< T, Q >*);
         bool arista(Vertex< T, Q >*, Vertex< T, Q >*);
         int getVertexNumber();
+        Arista< T, Q > *searchArista(Vertex< T, Q >*, Vertex< T, Q >*);
         Vertex< T, Q > *searchTag(T); //Provisional, hay que hacerlo general para cualquier TDA
         void print(); //Provisional
 };
@@ -239,7 +240,7 @@ Vertex< T, Q >* Graph< T, Q > :: nextAdjacentVertex(Vertex< T, Q > *vertex, Vert
 */
 template < typename T, typename Q >
 bool Graph< T, Q > :: arista(Vertex< T, Q > *vertex, Vertex< T, Q > *vertex2) {
-    
+    return searchArista(vertex, vertex2) ? true : false;
 }
 
 /*
@@ -250,6 +251,26 @@ bool Graph< T, Q > :: arista(Vertex< T, Q > *vertex, Vertex< T, Q > *vertex2) {
 template < typename T, typename Q >
 int Graph< T, Q > :: getVertexNumber() {
     return veretexNumber;
+}
+
+/*
+    EFECTO: devuelve la arista existente entre dos vertices en el caso que existiera
+    REQUIERE: grafo creado y no vacío, vértices válidos
+    MODIFICA: no hace modificaciones
+*/
+template < typename T, typename Q>
+Arista< T, Q >* Graph< T, Q > :: searchArista(Vertex< T, Q > *vertex, Vertex< T, Q > *vertex2) {
+    Arista< T, Q > *temp = nullptr;
+    Arista< T, Q > *current = vertex -> getAdjacent();
+    if(current == vertex -> adjacent())
+        temp = current;
+    else {
+        while(current -> getAdjacent() != vertex2) 
+            current = current -> getNext();
+        if(current == vertex2)
+            temp = current;
+    }
+    return temp;
 }
 
 /*
