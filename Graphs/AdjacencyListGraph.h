@@ -191,7 +191,7 @@ void Graph< T, Q > :: modifyWeight(Vertex< T, Q > *vertex, Vertex< T, Q > *verte
 */
 template < typename T, typename Q >
 Q Graph< T, Q > :: weight(Vertex< T, Q > *vertex, Vertex< T, Q > *vertex2) {
-    
+    return searchArista(vertex, vertex2) -> getWeight();
 }
 
 /*
@@ -241,7 +241,7 @@ Vertex< T, Q >* Graph< T, Q > :: nextAdjacentVertex(Vertex< T, Q > *vertex, Vert
 */
 template < typename T, typename Q >
 bool Graph< T, Q > :: arista(Vertex< T, Q > *vertex, Vertex< T, Q > *vertex2) {
-    return searchArista2(vertex, vertex2) ? true : false;
+    return searchArista(vertex, vertex2) ? true : false;
 }
 
 /*
