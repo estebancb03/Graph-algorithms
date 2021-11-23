@@ -101,7 +101,18 @@ Vertex< T, Q >* Graph< T, Q > :: addVertex(T tag) {
 */
 template < typename T, typename Q >
 void Graph< T, Q > :: deleteVertex(Vertex< T, Q > *vertex) {
-    
+    Vertex< T, Q > *past;
+    Vertex< T, Q > *current = first;
+    if(first == veretx)
+        first = first -> getNext();
+    else {
+        while(current != vertex) {
+            past = current;
+            current = current -> getNext();
+        } 
+        past -> setNext(current -> getNext());
+    }
+    delete(current);
 }
 
 /*
