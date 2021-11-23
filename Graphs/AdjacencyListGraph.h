@@ -103,7 +103,7 @@ template < typename T, typename Q >
 void Graph< T, Q > :: deleteVertex(Vertex< T, Q > *vertex) {
     Vertex< T, Q > *past;
     Vertex< T, Q > *current = first;
-    if(first == veretx)
+    if(first == vertex)
         first = first -> getNext();
     else {
         while(current != vertex) {
@@ -113,6 +113,7 @@ void Graph< T, Q > :: deleteVertex(Vertex< T, Q > *vertex) {
         past -> setNext(current -> getNext());
     }
     delete(current);
+    --veretexNumber;
 }
 
 /*
@@ -167,7 +168,7 @@ void Graph< T, Q > :: deleteArista(Vertex< T, Q > *vertex, Vertex< T, Q > *verte
         past -> setNext(current -> getNext());
     }
     else 
-        vertex -> getAdjacent() = current -> getNext();
+        vertex -> setAdjacent(current -> getNext());
     delete(current);
 }
 
