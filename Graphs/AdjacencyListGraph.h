@@ -181,7 +181,7 @@ void Graph< T, Q > :: deleteArista(Vertex< T, Q > *vertex, Vertex< T, Q > *verte
 */
 template < typename T, typename Q >
 void Graph< T, Q > :: modifyWeight(Vertex< T, Q > *vertex, Vertex< T, Q > *vertex2, Q newWeight) {
-    
+    searchArista(vertex, vertex2) -> setWeight(newWeight);
 }
 
 /*
