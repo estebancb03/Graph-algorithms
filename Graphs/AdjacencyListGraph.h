@@ -7,7 +7,7 @@ using namespace std;
 
 template < class T, class Q >
 class Graph {
-    int veretexNumber;
+    int vertexNumber;
     Vertex< T, Q > *first;
     public:
         void create();
@@ -43,7 +43,7 @@ class Graph {
 template < typename T, typename Q >
 void Graph< T, Q > :: create() {
     first = nullptr;
-    veretexNumber = 0;
+    vertexNumber = 0;
 }
 
 /*
@@ -59,7 +59,7 @@ void Graph< T, Q > :: destroy() {
         first = first -> getNext();
         delete(temp);
     }
-    veretexNumber = 0;
+    vertexNumber = 0;
 }
 
 /*
@@ -94,7 +94,7 @@ Vertex< T, Q >* Graph< T, Q > :: addVertex(T tag) {
     if(!empty()) 
         vertex -> setNext(first);
     first = vertex;
-    ++veretexNumber;
+    ++vertexNumber;
 } 
 
 /*
@@ -116,7 +116,7 @@ void Graph< T, Q > :: deleteVertex(Vertex< T, Q > *vertex) {
         past -> setNext(current -> getNext());
     }
     delete(current);
-    --veretexNumber;
+    --vertexNumber;
 }
 
 /*
@@ -256,7 +256,7 @@ bool Graph< T, Q > :: arista(Vertex< T, Q > *vertex, Vertex< T, Q > *vertex2) {
 */
 template < typename T, typename Q >
 int Graph< T, Q > :: getVertexNumber() {
-    return veretexNumber;
+    return vertexNumber;
 }
 
 /*
