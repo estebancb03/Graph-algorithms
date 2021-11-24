@@ -91,14 +91,9 @@ bool Graph< T, Q > :: empty() {
 template < typename T, typename Q >
 Vertex< T, Q >* Graph< T, Q > :: addVertex(T tag) {
     Vertex< T, Q > *vertex = new Vertex< T, Q >(tag);
-    if(empty()) 
-        first = vertex;
-    else {
-        Vertex< T, Q > *temp = first;
-        while(temp -> getNext() != nullptr)
-            temp = temp -> getNext();
-        temp -> setNext(vertex);
-    }
+    if(!empty()) 
+        vertex -> setNext(first);
+    first = vertex;
     ++vertexNumber;
 } 
 
