@@ -28,7 +28,6 @@ class Graph {
         Vertex< T, Q > *nextAdjacentVertex(Vertex< T, Q >*, Vertex< T, Q >*);
         bool arista(Vertex< T, Q >*, Vertex< T, Q >*);
         int getVertexNumber();
-        Vertex< T, Q > *searchTag(T); //Provisional, hay que hacerlo general para cualquier TDA
         void print(); //Provisional
 };
 
@@ -276,29 +275,6 @@ int Graph< T, Q > :: getVertexNumber() {
     return vertexNumber;
 }
 
-/*
-    EFECTO: busca un vértice en el grafo
-    REQUIERE: grafo creado y etiqueta válida
-    MODIFICA: no hace modificaciones 
-*/
-template < typename T, typename Q >
-Vertex< T, Q >* Graph< T, Q > :: searchTag(T tag) {
-    Vertex< T, Q > *temp = nullptr;
-    bool enabled = true;
-    int i = 0;
-    while(enabled) {
-        if(i < size) {
-            if(vertexArray[i] -> getTag() == tag) {
-                enabled = false;
-                temp = vertexArray[i];
-            }
-            ++i;
-        }
-        else
-            enabled = false;
-    }
-    return temp;
-}
 
 /*
     EFECTO: imprime la matriz de adyacencia

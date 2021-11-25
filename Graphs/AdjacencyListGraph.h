@@ -31,7 +31,6 @@ class Graph {
         //Métodos auxiliares
         Arista< T, Q > *searchArista(Vertex< T, Q >*, Vertex< T, Q >*);
         Arista< T, Q > *searchArista2(Vertex< T, Q >*, Vertex< T, Q >*);
-        Vertex< T, Q > *searchTag(T); //Provisional, hay que hacerlo general para cualquier TDA
         void print(); //Provisional
 };
 
@@ -294,23 +293,6 @@ Arista< T, Q >* Graph< T, Q > :: searchArista2(Vertex< T, Q > *vertex, Vertex< T
         }
     }
     return temp;
-}
-
-/*
-    EFECTO: busca un vértice en el grafo
-    REQUIERE: grafo creado y etiqueta válida
-    MODIFICA: no hace modificaciones 
-*/
-template < typename T, typename Q >
-Vertex< T, Q >* Graph< T, Q > :: searchTag(T tag) {
-    Vertex< T, Q > *temp = first;
-    Vertex< T, Q > *aux = nullptr;
-    while(temp) {
-        if(temp -> getTag() == tag)
-            aux = temp;
-        temp = temp -> getNext();
-    }
-    return aux;
 }
 
 /*
