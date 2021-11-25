@@ -17,11 +17,14 @@ class GenericGraphAlgorithms {
 */
 template < typename T, typename Q >
 Vertex< T, Q >* GenericGraphAlgorithms< T, Q > :: searchTag(T tag) {
+    bool enabled = true;
     Vertex< T, Q > *result = nullptr;
     Vertex< T, Q > *temp = graph -> firstVertex();
-    while(temp) {
-        if(temp -> getTag() == tag)
+    while(temp && enabled) {
+        if(temp -> getTag() == tag) {
             result = temp;
+            enabled = false;
+        }
         temp = graph -> nextVertex(temp);
     } 
     return result;
