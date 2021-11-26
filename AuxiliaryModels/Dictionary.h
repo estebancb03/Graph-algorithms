@@ -3,15 +3,16 @@
 
 template < class T >
 class Dictionary {
+    T *first; 
     int elementNumber;
     public:
         void create();
         void destroy();
         void clear();
         bool empty();
-        void addElement(T);
-        void deleteElement(T);
-        bool elementBelongs(T);
+        void addElement(T*);
+        void deleteElement(T*);
+        bool elementBelongs(T*);
 };
 
 /*
@@ -21,7 +22,8 @@ class Dictionary {
 */
 template < typename T >
 void Dictionary< T > :: create() {
-
+    first = nullptr;
+    elementNumber = 0;
 }
 
 /*
@@ -60,7 +62,7 @@ bool Dictionary< T > :: empty() {
     MODIFICA:
 */
 template < typename T >
-void Dictionary< T > :: addElement(T element) {
+void Dictionary< T > :: addElement(T *element) {
 
 }
 
@@ -70,7 +72,7 @@ void Dictionary< T > :: addElement(T element) {
     MODIFICA:
 */
 template < typename T >
-void Dictionary< T > :: deleteElement(T element) {
+void Dictionary< T > :: deleteElement(T *element) {
 
 }
 
@@ -80,8 +82,8 @@ void Dictionary< T > :: deleteElement(T element) {
     MODIFICA:
 */
 template < typename T >
-bool Dictionary< T > :: elementBelongs(T element) {
-    
+bool Dictionary< T > :: elementBelongs(T *element) {
+
 }
 
 #endif //DICTIONARY_H
