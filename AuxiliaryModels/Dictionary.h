@@ -43,7 +43,8 @@ void Dictionary< T > :: destroy() {
 */
 template < typename T >
 void Dictionary< T > :: clear() {
-
+    destroy();
+    create();
 }
 
 /*
