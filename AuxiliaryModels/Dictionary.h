@@ -33,7 +33,7 @@ void Dictionary< T > :: create() {
 */
 template < typename T >
 void Dictionary< T > :: destroy() {
-
+    delete first;
 }
 
 /*
