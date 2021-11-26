@@ -53,7 +53,7 @@ void Dictionary< T > :: clear() {
 */
 template < typename T >
 bool Dictionary< T > :: empty() {
-
+    return elementNumber > 0 ? false : true;
 }
 
 /*
