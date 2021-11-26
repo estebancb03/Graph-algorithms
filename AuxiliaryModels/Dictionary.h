@@ -63,7 +63,11 @@ bool Dictionary< T > :: empty() {
 */
 template < typename T >
 void Dictionary< T > :: addElement(T *element) {
-
+    T *temp = new T(element);
+    if(!empty()) 
+        temp -> setNext(first);
+    first = temp;
+    ++elementNumber;
 }
 
 /*
