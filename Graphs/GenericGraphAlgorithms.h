@@ -8,6 +8,7 @@ class GenericGraphAlgorithms {
     public:
         GenericGraphAlgorithms(Graph< T, Q > *g) { this -> graph = g; };
         Vertex< T, Q > *searchTag(T);
+        void Dijkstra(Vertex< T, Q >*, Vertex< T, Q >*);
 };
 
 /*
@@ -28,6 +29,16 @@ Vertex< T, Q >* GenericGraphAlgorithms< T, Q > :: searchTag(T tag) {
         temp = graph -> nextVertex(temp);
     } 
     return result;
+}
+
+/*
+    EFECTO: imprime el camino más corto de un vertice a otro
+    REQUIERE: grafo creado y no vacío, vertices válidos
+    MODIFICA: no hace modificaciones 
+*/
+template < typename T, typename Q >
+void GenericGraphAlgorithms< T, Q > :: Dijkstra(Vertex< T, Q > *vertex, Vertex< T, Q > *vertex2) {
+
 }
 
 #endif //GENERICGRAPHALGORITHMS_H
