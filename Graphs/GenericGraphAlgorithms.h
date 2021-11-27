@@ -11,7 +11,7 @@ class GenericGraphAlgorithms {
         GenericGraphAlgorithms(Graph< T, Q > *g) { this -> graph = g; };
         bool cycles();
         bool isConnected();
-        void isConnectedRecursive(Vertex< T, Q >*, Dictionary< Vertex< T, Q >* >*);
+        void isConnectedRecursive(Vertex< T, Q >*, Dictionary< Vertex< T, Q >* >*, Dictionary< Vertex< T, Q >* >*);
         Vertex< T, Q > *searchTag(T);
         void Dijkstra(Vertex< T, Q >*);
 };
@@ -61,13 +61,18 @@ bool GenericGraphAlgorithms< T, Q > :: isConnected() {
     bool result = false;
     Vertex< T, Q > *temp = graph -> firstVertex();
     Dictionary< Vertex< T, Q >* > *dictionary = new Dictionary< Vertex< T, Q >* >(graph -> getVertexNumber());
+    Dictionary< Vertex< T, Q >* > *adjacentDictionary = new Dictionary< Vertex< T, Q >* >(graph -> getVertexNumber());
     dictionary -> create();
+    adjacentDictionary -> create();
+    adjacentDictionary -> addElement(temp);
     while(temp) {
         if(!dictionary -> elementExist(temp))
-            isConnectedRecursive(temp, dictionary);
+            isConnectedRecursive(temp, dictionary, adjacentDictionary);
         temp = graph -> nextVertex(temp);
     }
+    cout << adjacentDictionary -> getElementNumber();
     dictionary -> destroy();
+    adjacentDictionary -> destroy();
     return result;
 }
 
@@ -77,12 +82,14 @@ bool GenericGraphAlgorithms< T, Q > :: isConnected() {
     MODIFICA: no hace modificaciones 
 */
 template < typename T, typename Q >
-void GenericGraphAlgorithms< T, Q > :: isConnectedRecursive(Vertex< T, Q > *vertex, Dictionary< Vertex< T, Q >* > *dictionary) {
+void GenericGraphAlgorithms< T, Q > :: isConnectedRecursive(Vertex< T, Q > *vertex, Dictionary< Vertex< T, Q >* > *dictionary, Dictionary< Vertex< T, Q >* > *adjacentDictionary) {
     dictionary -> addElement(vertex);
     Vertex< T, Q > *adjacent = graph -> firstAdjacentVertex(vertex);
     while(adjacent) {
-        if(!dictionary -> elementExist(adjacent))
-            isConnectedRecursive(adjacent, dictionary);
+        if(!dictionary -> elementExist(adjacent)) {
+            adjacentDictionary -> addElement(adjacent);
+            isConnectedRecursive(adjacent, dictionary, adjacentDictionary);
+        }
         adjacent = graph -> nextAdjacentVertex(vertex, adjacent);
     }
 }
