@@ -1,5 +1,7 @@
 #ifndef GENERICGRAPHALGORITHMS_H
 #define GENERICGRAPHALGORITHMS_H
+#include "../AuxiliaryModels/Dictionary.h"
+#include "../AuxiliaryModels/Queue.h"
 #include "../Menus/Menu.h"
 
 template < class T, class Q>

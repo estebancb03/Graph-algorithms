@@ -3,13 +3,16 @@
 
 template < class T >
 class Dictionary {
-    T *first; 
+    int size;
+    T *elementArray; 
     int elementNumber;
     public:
+        Dictionary(int s) { size = s; };
         void create();
         void destroy();
         void clear();
         bool empty();
+        bool full();
         void addElement(T*);
         void deleteElement(T*);
         bool elementBelongs(T*);
@@ -22,8 +25,8 @@ class Dictionary {
 */
 template < typename T >
 void Dictionary< T > :: create() {
-    first = nullptr;
     elementNumber = 0;
+    elementArray = new T*[size];
 }
 
 /*
@@ -33,7 +36,7 @@ void Dictionary< T > :: create() {
 */
 template < typename T >
 void Dictionary< T > :: destroy() {
-    delete first;
+    delete []elementArray;
 }
 
 /*
@@ -63,12 +66,21 @@ bool Dictionary< T > :: empty() {
     MODIFICA:
 */
 template < typename T >
+bool Dictionary< T > :: full() {
+    return elementNumber == size - 1 ? true : false;
+}
+
+/*
+    EFECTO:
+    REQUIERE:
+    MODIFICA:
+*/
+template < typename T >
 void Dictionary< T > :: addElement(T *element) {
-    T *temp = new T(element);
-    if(!empty()) 
-        temp -> setNext(first);
-    first = temp;
-    ++elementNumber;
+    if(!full()) {
+        elementArray[elementNumber] = element;
+        ++elementNumber;
+    }
 }
 
 /*
