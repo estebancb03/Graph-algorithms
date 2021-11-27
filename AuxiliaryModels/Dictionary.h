@@ -16,6 +16,7 @@ class Dictionary {
         void addElement(T);
         void deleteElement(T);
         bool elementExist(T);
+        int getElementNumber();
 };
 
 /*
@@ -108,6 +109,16 @@ bool Dictionary< T > :: elementExist(T element) {
         ++i;
     }
     return exist;
+}
+
+/*
+    EFECTO: devuelve el numero de elementos en el diccionario
+    REQUIERE: diccionario creado
+    MODIFICA: no hace modificaciones
+*/
+template < typename T >
+int Dictionary< T > :: getElementNumber() {
+    return elementNumber;
 }
 
 #endif //DICTIONARY_H
