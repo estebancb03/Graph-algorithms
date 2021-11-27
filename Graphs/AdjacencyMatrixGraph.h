@@ -139,7 +139,6 @@ void Graph< T, Q > :: addArista(Vertex< T, Q > *vertex, Vertex< T, Q > *vertex2,
         int position1 = vertex -> getPosition();
         int position2 = vertex2 -> getPosition();
         adjacencyMatrix[position1][position2] = weight;
-        adjacencyMatrix[position2][position1] = weight;  
     }
 }
 
@@ -260,8 +259,12 @@ Vertex< T, Q >* Graph< T, Q > :: nextAdjacentVertex(Vertex< T, Q > *vertex, Vert
 template < typename T, typename Q >
 bool Graph< T, Q > :: arista(Vertex< T, Q > *vertex, Vertex< T, Q > *vertex2) {
     bool result = false;
-    if(vertex != vertex2 && adjacencyMatrix[vertex -> getPosition()][vertex2 -> getPosition()]) 
-        result = true;
+    int position1 = vertex -> getPosition();
+    int position2 = vertex2 -> getPosition();
+    if(vertex != vertex2) {
+        if(adjacencyMatrix[position1][position2] || adjacencyMatrix[position2][position1])
+            result = true;
+    }
     return result;
 }
 
