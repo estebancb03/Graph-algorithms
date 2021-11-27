@@ -13,9 +13,9 @@ class Dictionary {
         void clear();
         bool empty();
         bool full();
-        void addElement(T*);
-        void deleteElement(T*);
-        bool elementBelongs(T*);
+        void addElement(T);
+        void deleteElement(T);
+        bool elementExist(T);
 };
 
 /*
@@ -26,7 +26,7 @@ class Dictionary {
 template < typename T >
 void Dictionary< T > :: create() {
     elementNumber = 0;
-    elementArray = new T*[size];
+    elementArray = new T[size];
 }
 
 /*
@@ -76,7 +76,7 @@ bool Dictionary< T > :: full() {
     MODIFICA: diccionario
 */
 template < typename T >
-void Dictionary< T > :: addElement(T *element) {
+void Dictionary< T > :: addElement(T element) {
     if(!full()) {
         elementArray[elementNumber] = element;
         ++elementNumber;
@@ -89,7 +89,7 @@ void Dictionary< T > :: addElement(T *element) {
     MODIFICA: diccionario
 */
 template < typename T >
-void Dictionary< T > :: deleteElement(T *element) {
+void Dictionary< T > :: deleteElement(T element) {
     
 }
 
@@ -99,7 +99,7 @@ void Dictionary< T > :: deleteElement(T *element) {
     MODIFICA: no hace modificaciones
 */
 template < typename T >
-bool Dictionary< T > :: elementBelongs(T *element) {
+bool Dictionary< T > :: elementExist(T element) {
     int i = 0;
     bool exist = false;
     while(i < elementNumber && exist == false) {

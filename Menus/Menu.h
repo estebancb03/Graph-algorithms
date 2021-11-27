@@ -305,7 +305,7 @@ void Menu< T, Q > :: principalManu() {
                 
             }   break;
             case 20: {
-                
+                graphAlgoritms -> isConnected();
             }   break;
             case 21: {
                 

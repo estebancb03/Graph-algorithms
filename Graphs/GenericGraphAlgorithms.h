@@ -3,6 +3,7 @@
 #include "../AuxiliaryModels/Dictionary.h"
 #include "../AuxiliaryModels/Queue.h"
 #include "../Menus/Menu.h"
+#include <stack>
 
 template < class T, class Q>
 class GenericGraphAlgorithms {
@@ -40,7 +41,7 @@ Vertex< T, Q >* GenericGraphAlgorithms< T, Q > :: searchTag(T tag) {
 */
 template < typename T, typename Q >
 void GenericGraphAlgorithms< T, Q > :: Dijkstra(Vertex< T, Q > *vertex, Vertex< T, Q > *vertex2) {
-
+    
 }
 
 #endif //GENERICGRAPHALGORITHMS_H

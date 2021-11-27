@@ -98,7 +98,7 @@ bool Queue< T > :: empty() {
 */
 template < typename T >
 bool Queue< T > :: full() {
-    return this -> quantity() == size ? true : false;
+    return elementNumber == size ? true : false;
 }
 
 /*
@@ -110,7 +110,7 @@ template < typename T >
 T Queue< T > :: pop() {
     if(!this -> empty()) {
         T temp = array[first];
-        if(this -> quantity() == 1) 
+        if(elementNumber == 1) 
             this -> create();
         if(first == size - 1)
             first = 0;
