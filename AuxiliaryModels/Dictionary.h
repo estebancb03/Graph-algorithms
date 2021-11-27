@@ -90,7 +90,7 @@ void Dictionary< T > :: addElement(T *element) {
 */
 template < typename T >
 void Dictionary< T > :: deleteElement(T *element) {
-
+    
 }
 
 /*
@@ -100,7 +100,14 @@ void Dictionary< T > :: deleteElement(T *element) {
 */
 template < typename T >
 bool Dictionary< T > :: elementBelongs(T *element) {
-
+    int i = 0;
+    bool exist = false;
+    while(i < elementNumber && exist == false) {
+        if(elementArray[i] == element) 
+            exist = true;
+        ++i;
+    }
+    return exist;
 }
 
 #endif //DICTIONARY_H
