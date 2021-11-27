@@ -64,13 +64,13 @@ bool GenericGraphAlgorithms< T, Q > :: isConnected() {
     Dictionary< Vertex< T, Q >* > *adjacentDictionary = new Dictionary< Vertex< T, Q >* >(graph -> getVertexNumber());
     dictionary -> create();
     adjacentDictionary -> create();
-    adjacentDictionary -> addElement(temp);
     while(temp) {
         if(!dictionary -> elementExist(temp))
             isConnectedRecursive(temp, dictionary, adjacentDictionary);
         temp = graph -> nextVertex(temp);
     }
-    cout << adjacentDictionary -> getElementNumber();
+    if(adjacentDictionary -> getElementNumber() == graph -> getVertexNumber() - 1)
+        result = true;
     dictionary -> destroy();
     adjacentDictionary -> destroy();
     return result;
@@ -87,7 +87,8 @@ void GenericGraphAlgorithms< T, Q > :: isConnectedRecursive(Vertex< T, Q > *vert
     Vertex< T, Q > *adjacent = graph -> firstAdjacentVertex(vertex);
     while(adjacent) {
         if(!dictionary -> elementExist(adjacent)) {
-            adjacentDictionary -> addElement(adjacent);
+            if(!adjacentDictionary -> elementExist(adjacent))
+                adjacentDictionary -> addElement(adjacent);
             isConnectedRecursive(adjacent, dictionary, adjacentDictionary);
         }
         adjacent = graph -> nextAdjacentVertex(vertex, adjacent);

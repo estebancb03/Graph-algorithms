@@ -5,10 +5,10 @@ using namespace std;
 
 template < class T, class Q >
 class Graph {
-    int size = 5;
+    int size = 10;
     int vertexNumber;
-    Q adjacencyMatrix[5][5];
-    Vertex< T, Q > *vertexArray[5];
+    Q adjacencyMatrix[10][10];
+    Vertex< T, Q > *vertexArray[10];
     public:
         void create();
         void destroy();

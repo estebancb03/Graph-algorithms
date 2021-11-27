@@ -1,8 +1,8 @@
 #ifndef MENU_H
 #define MENU_H
 #include <iostream>
-//#include "../Graphs/AdjacencyListGraph.h"
-#include "../Graphs/AdjacencyMatrixGraph.h"
+#include "../Graphs/AdjacencyListGraph.h"
+//#include "../Graphs/AdjacencyMatrixGraph.h"
 #include "../Graphs/GenericGraphAlgorithms.h"
 using namespace std;
 
@@ -165,6 +165,7 @@ void Menu< T, Q > :: principalManu() {
                     if(vertex1 && vertex2) {
                         if(graph -> arista(vertex1, vertex2)) {
                             graph -> deleteArista(vertex1, vertex2);
+                            graph -> deleteArista(vertex2, vertex1);
                             cout << "Arista eliminada correctamente" << endl << endl;
                         }
                         else
@@ -307,8 +308,13 @@ void Menu< T, Q > :: principalManu() {
                 cout << endl << endl;
             }   break;
             case 20: {
-                graphAlgoritms -> isConnected();
-                cout << endl << endl;
+               if(!graph -> empty()) {
+                    cout << "Grafo conexo?: ";
+                    graphAlgoritms -> isConnected() ? cout << "True" : cout << "False";
+                    cout << endl << endl;
+                }
+                else 
+                    cout << "Error: grafo vacio" << endl << endl;
             }   break;
             case 21: {
                 
