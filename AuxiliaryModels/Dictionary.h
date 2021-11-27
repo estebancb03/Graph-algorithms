@@ -19,9 +19,9 @@ class Dictionary {
 };
 
 /*
-    EFECTO:
-    REQUIERE:
-    MODIFICA:
+    EFECTO: crea el diccionario
+    REQUIERE: diccionario no creado o destruido
+    MODIFICA: diccionario
 */
 template < typename T >
 void Dictionary< T > :: create() {
@@ -30,9 +30,9 @@ void Dictionary< T > :: create() {
 }
 
 /*
-    EFECTO:
-    REQUIERE:
-    MODIFICA:
+    EFECTO: destruye el diccionario
+    REQUIERE: diccionario creado
+    MODIFICA: diccionario
 */
 template < typename T >
 void Dictionary< T > :: destroy() {
@@ -40,9 +40,9 @@ void Dictionary< T > :: destroy() {
 }
 
 /*
-    EFECTO:
-    REQUIERE:
-    MODIFICA:
+    EFECTO: elimina todos los elementos del diccionario
+    REQUIERE: diccionario creado
+    MODIFICA: diccionario
 */
 template < typename T >
 void Dictionary< T > :: clear() {
@@ -51,9 +51,9 @@ void Dictionary< T > :: clear() {
 }
 
 /*
-    EFECTO:
-    REQUIERE:
-    MODIFICA:
+    EFECTO: verifica si el diccionario está vacío
+    REQUIERE: diccionario creado
+    MODIFICA: no hace modificaciones
 */
 template < typename T >
 bool Dictionary< T > :: empty() {
@@ -61,9 +61,9 @@ bool Dictionary< T > :: empty() {
 }
 
 /*
-    EFECTO:
-    REQUIERE:
-    MODIFICA:
+    EFECTO: verifica si el diccionario está lleno
+    REQUIERE: diccionario creado
+    MODIFICA: diccionario
 */
 template < typename T >
 bool Dictionary< T > :: full() {
@@ -71,9 +71,9 @@ bool Dictionary< T > :: full() {
 }
 
 /*
-    EFECTO:
-    REQUIERE:
-    MODIFICA:
+    EFECTO: agrega elementos al diccionario
+    REQUIERE: diccionario creado y elemento válido
+    MODIFICA: diccionario
 */
 template < typename T >
 void Dictionary< T > :: addElement(T *element) {
@@ -84,9 +84,9 @@ void Dictionary< T > :: addElement(T *element) {
 }
 
 /*
-    EFECTO:
-    REQUIERE:
-    MODIFICA:
+    EFECTO: elimina un elemento del diccionario
+    REQUIERE: diccionario creado y elemento válido
+    MODIFICA: diccionario
 */
 template < typename T >
 void Dictionary< T > :: deleteElement(T *element) {
@@ -94,9 +94,9 @@ void Dictionary< T > :: deleteElement(T *element) {
 }
 
 /*
-    EFECTO:
-    REQUIERE:
-    MODIFICA:
+    EFECTO: verifica si un elemento pertenece al diccionario
+    REQUIERE: diccionario creado y elemento válido
+    MODIFICA: no hace modificaciones
 */
 template < typename T >
 bool Dictionary< T > :: elementBelongs(T *element) {
