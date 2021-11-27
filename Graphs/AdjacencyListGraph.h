@@ -221,7 +221,11 @@ Vertex< T, Q >* Graph< T, Q > :: nextVertex(Vertex< T, Q > *vertex) {
 */
 template < typename T, typename Q >
 Vertex< T, Q >* Graph< T, Q > :: firstAdjacentVertex(Vertex< T, Q > *vertex) {
-    return vertex -> getAdjacent() -> getAdjacent();
+    Vertex< T, Q > *adjacent = nullptr;
+    Arista< T, Q > *arista = vertex -> getAdjacent();
+    if(arista)
+        adjacent = arista -> getAdjacent();
+    return adjacent;
 }
 
 /*
