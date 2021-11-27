@@ -10,9 +10,45 @@ class GenericGraphAlgorithms {
     Graph< T, Q > *graph;
     public:
         GenericGraphAlgorithms(Graph< T, Q > *g) { this -> graph = g; };
+        bool cycles();
         Vertex< T, Q > *searchTag(T);
-        void Dijkstra(Vertex< T, Q >*, Vertex< T, Q >*);
+        void Dijkstra(Vertex< T, Q >*);
 };
+
+/*
+    EFECTO: verifia si el grafo tiene ciclos usando recorrido de ancho primero
+    REQUIERE: grafo creado y no vacío
+    MODIFICA: no hace modificaciones 
+*/
+template < typename T, typename Q >
+bool GenericGraphAlgorithms< T, Q > :: cycles() {
+    bool result = false;
+    Vertex< T, Q > *adjacent;
+    Vertex< T, Q > *temp = graph -> firstVertex();
+    Queue< Vertex< T, Q >* > *queue = new Queue< Vertex< T, Q >* >(graph -> getVertexNumber());
+    Dictionary< Vertex< T, Q >* > *dictionary = new Dictionary< Vertex< T, Q >* >(graph -> getVertexNumber());
+    queue -> create();
+    dictionary -> create();
+    while(temp) {
+        if(!dictionary -> elementExist(temp)) {
+            queue -> add(temp);
+            while(!queue -> empty()) {
+                temp = queue -> pop();
+                dictionary -> addElement(temp);
+                adjacent = graph -> firstAdjacentVertex(temp);
+                while(adjacent) {
+                    if(!dictionary -> elementExist(adjacent))
+                        queue -> add(adjacent);
+                    adjacent = graph -> nextAdjacentVertex(temp, adjacent);
+                }
+            }
+        }
+        temp = graph -> nextVertex(temp);
+    }
+    queue -> destroy();
+    dictionary -> destroy();
+    return result;
+}
 
 /*
     EFECTO: busca un vértice en el grafo
@@ -40,7 +76,7 @@ Vertex< T, Q >* GenericGraphAlgorithms< T, Q > :: searchTag(T tag) {
     MODIFICA: no hace modificaciones 
 */
 template < typename T, typename Q >
-void GenericGraphAlgorithms< T, Q > :: Dijkstra(Vertex< T, Q > *vertex, Vertex< T, Q > *vertex2) {
+void GenericGraphAlgorithms< T, Q > :: Dijkstra(Vertex< T, Q > *vertex) {
     
 }
 
