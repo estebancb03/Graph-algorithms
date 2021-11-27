@@ -30,7 +30,6 @@ class Graph {
         int getVertexNumber();
         //Métodos auxiliares
         Arista< T, Q > *searchArista(Vertex< T, Q >*, Vertex< T, Q >*);
-        Arista< T, Q > *searchArista2(Vertex< T, Q >*, Vertex< T, Q >*);
         void print(); //Provisional
 };
 
@@ -269,20 +268,6 @@ int Graph< T, Q > :: getVertexNumber() {
 */
 template < typename T, typename Q>
 Arista< T, Q >* Graph< T, Q > :: searchArista(Vertex< T, Q > *vertex, Vertex< T, Q > *vertex2) {
-    Arista< T, Q > *result = nullptr;
-    result = searchArista2(vertex, vertex2);
-    if(!result)
-        result = searchArista2(vertex2, vertex);
-    return result;
-}
-
-/*
-    EFECTO: devuelve la arista existente entre dos vertices en el caso que existiera
-    REQUIERE: grafo creado y no vacío, vértices válidos
-    MODIFICA: no hace modificaciones
-*/
-template < typename T, typename Q>
-Arista< T, Q >* Graph< T, Q > :: searchArista2(Vertex< T, Q > *vertex, Vertex< T, Q > *vertex2) {
     Arista< T, Q > *temp = nullptr;
     Arista< T, Q > *current = vertex -> getAdjacent();
     if(current) {

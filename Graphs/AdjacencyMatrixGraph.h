@@ -261,10 +261,8 @@ bool Graph< T, Q > :: arista(Vertex< T, Q > *vertex, Vertex< T, Q > *vertex2) {
     bool result = false;
     int position1 = vertex -> getPosition();
     int position2 = vertex2 -> getPosition();
-    if(vertex != vertex2) {
-        if(adjacencyMatrix[position1][position2] || adjacencyMatrix[position2][position1])
+    if(vertex != vertex2 && adjacencyMatrix[position1][position2]) 
             result = true;
-    }
     return result;
 }
 
