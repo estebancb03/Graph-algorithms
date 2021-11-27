@@ -1,8 +1,8 @@
 #ifndef MENU_H
 #define MENU_H
 #include <iostream>
-//#include "../Graphs/AdjacencyListGraph.h"
-#include "../Graphs/AdjacencyMatrixGraph.h"
+#include "../Graphs/AdjacencyListGraph.h"
+//#include "../Graphs/AdjacencyMatrixGraph.h"
 #include "../Graphs/GenericGraphAlgorithms.h"
 using namespace std;
 
@@ -48,8 +48,8 @@ void Menu< T, Q > :: principalManu() {
         cout << "21. Averiguar si un grafo es conexo (Warshall)" << endl;
         cout << "22. Buscar un vertice por su etiqueta" << endl;
         cout << "23. Encontrar el camino mas corto de un vertice a todos los demas" << endl;
-        cout << "24. Encontrar el camino mas corto entre un par de vertices (Floyd)" << endl;
-        cout << "25. Encontrar el camino mas corto entre un par de vertices (Dijkstra)" << endl;
+        cout << "24. Encontrar el camino mas corto entre todo par de vertices (Floyd)" << endl;
+        cout << "25. Encontrar el camino mas corto entre todo par de vertices (Dijkstra)" << endl;
         cout << "26. Encontrar el circuito Hamilton de menor costo" << endl;
         cout << "27. Colorear el grafo" << endl;
         cout << "28. Salir" << endl << endl;
@@ -143,6 +143,7 @@ void Menu< T, Q > :: principalManu() {
                             Q weight;
                             cout << "Peso: "; cin >> weight;
                             graph -> addArista(vertex1, vertex2, weight);
+                            graph -> addArista(vertex2, vertex1, weight);
                             cout << "Arista agregada correctamente" << endl << endl;
                         }
                         else
@@ -302,10 +303,12 @@ void Menu< T, Q > :: principalManu() {
                 cout << "Numero de vertices: " << number << endl << endl;
             }   break;
             case 19: {
-                
+                graphAlgoritms -> cycles();
+                cout << endl << endl;
             }   break;
             case 20: {
                 graphAlgoritms -> isConnected();
+                cout << endl << endl;
             }   break;
             case 21: {
                 

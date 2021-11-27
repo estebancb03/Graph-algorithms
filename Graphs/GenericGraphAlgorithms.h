@@ -3,7 +3,6 @@
 #include "../AuxiliaryModels/Dictionary.h"
 #include "../AuxiliaryModels/Queue.h"
 #include "../Menus/Menu.h"
-#include <stack>
 
 template < class T, class Q>
 class GenericGraphAlgorithms {
@@ -11,6 +10,8 @@ class GenericGraphAlgorithms {
     public:
         GenericGraphAlgorithms(Graph< T, Q > *g) { this -> graph = g; };
         bool cycles();
+        bool isConnected();
+        void isConnectedRecursive(Vertex< T, Q >*, Dictionary< Vertex< T, Q >* >*);
         Vertex< T, Q > *searchTag(T);
         void Dijkstra(Vertex< T, Q >*);
 };
@@ -48,6 +49,42 @@ bool GenericGraphAlgorithms< T, Q > :: cycles() {
     queue -> destroy();
     dictionary -> destroy();
     return result;
+}
+
+/*
+    EFECTO: verifia si el grafo es conexo usando recorrido en profundidad primero
+    REQUIERE: grafo creado y no vacío
+    MODIFICA: no hace modificaciones 
+*/
+template < typename T, typename Q >
+bool GenericGraphAlgorithms< T, Q > :: isConnected() {
+    bool result = false;
+    Vertex< T, Q > *temp = graph -> firstVertex();
+    Dictionary< Vertex< T, Q >* > *dictionary = new Dictionary< Vertex< T, Q >* >(graph -> getVertexNumber());
+    dictionary -> create();
+    while(temp) {
+        if(!dictionary -> elementExist(temp))
+            isConnectedRecursive(temp, dictionary);
+        temp = graph -> nextVertex(temp);
+    }
+    dictionary -> destroy();
+    return result;
+}
+
+/*
+    EFECTO: verifia si el grafo es conexo usando recorrido de ancho primero
+    REQUIERE: grafo creado y no vacío
+    MODIFICA: no hace modificaciones 
+*/
+template < typename T, typename Q >
+void GenericGraphAlgorithms< T, Q > :: isConnectedRecursive(Vertex< T, Q > *vertex, Dictionary< Vertex< T, Q >* > *dictionary) {
+    dictionary -> addElement(vertex);
+    Vertex< T, Q > *adjacent = graph -> firstAdjacentVertex(vertex);
+    while(adjacent) {
+        if(!dictionary -> elementExist(adjacent))
+            isConnectedRecursive(adjacent, dictionary);
+        adjacent = graph -> nextAdjacentVertex(vertex, adjacent);
+    }
 }
 
 /*
