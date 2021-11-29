@@ -177,7 +177,12 @@ void Graph< T, Q > :: modifyWeight(Vertex< T, Q > *vertex, Vertex< T, Q > *verte
 */
 template < typename T, typename Q >
 Q Graph< T, Q > :: weight(Vertex< T, Q > *vertex, Vertex< T, Q > *vertex2) {
-    return adjacencyMatrix[vertex -> getPosition()][vertex2 -> getPosition()];
+    Q result;
+    if(adjacencyMatrix[vertex -> getPosition()][vertex2 -> getPosition()])
+        result = adjacencyMatrix[vertex -> getPosition()][vertex2 -> getPosition()];
+    else
+        result = adjacencyMatrix[vertex2 -> getPosition()][vertex -> getPosition()];
+    return result;
 }
 
 /*
@@ -261,8 +266,10 @@ bool Graph< T, Q > :: arista(Vertex< T, Q > *vertex, Vertex< T, Q > *vertex2) {
     bool result = false;
     int position1 = vertex -> getPosition();
     int position2 = vertex2 -> getPosition();
-    if(vertex != vertex2 && adjacencyMatrix[position1][position2]) 
+    if(vertex != vertex2) {
+        if(adjacencyMatrix[position1][position2] || adjacencyMatrix[position2][position1])
             result = true;
+    } 
     return result;
 }
 

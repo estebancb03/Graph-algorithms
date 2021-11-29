@@ -1,8 +1,8 @@
 #ifndef MENU_H
 #define MENU_H
 #include <iostream>
-//#include "../Graphs/AdjacencyListGraph.h"
-#include "../Graphs/AdjacencyMatrixGraph.h"
+#include "../Graphs/AdjacencyListGraph.h"
+//#include "../Graphs/AdjacencyMatrixGraph.h"
 #include "../Graphs/GenericGraphAlgorithms.h"
 using namespace std;
 
@@ -143,7 +143,7 @@ void Menu< T, Q > :: principalManu() {
                             Q weight;
                             cout << "Peso: "; cin >> weight;
                             graph -> addArista(vertex1, vertex2, weight);
-                            graph -> addArista(vertex2, vertex1, weight);
+                            //graph -> addArista(vertex2, vertex1, weight);
                             cout << "Arista agregada correctamente" << endl << endl;
                         }
                         else
