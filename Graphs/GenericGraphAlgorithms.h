@@ -1,6 +1,7 @@
 #ifndef GENERICGRAPHALGORITHMS_H
 #define GENERICGRAPHALGORITHMS_H
 #include "../AuxiliaryModels/Dictionary.h"
+#include "../AuxiliaryModels/Stack.h"
 #include "../AuxiliaryModels/Queue.h"
 #include "../Menus/Menu.h"
 
@@ -24,30 +25,7 @@ class GenericGraphAlgorithms {
 template < typename T, typename Q >
 bool GenericGraphAlgorithms< T, Q > :: cycles() {
     bool result = false;
-    Vertex< T, Q > *adjacent;
-    Vertex< T, Q > *temp = graph -> firstVertex();
-    Queue< Vertex< T, Q >* > *queue = new Queue< Vertex< T, Q >* >(graph -> getVertexNumber());
-    Dictionary< Vertex< T, Q >* > *dictionary = new Dictionary< Vertex< T, Q >* >(graph -> getVertexNumber());
-    queue -> create();
-    dictionary -> create();
-    while(temp) {
-        if(!dictionary -> elementExist(temp)) {
-            queue -> add(temp);
-            while(!queue -> empty()) {
-                temp = queue -> pop();
-                dictionary -> addElement(temp);
-                adjacent = graph -> firstAdjacentVertex(temp);
-                while(adjacent) {
-                    if(!dictionary -> elementExist(adjacent))
-                        queue -> add(adjacent);
-                    adjacent = graph -> nextAdjacentVertex(temp, adjacent);
-                }
-            }
-        }
-        temp = graph -> nextVertex(temp);
-    }
-    queue -> destroy();
-    dictionary -> destroy();
+    
     return result;
 }
 

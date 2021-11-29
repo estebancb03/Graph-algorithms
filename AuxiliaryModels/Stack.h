@@ -44,7 +44,7 @@ void Stack< T > :: destroy() {
 */
 template < typename T >
 void Stack< T > :: push(T element) {
-    GenericNode< T > *temp = new GenericNode< T >(element);
+    Node< T > *temp = new Node< T >(element);
     if(this -> empty()) 
         head = temp;
     else {
@@ -82,7 +82,7 @@ bool Stack< T > :: empty() {
 template < typename T >
 T Stack< T > :: pop() {
     if(!this -> empty()) {
-        GenericNode< T > *temp = head;
+        Node< T > *temp = head;
         T element = temp -> getObject();
         head = head -> getNext();
         delete temp;
@@ -107,11 +107,11 @@ T Stack< T > :: top() {
     MODIFICA: no hace modificaciones
 */
 template< typename T >
-bool Stack< T > :: exist(T element) {
+bool Stack< T > :: elementExist(T element) {
     bool result = false;
     bool enabled = true;
     if(!this -> empty()) {
-        GenericNode< T > *temp = head;
+        Node< T > *temp = head;
         while(temp != nullptr && enabled) {
             if(temp -> getObject() == element) {
                 result = true;
