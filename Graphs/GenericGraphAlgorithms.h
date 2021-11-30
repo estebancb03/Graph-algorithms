@@ -2,8 +2,8 @@
 #define GENERICGRAPHALGORITHMS_H
 #include "../AuxiliaryModels/Dictionary.h"
 #include "../AuxiliaryModels/Stack.h"
-#include "../AuxiliaryModels/Queue.h"
 #include "../Menus/Menu.h"
+#include <queue>
 
 template < class T, class Q>
 class GenericGraphAlgorithms {
@@ -25,7 +25,37 @@ class GenericGraphAlgorithms {
 template < typename T, typename Q >
 bool GenericGraphAlgorithms< T, Q > :: cycles() {
     bool result = false;
-    
+    queue< Vertex< T, Q >* > queue;
+    Vertex< T, Q > *aux = nullptr;
+    Vertex< T, Q > *adjacent = nullptr;
+    Vertex< T, Q > *temp = graph -> firstVertex();
+    Dictionary< Vertex< T, Q >* > *global = new Dictionary< Vertex< T, Q >* >(graph -> getVertexNumber());
+    Dictionary< Vertex< T, Q >* > *dictionary = new Dictionary< Vertex< T, Q >* >(graph -> getVertexNumber());
+    global -> create();
+    dictionary -> create();
+    while(temp) {
+        if(!dictionary -> elementExist(temp)) {
+            queue.push(temp);
+            while (!queue.empty()) {
+                aux = queue.front();
+                queue.pop();
+                adjacent = graph -> firstAdjacentVertex(aux);
+                while(adjacent) {
+                    if(!dictionary -> elementExist(adjacent)) {
+                        queue.push(adjacent);
+                        dictionary -> addElement(adjacent);
+                    }
+                    global -> addElement(adjacent);
+                    adjacent = graph -> nextAdjacentVertex(aux, adjacent);
+                }
+            }
+        }
+        temp = graph -> nextVertex(temp);
+    }
+    if(global -> getElementNumber() > dictionary -> getElementNumber())
+        result = true;
+    global -> destroy();
+    dictionary -> destroy();
     return result;
 }
 

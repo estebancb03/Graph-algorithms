@@ -80,8 +80,8 @@ template < typename T >
 void Dictionary< T > :: addElement(T element) {
     if(!full()) {
         elementArray[elementNumber] = element;
-        ++elementNumber;
     }
+    ++elementNumber;
 }
 
 /*
