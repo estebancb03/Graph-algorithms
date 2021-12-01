@@ -14,7 +14,8 @@ class GenericGraphAlgorithms {
         bool isConnected();
         void isConnectedRecursive(Vertex< T, Q >*, Dictionary< Vertex< T, Q >* >*, Dictionary< Vertex< T, Q >* >*);
         Vertex< T, Q > *searchTag(T);
-        void Dijkstra(Vertex< T, Q >*);
+        void Dijkstra();
+        void Floyd();
 };
 
 /*
@@ -129,8 +130,71 @@ Vertex< T, Q >* GenericGraphAlgorithms< T, Q > :: searchTag(T tag) {
     MODIFICA: no hace modificaciones 
 */
 template < typename T, typename Q >
-void GenericGraphAlgorithms< T, Q > :: Dijkstra(Vertex< T, Q > *vertex) {
+void GenericGraphAlgorithms< T, Q > :: Dijkstra() {
     
+}
+
+/*
+    EFECTO: encuentra el camino más corto entre todo par de vertices
+    REQUIERE: grafo creado y no vacío
+    MODIFICA: no hace modificaciones 
+*/
+template < typename T, typename Q >
+void GenericGraphAlgorithms< T, Q > :: Floyd() {
+    int i = 0;
+    int j = 0;
+    int k = 0;
+    int middle = 0;
+    int destiny = 0;
+    int beginning = 0;
+    double INF = 100000;
+    int vertexNumber = graph -> getVertexNumber();
+    Dictionary< T > *dictionary[vertexNumber][vertexNumber];
+    double distance[vertexNumber][vertexNumber];
+    for(i = 0; i < vertexNumber; ++i) {
+        Vertex< T, Q > *vertexI = graph -> getVertexByNumber(i);
+        for(j = 0; j < vertexNumber; ++j) {
+            Vertex< T, Q > *vertexJ = graph -> getVertexByNumber(j);
+            dictionary[i][j] = new Dictionary< T >(vertexNumber);
+            dictionary[i][j] -> create();
+            if(graph -> arista(vertexI, vertexJ)) 
+                distance[i][j] = graph -> weight(vertexI, vertexJ);
+            else {
+                if(i == j) 
+                    distance[i][j] = 0;
+                else 
+                    distance[i][j] = INF;
+            }
+        }
+    }
+    for(middle = 0; middle < vertexNumber; ++middle) {
+        for(beginning = 0; beginning < vertexNumber; ++beginning) {
+            for(destiny = 0; destiny < vertexNumber; ++destiny) {
+                if(distance[beginning][destiny] > distance[beginning][middle] + distance[middle][destiny]) {
+                    distance[beginning][destiny] = distance[beginning][middle] + distance[middle][destiny];
+                    for(k = beginning + 1; k < destiny; ++k)
+                        dictionary[beginning][destiny] -> addElement(graph -> getVertexByNumber(k) -> getTag());
+                    for(k = destiny - 1; k > beginning; --k)
+                        dictionary[destiny][beginning] -> addElement(graph -> getVertexByNumber(k) -> getTag());
+                }
+            }
+        }
+    }
+    for(i = 0; i < vertexNumber; ++i) {
+        Vertex< T, Q > *vertexI = graph -> getVertexByNumber(i);
+        for(j = 0; j < vertexNumber; ++j) {
+            Vertex< T, Q > *vertexJ = graph -> getVertexByNumber(j);
+            cout << "[" << vertexI -> getTag() << " -> " << vertexJ -> getTag() << "] (costo: ";
+            distance[i][j] != INF ? cout << distance[i][j] : cout << "Infinito";
+            cout << "): ";
+            if(vertexI != vertexJ && distance[i][j] != INF) {
+                cout << vertexI -> getTag() << " -> ";
+                dictionary[i][j] -> print(); 
+                cout << vertexJ -> getTag();
+            }
+            cout << endl;
+        }
+    }
 }
 
 #endif //GENERICGRAPHALGORITHMS_H

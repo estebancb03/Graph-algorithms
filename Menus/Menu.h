@@ -1,8 +1,8 @@
 #ifndef MENU_H
 #define MENU_H
 #include <iostream>
-//#include "../Graphs/AdjacencyListGraph.h"
-#include "../Graphs/AdjacencyMatrixGraph.h"
+#include "../Graphs/AdjacencyListGraph.h"
+//#include "../Graphs/AdjacencyMatrixGraph.h"
 #include "../Graphs/GenericGraphAlgorithms.h"
 using namespace std;
 
@@ -339,7 +339,12 @@ void Menu< T, Q > :: principalManu() {
                 
             }   break;
             case 24: {
-                
+                if(!graph -> empty()) {
+                    graphAlgoritms -> Floyd();
+                    cout << endl;
+                }
+                else
+                    cout << "Error: grafo vacio" << endl << endl;
             }   break;
             case 25: {
                 
