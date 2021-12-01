@@ -28,7 +28,9 @@ class Graph {
         Vertex< T, Q > *nextAdjacentVertex(Vertex< T, Q >*, Vertex< T, Q >*);
         bool arista(Vertex< T, Q >*, Vertex< T, Q >*);
         int getVertexNumber();
+        //Auxiliares
         void print(); //Provisional
+        Vertex< T, Q > *getVertexByNumber(int);
 };
 
 /*
@@ -80,7 +82,7 @@ bool Graph< T, Q > :: empty() {
 template < typename T, typename Q >
 Vertex< T, Q >* Graph< T, Q > :: addVertex(T tag) {
     Vertex< T, Q > *temp = nullptr;
-    Q invalid = -1.0;
+    Q invalid = 0;
     if(vertexNumber < size) {
         temp = new Vertex< T, Q >(tag, vertexNumber);
         vertexArray[vertexNumber] = temp;
@@ -297,6 +299,16 @@ void Graph< T, Q > :: print() {
         cout << endl << endl;
     }
     cout << endl << endl;   
+}
+
+/*
+    EFECTO: devuelve el vertice de acuerdo a su numero
+    REQUIERE: grafo creado
+    MODIFICA: no hace modificaciones
+*/
+template < typename T, typename Q >
+Vertex< T, Q >* Graph< T, Q > :: getVertexByNumber(int number) {
+    return vertexArray[number];
 }
 
 #endif //ADJACENCYMATRIXGRAPH_H

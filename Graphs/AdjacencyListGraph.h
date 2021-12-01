@@ -30,6 +30,7 @@ class Graph {
         //Métodos auxiliares
         Arista< T, Q > *searchArista(Vertex< T, Q >*, Vertex< T, Q >*);
         Arista< T, Q > *searchArista2(Vertex< T, Q >*, Vertex< T, Q >*);
+        Vertex< T, Q > *getVertexByNumber(int);
         void print(); //Provisional
 };
 
@@ -292,6 +293,24 @@ Arista< T, Q >* Graph< T, Q > :: searchArista2(Vertex< T, Q > *vertex, Vertex< T
                     temp = current;
                 current = current -> getNext();
             }
+        }
+    }
+    return temp;
+}
+
+/*
+    EFECTO: devuelve el vertice de acuerdo a su numero
+    REQUIERE: grafo creado
+    MODIFICA: no hace modificaciones
+*/
+template < typename T, typename Q >
+Vertex< T, Q >* Graph< T, Q > :: getVertexByNumber(int number) {
+    int i = 0;
+    Vertex< T, Q > *temp = firstVertex();
+    if(number != 0) {
+        while(i != number) {
+            temp = nextVertex(temp);
+            ++i;
         }
     }
     return temp;
