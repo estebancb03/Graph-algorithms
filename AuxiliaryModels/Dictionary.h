@@ -14,9 +14,10 @@ class Dictionary {
         bool empty();
         bool full();
         void addElement(T);
-        void deleteElement(T);
+        void deleteElement();
         bool elementExist(T);
         int getElementNumber();
+        void print();
 };
 
 /*
@@ -90,8 +91,9 @@ void Dictionary< T > :: addElement(T element) {
     MODIFICA: diccionario
 */
 template < typename T >
-void Dictionary< T > :: deleteElement(T element) {
-    
+void Dictionary< T > :: deleteElement() {
+    delete[elementNumber];
+    --elementNumber;
 }
 
 /*
@@ -119,6 +121,12 @@ bool Dictionary< T > :: elementExist(T element) {
 template < typename T >
 int Dictionary< T > :: getElementNumber() {
     return elementNumber;
+}
+
+template < typename T >
+void Dictionary< T > :: print() {
+    for(int i = 0; i < elementNumber; ++i)
+        cout << elementArray[i] << " -> ";
 }
 
 #endif //DICTIONARY_H
