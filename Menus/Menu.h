@@ -321,7 +321,13 @@ void Menu< T, Q > :: principalManu() {
                     cout << "Error: grafo vacio" << endl << endl;
             }   break;
             case 21: {
-                
+                if(!graph -> empty()) {
+                    cout << "Grafo conexo?: ";
+                    graphAlgoritms -> isConnectedUsingWarshall() ? cout << "True" : cout << "False";
+                    cout << endl << endl;
+                }
+                else 
+                    cout << "Error: grafo vacio" << endl << endl;
             }   break;
             case 22: {
                 if(!graph -> empty()) {

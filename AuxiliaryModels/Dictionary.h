@@ -92,7 +92,7 @@ void Dictionary< T > :: addElement(T element) {
 */
 template < typename T >
 void Dictionary< T > :: deleteElement() {
-    delete[elementNumber];
+    delete elementArray[elementNumber];
     --elementNumber;
 }
 

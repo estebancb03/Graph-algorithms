@@ -12,6 +12,7 @@ class GenericGraphAlgorithms {
         GenericGraphAlgorithms(Graph< T, Q > *g) { this -> graph = g; };
         bool cycles();
         bool isConnected();
+        bool isConnectedUsingWarshall();
         void isConnectedRecursive(Vertex< T, Q >*, Dictionary< Vertex< T, Q >* >*, Dictionary< Vertex< T, Q >* >*);
         Vertex< T, Q > *searchTag(T);
         void Dijkstra();
@@ -61,7 +62,7 @@ bool GenericGraphAlgorithms< T, Q > :: cycles() {
 }
 
 /*
-    EFECTO: verifia si el grafo es conexo usando recorrido en profundidad primero
+    EFECTO: verifica si el grafo es conexo usando recorrido en profundidad primero
     REQUIERE: grafo creado y no vacío
     MODIFICA: no hace modificaciones 
 */
@@ -95,13 +96,57 @@ void GenericGraphAlgorithms< T, Q > :: isConnectedRecursive(Vertex< T, Q > *vert
     dictionary -> addElement(vertex);
     Vertex< T, Q > *adjacent = graph -> firstAdjacentVertex(vertex);
     while(adjacent) {
-        if(!dictionary -> elementExist(adjacent)) {
-            if(!adjacentDictionary -> elementExist(adjacent))
+        if(!adjacentDictionary -> elementExist(adjacent))
                 adjacentDictionary -> addElement(adjacent);
+        if(!dictionary -> elementExist(adjacent)) 
             isConnectedRecursive(adjacent, dictionary, adjacentDictionary);
-        }
         adjacent = graph -> nextAdjacentVertex(vertex, adjacent);
     }
+}
+
+/*
+    EFECTO: verifica si el grafo es conexo usando Warshall
+    REQUIERE: grafo creado y no vacío
+    MODIFICA: no hace modificaciones 
+*/
+template < typename T, typename Q >
+bool GenericGraphAlgorithms< T, Q > :: isConnectedUsingWarshall() {
+    int i = 0;
+    int j = 0;
+    int k = 0;
+    int middle = 0;
+    int destiny = 0;
+    int beginning = 0;
+    bool result = true;
+    Vertex< T, Q > *vertexI = nullptr;
+    Vertex< T, Q > *vertexJ = nullptr;
+    int vertexNumber = graph -> getVertexNumber();
+    bool matrix[vertexNumber][vertexNumber];
+    for(i = 0; i < vertexNumber; ++i) {
+        vertexI = graph -> getVertexByNumber(i);
+        for(j = 0; j < vertexNumber; ++j) {
+            vertexJ = graph -> getVertexByNumber(j);
+            if(graph -> arista(vertexI, vertexJ) || i == j) 
+                matrix[i][j] = true;
+            else 
+                matrix[i][j] = false;
+        }
+    }
+    for(middle = 0; middle < vertexNumber; ++middle) {
+        for(beginning = 0; beginning < vertexNumber; ++beginning) {
+            for(destiny = 0; destiny < vertexNumber; ++destiny) {
+                if(!matrix[beginning][destiny] && matrix[beginning][middle] && matrix[middle][destiny])
+                    matrix[beginning][destiny] = true;
+            }
+        }
+    }
+    for(i = 0; i < vertexNumber; ++i) {
+        for(j = 0; j < vertexNumber; ++j) {
+            if(!matrix[i][j])
+                result = false;
+        }
+    }
+    return result;
 }
 
 /*
@@ -148,13 +193,15 @@ void GenericGraphAlgorithms< T, Q > :: Floyd() {
     int destiny = 0;
     int beginning = 0;
     double INF = 100000;
+    Vertex< T, Q > *vertexI = nullptr;
+    Vertex< T, Q > *vertexJ = nullptr;
     int vertexNumber = graph -> getVertexNumber();
     Dictionary< T > *dictionary[vertexNumber][vertexNumber];
     double distance[vertexNumber][vertexNumber];
     for(i = 0; i < vertexNumber; ++i) {
-        Vertex< T, Q > *vertexI = graph -> getVertexByNumber(i);
+        vertexI = graph -> getVertexByNumber(i);
         for(j = 0; j < vertexNumber; ++j) {
-            Vertex< T, Q > *vertexJ = graph -> getVertexByNumber(j);
+            vertexJ = graph -> getVertexByNumber(j);
             dictionary[i][j] = new Dictionary< T >(vertexNumber);
             dictionary[i][j] -> create();
             if(graph -> arista(vertexI, vertexJ)) 
@@ -181,9 +228,9 @@ void GenericGraphAlgorithms< T, Q > :: Floyd() {
         }
     }
     for(i = 0; i < vertexNumber; ++i) {
-        Vertex< T, Q > *vertexI = graph -> getVertexByNumber(i);
+        vertexI = graph -> getVertexByNumber(i);
         for(j = 0; j < vertexNumber; ++j) {
-            Vertex< T, Q > *vertexJ = graph -> getVertexByNumber(j);
+            vertexJ = graph -> getVertexByNumber(j);
             cout << "[" << vertexI -> getTag() << " -> " << vertexJ -> getTag() << "] (costo: ";
             distance[i][j] != INF ? cout << distance[i][j] : cout << "Infinito";
             cout << "): ";
