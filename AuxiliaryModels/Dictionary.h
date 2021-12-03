@@ -14,8 +14,9 @@ class Dictionary {
         bool empty();
         bool full();
         void addElement(T);
-        void deleteElement();
+        void deleteElement(T);
         bool elementExist(T);
+        int getElementPosition(T);
         int getElementNumber();
         void print();
 };
@@ -69,7 +70,7 @@ bool Dictionary< T > :: empty() {
 */
 template < typename T >
 bool Dictionary< T > :: full() {
-    return elementNumber == size - 1 ? true : false;
+    return elementNumber == size ? true : false;
 }
 
 /*
@@ -91,9 +92,15 @@ void Dictionary< T > :: addElement(T element) {
     MODIFICA: diccionario
 */
 template < typename T >
-void Dictionary< T > :: deleteElement() {
-    delete elementArray[elementNumber];
-    --elementNumber;
+void Dictionary< T > :: deleteElement(T element) {
+    int position = getElementPosition(element);
+    if(elementExist(element)) {
+        if(position < elementNumber - 1) {
+            for(int i = position; i < elementNumber; ++i)
+                elementArray[i] = elementArray[i + 1];
+        }
+        --elementNumber;
+    }
 }
 
 /*
@@ -111,6 +118,28 @@ bool Dictionary< T > :: elementExist(T element) {
         ++i;
     }
     return exist;
+}
+
+/*
+    EFECTO: devuelve la posición de un elemento en el array
+    REQUIERE: diccionario creado
+    MODIFICA: no hace modificaciones
+*/
+template < typename T >
+int Dictionary< T > :: getElementPosition(T element) {
+    int i = 0;
+    int position = 0;
+    bool enabled = true;
+    while(enabled) {
+        if(element == elementArray[i]) {
+            position = i;
+            enabled = false;
+        }
+        if(i > elementNumber)
+            enabled = false;
+        i++;
+    }
+    return position;
 }
 
 /*
