@@ -22,6 +22,7 @@ class Set {
         T *getElementArray();
         int getElementPosition(T);
         int getRepeatedNumber(Set< T >*);
+        void copySet(Set< T >*);
         Set< T > *setUnion(Set< T >*);
         Set< T > *setIntersection(Set< T >*);
 };
@@ -185,15 +186,27 @@ int Set< T > :: getElementPosition(T element) {
 template < typename T >
 int Set< T > :: getRepeatedNumber(Set< T > *otherSet) {
     int counter = 0;
-    T *thisSetArray = getElementArray();
     T *otherSetArray = otherSet -> getElementArray();
     for(int i = 0; i < otherSet -> getElementNumber(); ++i) {
         for(int j = 0; j < elementNumber; ++j) {
-            if(otherSetArray[i] == thisSetArray[j])
+            if(otherSetArray[i] == elementArray[j])
                 ++counter;
         }
     }
     return counter;
+}
+
+/*
+    EFECTO: copia el conjunto ingresado por parámetro
+    REQUIERE: conjuntos creados y del mismo tamaño
+    MODIFICA: conjunto
+*/
+template < typename T >
+void Set< T > :: copySet(Set< T > *otherSet) {
+    clear();
+    T *otherSetArray = otherSet -> getElementArray();
+    for(int i = 0; i < otherSet -> getElementNumber(); ++i) 
+        addElement(otherSetArray[i]);
 }
 
 /*
@@ -217,33 +230,31 @@ bool Set< T > :: isSubSet(Set< T > *otherSet) {
 */
 template < typename T >
 Set< T >* Set< T > :: setUnion(Set< T > *otherSet) {
-    T *thisSetArray = getElementArray();
     T *otherSetArray = otherSet -> getElementArray();
     int unionSize = elementNumber + otherSet -> getElementNumber() - getRepeatedNumber(otherSet);
     Set< T > *unionSet = new Set< T > (unionSize);
     unionSet -> create();
     for(int i = 0; i < elementNumber; ++i) 
-        unionSet -> addElement(thisSetArray[i]);
+        unionSet -> addElement(elementArray[i]);
     for(int j = 0; j < otherSet -> getElementNumber(); ++j) 
         unionSet -> addElement(otherSetArray[j]);
     return unionSet;
 }
 
 /*
-    EFECTO: devuelve el conjunto intercepción de dos conjuntos
+    EFECTO: devuelve el conjunto intersección de dos conjuntos
     REQUIERE: conjuntos creados
     MODIFICA: no hace modificaciones
 */
 template < typename T >
 Set< T >* Set< T > :: setIntersection(Set< T > *otherSet) {
-    T *thisSetArray = getElementArray();
     T *otherSetArray = otherSet -> getElementArray();
     int intersectionSize = getRepeatedNumber(otherSet);
     Set< T > *intersectionSet = new Set< T > (intersectionSize);
     intersectionSet -> create();
     for(int i = 0; i < otherSet -> getElementNumber(); ++i) {
         for(int j = 0; j < elementNumber; ++j) {
-            if(otherSetArray[i] == thisSetArray[j])
+            if(otherSetArray[i] == elementArray[j])
                 intersectionSet -> addElement(thisSetArray[j]);
         }
     }
