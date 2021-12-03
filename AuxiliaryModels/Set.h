@@ -247,9 +247,6 @@ Set< T >* Set< T > :: setIntersection(Set< T > *otherSet) {
                 intersectionSet -> addElement(thisSetArray[j]);
         }
     }
-    for(int k = 0; k < intersectionSize; ++k) {
-                cout << intersectionSet -> getElementArray()[k];
-    }
     return intersectionSet;
 }
 
