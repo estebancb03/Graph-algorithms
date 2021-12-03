@@ -2,6 +2,7 @@
 #define GENERICGRAPHALGORITHMS_H
 #include "../AuxiliaryModels/Dictionary.h"
 #include "../AuxiliaryModels/Stack.h"
+#include "../AuxiliaryModels/Set.h"
 #include "../Menus/Menu.h"
 #include <queue>
 
@@ -15,7 +16,7 @@ class GenericGraphAlgorithms {
         bool isConnectedUsingWarshall();
         void isConnectedRecursive(Vertex< T, Q >*, Dictionary< Vertex< T, Q >* >*, Dictionary< Vertex< T, Q >* >*);
         Vertex< T, Q > *searchTag(T);
-        void Dijkstra();
+        void Dijkstra(Vertex< T, Q >*, Vertex< T, Q >*);
         void Floyd();
 };
 
@@ -175,7 +176,7 @@ Vertex< T, Q >* GenericGraphAlgorithms< T, Q > :: searchTag(T tag) {
     MODIFICA: no hace modificaciones 
 */
 template < typename T, typename Q >
-void GenericGraphAlgorithms< T, Q > :: Dijkstra() {
+void GenericGraphAlgorithms< T, Q > :: Dijkstra(Vertex< T, Q > *origin, Vertex< T, Q > *destiny) {
     
 }
 
