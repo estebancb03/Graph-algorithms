@@ -19,6 +19,7 @@ class GenericGraphAlgorithms {
         void Dijkstra(Vertex< T, Q >*, Vertex< T, Q >*);
         void Floyd();
         void lowestCostHamiltonCircuit();
+        void lowestCostHamiltonCircuitRecursive();
         void paintGraph();
         void paintGraphRecursive(int,Set< int >**,Set< int >*,Set< int >*);
         Set< int > **getAdjacentSetArray();
@@ -256,6 +257,16 @@ void GenericGraphAlgorithms< T, Q > :: Floyd() {
 */
 template < typename T, typename Q >
 void GenericGraphAlgorithms< T, Q > :: lowestCostHamiltonCircuit() {
+
+}
+
+/*
+    EFECTO: encuentra el circuito Hamilton de menor costo
+    REQUIERE: grafo creado y no vacio
+    MODIFICA: no hace modificaciones
+*/
+template < typename T, typename Q >
+void GenericGraphAlgorithms< T, Q > :: lowestCostHamiltonCircuitRecursive() {
     
 }
 
