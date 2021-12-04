@@ -18,6 +18,9 @@ class GenericGraphAlgorithms {
         Vertex< T, Q > *searchTag(T);
         void Dijkstra(Vertex< T, Q >*, Vertex< T, Q >*);
         void Floyd();
+        void paintGraph();
+        void paintGraphRecursive(int,Set< int >**,Set< int >*,Set< int >*);
+        Set< int > **getAdjacentSetArray();
 };
 
 /*
@@ -244,5 +247,99 @@ void GenericGraphAlgorithms< T, Q > :: Floyd() {
         }
     }
 }
+
+/*
+    EFECTO: colorea el grafo con la menor cantidad de colores posibles
+    REQUIERE: grafo creado y no vacío
+    MODIFICA: no hace modificaciones 
+*/
+template < typename T, typename Q >
+void GenericGraphAlgorithms< T, Q > :: paintGraph() {
+    Set< int > *answer[graph -> getVertexNumber()]; 
+    Vertex< T, Q > *origin;
+    Vertex< T, Q > *destiny;
+    Vertex< T, Q > *temp;
+    int vertexNumber = graph -> getVertexNumber() - 1;
+    Set< int > *adjacentSets[vertexNumber]; //cada espacio contiene los vertices adyacentes de un vertice N
+    Set< int > *minimumUsedColors = new Set< int >(vertexNumber);
+    Set< int > *usedColors = new Set< int >(vertexNumber);
+    usedColors -> create();
+    minimumUsedColors -> create();
+    for(int i = 0; i < vertexNumber; ++i) {
+        adjacentSets[i] = new Set< int >(vertexNumber);
+        adjacentSets[i] -> create();
+        origin = graph -> getVertexByNumber(i);
+        minimumUsedColors -> addElement(i);
+        for(int j = 0; j < vertexNumber; ++j) {
+            destiny = graph -> getVertexByNumber(j);
+            if(graph -> arista(origin, destiny))
+                adjacentSets[i] -> addElement(j);
+        }
+    }
+    paintGraphRecursive(0,adjacentSets,usedColors,minimumUsedColors);
+    cout << minimumUsedColors -> getElementNumber() << endl;
+}
+
+/*
+    EFECTO: colorea el grafo con la menor cantidad de colores posibles
+    REQUIERE: grafo creado y no vacío
+    MODIFICA: no hace modificaciones 
+*/
+template < typename T, typename Q >
+void GenericGraphAlgorithms< T, Q > :: paintGraphRecursive(int number, Set< int >**adjacentSets, Set< int >*usedColors, Set< int >*minimumUsedColors) {
+    int vertexNumber = graph -> getVertexNumber() - 1;
+    Set< int > *paintedSets[vertexNumber]; //cada espacio contiene los vertices pintados de un color N
+    for(int i = 0; i < vertexNumber; ++i) {
+        paintedSets[i] = new Set< int >(vertexNumber);
+        paintedSets[i] -> create();
+    }
+    //--------------------------------------------------------
+    for(int i = 0; i < vertexNumber; ++i) {
+        if(adjacentSets[number] -> getRepeatedNumber(paintedSets[i]) == 0) {
+            paintedSets[i] -> addElement(number);
+            if(!usedColors -> elementExist(i))
+                usedColors -> addElement(i);
+            if(number == vertexNumber) {
+                if(usedColors -> getElementNumber() < minimumUsedColors -> getElementNumber()) {
+                    minimumUsedColors -> copySet(usedColors); //Actualiza
+                }
+            }
+            else
+                paintGraphRecursive(number + 1,adjacentSets,usedColors,minimumUsedColors);
+            if(paintedSets[i] -> getElementNumber() == 1)
+                usedColors -> deleteElement(i);
+            paintedSets[i] -> deleteElement(number);
+        }
+    }
+    cout << "Colores minimos actualizados[" << number << "] :";
+    minimumUsedColors -> print();
+    cout << endl;
+}
+
+/*
+    EFECTO: crea un arreglo de conjuntos con los adyacentes de cada vertice indexado
+    REQUIERE: grafo creado y no vacío
+    MODIFICA: no hace modificaciones 
+*/
+/*template < typename T, typename Q >
+Set< int >** GenericGraphAlgorithms< T, Q > :: getAdjacentSetArray() {
+    Vertex< T, Q > *origin;
+    Vertex< T, Q > *destiny;
+    int vertexNumber = graph -> getVertexNumber();
+    Set< int > *array[vertexNumber];
+    for(int i = 0; i < vertexNumber; ++i) {
+        array[i] = new Set< int >(vertexNumber);
+        array[i] -> create();
+    }
+    for(int i = 0; i < vertexNumber; ++i) {
+        origin = graph -> getVertexByNumber(i);
+        for(int j = 0; j < vertexNumber; ++j) {
+            destiny = graph -> getVertexByNumber(j);
+            if(graph -> arista(origin, destiny))
+                array[i] -> addElement(j);
+        }
+    }
+    return array;
+}*/ 
 
 #endif //GENERICGRAPHALGORITHMS_H

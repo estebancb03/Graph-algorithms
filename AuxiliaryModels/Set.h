@@ -25,6 +25,7 @@ class Set {
         void copySet(Set< T >*);
         Set< T > *setUnion(Set< T >*);
         Set< T > *setIntersection(Set< T >*);
+        void print();
 };
 
 /*
@@ -255,10 +256,16 @@ Set< T >* Set< T > :: setIntersection(Set< T > *otherSet) {
     for(int i = 0; i < otherSet -> getElementNumber(); ++i) {
         for(int j = 0; j < elementNumber; ++j) {
             if(otherSetArray[i] == elementArray[j])
-                intersectionSet -> addElement(thisSetArray[j]);
+                intersectionSet -> addElement(elementArray[j]);
         }
     }
     return intersectionSet;
+}
+
+template < typename T >
+void Set< T > :: print() {
+    for(int i = 0; i < elementNumber; ++i)
+        cout << elementArray[i] << ", ";
 }
 
 #endif //SET
