@@ -356,10 +356,20 @@ void Menu< T, Q > :: principalManu() {
                 
             }   break;
             case 26: {
-                
+                if(!graph -> empty()) {
+                    graphAlgoritms -> lowestCostHamiltonCircuit();
+                    cout << endl;
+                }
+                else
+                    cout << "Error: grafo vacio" << endl << endl;
             }   break;
             case 27: {
-                graphAlgoritms -> paintGraph();
+                if(!graph -> empty()) {
+                    graphAlgoritms -> paintGraph();
+                    cout << endl;
+                }
+                else
+                    cout << "Error: grafo vacio" << endl << endl;
             }   break;
             case 28: {
                 enabled = false;
