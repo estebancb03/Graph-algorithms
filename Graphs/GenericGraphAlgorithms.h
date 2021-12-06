@@ -21,7 +21,7 @@ class GenericGraphAlgorithms {
         void lowestCostHamiltonCircuit();
         void lowestCostHamiltonCircuitRecursive();
         void paintGraph();
-        void paintGraphRecursive(int,Set< int >**,Set< int >*,Set< int >*);
+        void paintGraphRecursive(int, Set< int >**, Set< int >*, Set< int >*);
         Set< int > **getAdjacentSetArray();
 };
 
@@ -198,12 +198,12 @@ void GenericGraphAlgorithms< T, Q > :: Floyd() {
     int middle = 0;
     int destiny = 0;
     int beginning = 0;
-    double INF = 100000;
+    Q INF = 100000;
     Vertex< T, Q > *vertexI = nullptr;
     Vertex< T, Q > *vertexJ = nullptr;
     int vertexNumber = graph -> getVertexNumber();
     Dictionary< T > *dictionary[vertexNumber][vertexNumber];
-    double distance[vertexNumber][vertexNumber];
+    Q distance[vertexNumber][vertexNumber];
     for(i = 0; i < vertexNumber; ++i) {
         vertexI = graph -> getVertexByNumber(i);
         for(j = 0; j < vertexNumber; ++j) {
@@ -252,7 +252,7 @@ void GenericGraphAlgorithms< T, Q > :: Floyd() {
 
 /*
     EFECTO: encuentra el circuito Hamilton de menor costo
-    REQUIERE: grafo creado y no vacio
+    REQUIERE: grafo creado, no vacio y conexo
     MODIFICA: no hace modificaciones
 */
 template < typename T, typename Q >
@@ -262,7 +262,7 @@ void GenericGraphAlgorithms< T, Q > :: lowestCostHamiltonCircuit() {
 
 /*
     EFECTO: encuentra el circuito Hamilton de menor costo
-    REQUIERE: grafo creado y no vacio
+    REQUIERE: grafo creado, no vacio y conexo
     MODIFICA: no hace modificaciones
 */
 template < typename T, typename Q >

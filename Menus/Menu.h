@@ -1,8 +1,8 @@
 #ifndef MENU_H
 #define MENU_H
 #include <iostream>
-//#include "../Graphs/AdjacencyListGraph.h"
-#include "../Graphs/AdjacencyMatrixGraph.h"
+#include "../Graphs/AdjacencyListGraph.h"
+//#include "../Graphs/AdjacencyMatrixGraph.h"
 #include "../Graphs/GenericGraphAlgorithms.h"
 using namespace std;
 
@@ -357,8 +357,12 @@ void Menu< T, Q > :: principalManu() {
             }   break;
             case 26: {
                 if(!graph -> empty()) {
-                    graphAlgoritms -> lowestCostHamiltonCircuit();
-                    cout << endl;
+                    if(graphAlgoritms -> isConnectedUsingWarshall()) {
+                        graphAlgoritms -> lowestCostHamiltonCircuit();
+                        cout << endl;
+                    }
+                    else
+                        cout << "Error: grafo no conexo";
                 }
                 else
                     cout << "Error: grafo vacio" << endl << endl;
