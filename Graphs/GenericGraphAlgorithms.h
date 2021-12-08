@@ -32,18 +32,18 @@ class GenericGraphAlgorithms {
 */
 template < typename T, typename Q >
 bool GenericGraphAlgorithms< T, Q > :: cycles() {
+    int cont = 0;
     bool result = false;
     queue< Vertex< T, Q >* > queue;
     Vertex< T, Q > *aux = nullptr;
     Vertex< T, Q > *adjacent = nullptr;
     Vertex< T, Q > *temp = graph -> firstVertex();
-    Dictionary< Vertex< T, Q >* > *global = new Dictionary< Vertex< T, Q >* >(graph -> getVertexNumber());
     Dictionary< Vertex< T, Q >* > *dictionary = new Dictionary< Vertex< T, Q >* >(graph -> getVertexNumber());
-    global -> create();
     dictionary -> create();
     while(temp) {
         if(!dictionary -> elementExist(temp)) {
             queue.push(temp);
+            dictionary -> addElement(temp);
             while (!queue.empty()) {
                 aux = queue.front();
                 queue.pop();
@@ -53,16 +53,15 @@ bool GenericGraphAlgorithms< T, Q > :: cycles() {
                         queue.push(adjacent);
                         dictionary -> addElement(adjacent);
                     }
-                    global -> addElement(adjacent);
+                    ++cont;
                     adjacent = graph -> nextAdjacentVertex(aux, adjacent);
                 }
             }
         }
         temp = graph -> nextVertex(temp);
     }
-    if(global -> getElementNumber() > dictionary -> getElementNumber())
+    if(dictionary -> getElementNumber() <= cont)
         result = true;
-    global -> destroy();
     dictionary -> destroy();
     return result;
 }
