@@ -20,6 +20,7 @@ class Set {
         int getSize();
         int getElementNumber();
         T *getElementArray();
+        T getElementByNumber(int);
         int getElementPosition(T);
         int getRepeatedNumber(Set< T >*);
         void copySet(Set< T >*);
@@ -155,6 +156,16 @@ int Set< T > :: getElementNumber() {
 template < typename T >
 T* Set< T > :: getElementArray() {
     return elementArray;
+}
+
+/*
+    EFECTO: devuelve el elemento del conjunto de acuerdo a su numero
+    REQUIERE: conjunto creado
+    MODIFICA: no hace modificaciones
+*/
+template < typename T >
+T Set< T > :: getElementByNumber(int number) {
+    return elementArray[number];
 }
 
 /*

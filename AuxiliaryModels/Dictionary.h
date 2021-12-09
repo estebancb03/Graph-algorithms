@@ -18,6 +18,7 @@ class Dictionary {
         bool elementExist(T);
         int getElementPosition(T);
         int getElementNumber();
+        T getElementByNumber(int);
         void print();
 };
 
@@ -140,6 +141,16 @@ int Dictionary< T > :: getElementPosition(T element) {
         i++;
     }
     return position;
+}
+
+/*
+    EFECTO: devuelve el elemento del diccionario de acuerdo a su numero
+    REQUIERE: diccionario creado
+    MODIFICA: no hace modificaciones
+*/
+template < typename T >
+T Dictionary< T > :: getElementByNumber(int number) {
+    return elementArray[number];
 }
 
 /*
