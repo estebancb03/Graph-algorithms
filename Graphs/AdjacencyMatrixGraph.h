@@ -31,6 +31,7 @@ class Graph {
         //Auxiliares
         void print(); //Provisional
         Vertex< T, Q > *getVertexByNumber(int);
+        int getVertexPosition(Vertex< T, Q >*);
 };
 
 /*
@@ -309,6 +310,22 @@ void Graph< T, Q > :: print() {
 template < typename T, typename Q >
 Vertex< T, Q >* Graph< T, Q > :: getVertexByNumber(int number) {
     return vertexArray[number];
+}
+
+/*
+    EFECTO: devuelve la posición de un vértice
+    REQUIERE: grafo creado, vértice válido
+    MODIFICA: no hace modificaciones
+*/
+template < typename T, typename Q >
+int Graph< T, Q > :: getVertexPosition(Vertex< T, Q > *vertex) {
+    int number = 0;
+    Vertex< T, Q > *temp = firstVertex();
+    while(temp && temp != vertex) {
+        ++number;
+        temp = vertexArray[number];
+    }
+    return number;
 }
 
 #endif //ADJACENCYMATRIXGRAPH_H

@@ -31,6 +31,7 @@ class Graph {
         Arista< T, Q > *searchArista(Vertex< T, Q >*, Vertex< T, Q >*);
         Arista< T, Q > *searchArista2(Vertex< T, Q >*, Vertex< T, Q >*);
         Vertex< T, Q > *getVertexByNumber(int);
+        int getVertexPosition(Vertex< T, Q >*);
         void print(); //Provisional
 };
 
@@ -94,6 +95,7 @@ Vertex< T, Q >* Graph< T, Q > :: addVertex(T tag) {
         vertex -> setNext(first);
     first = vertex;
     ++vertexNumber;
+    return vertex;
 } 
 
 /*
@@ -323,7 +325,23 @@ Vertex< T, Q >* Graph< T, Q > :: getVertexByNumber(int number) {
 }
 
 /*
-    EFECTO: imprime la matriz de adyacencia
+    EFECTO: devuelve la posición de un vértice
+    REQUIERE: grafo creado, vértice válido
+    MODIFICA: no hace modificaciones
+*/
+template < typename T, typename Q >
+int Graph< T, Q > :: getVertexPosition(Vertex< T, Q > *vertex) {
+    int number = 0;
+    Vertex< T, Q > *temp = firstVertex();
+    while(temp && temp != vertex) {
+        ++number;
+        temp = nextVertex(temp);
+    }
+    return number;
+}
+
+/*
+    EFECTO: imprime el grafo
     REQUIERE: grafo creado
     MODIFICA: no hace modificaciones
 */
