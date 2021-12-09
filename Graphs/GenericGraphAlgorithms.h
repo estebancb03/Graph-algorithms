@@ -16,10 +16,12 @@ class GenericGraphAlgorithms {
         bool isConnectedUsingWarshall();
         void isConnectedRecursive(Vertex< T, Q >*, Dictionary< Vertex< T, Q >* >*, Dictionary< Vertex< T, Q >* >*);
         Vertex< T, Q > *searchTag(T);
-        void Dijkstra(Vertex< T, Q >*, Vertex< T, Q >*);
+        void Dijkstra(Vertex< T, Q >*, int);
+        void nDijkstra();
+        int minimumDistance(Q*, bool*);
         void Floyd();
         void lowestCostHamiltonCircuit();
-        void lowestCostHamiltonCircuitRecursive();
+        void lowestCostHamiltonCircuitRecursive(int, Q, Set< int >**, Dictionary< int >*);
         void paintGraph();
         void paintGraphRecursive(int, Set< int >**, Set< int >*, Set< int >*);
         Set< int > **getAdjacentSetArray();
@@ -180,8 +182,91 @@ Vertex< T, Q >* GenericGraphAlgorithms< T, Q > :: searchTag(T tag) {
     MODIFICA: no hace modificaciones 
 */
 template < typename T, typename Q >
-void GenericGraphAlgorithms< T, Q > :: Dijkstra(Vertex< T, Q > *origin, Vertex< T, Q > *destiny) {
-    
+void GenericGraphAlgorithms< T, Q > :: Dijkstra(Vertex< T, Q > *origin, int finalPosition) {
+    int minimum;
+    int vertexNumber = graph -> getVertexNumber();
+    Q INF = INT64_MAX;
+    Q matrix[vertexNumber][vertexNumber];
+    Q distance[vertexNumber];
+    bool viewed[vertexNumber];
+    Vertex< T, Q > *temp;
+    Vertex< T, Q > *temp2;
+    Dictionary< T > *path[vertexNumber][vertexNumber];
+    for(int i = 0; i < vertexNumber; ++i) {
+        distance[i] = INF;
+        viewed[i] = false;
+        temp = graph -> getVertexByNumber(i);
+        for(int j = 0; j < vertexNumber; ++j) {
+            path[i][j] = new Dictionary< T >(vertexNumber);
+            path[i][j] -> create();
+            temp2 = graph -> getVertexByNumber(j);
+            if(graph -> arista(temp, temp2))
+                matrix[i][j] = graph -> weight(temp, temp2);
+            else {
+                if(i == j)
+                    matrix[i][j] = 0;
+                else
+                    matrix[i][j] = INF;
+            }
+        }
+    }
+    distance[graph -> getVertexPosition(origin)] = 0;
+    for(int i = 0; i < vertexNumber; ++i) {
+        minimum = minimumDistance(distance, viewed);
+        viewed[minimum] = true;
+        for(int j = 0; j < vertexNumber; ++j) {
+            if(minimum != finalPosition) {
+                if(!viewed[j] && matrix[minimum][j] && distance[minimum] != INF && distance[minimum] + matrix[minimum][j] < distance[j]) {
+                    distance[j] = distance[minimum] + matrix[minimum][j];
+                    path[graph -> getVertexPosition(origin)][j] -> addElement(minimum);
+                }
+            }
+            else
+                i = vertexNumber;
+        }   
+    }
+    for(int i = 0; i < finalPosition; ++i) {
+        cout << "[" << origin -> getTag() << " -> " << graph -> getVertexByNumber(i) -> getTag() << "] ";
+        if(distance[i] != INF)
+            cout << "(costo: " << distance[i] << "): ";
+        else
+            cout << "(costo: Infinito): ";
+        for(int j = 0; j < vertexNumber; ++j)
+            path[graph -> getVertexPosition(origin)][j] -> print();
+        cout << endl;
+    }
+}
+
+/*
+    EFECTO: calcula la distancia mínima entre értices
+    REQUIERE: grafo creado y no vacío
+    MODIFICA: no hace modificaciones 
+*/
+template < typename T, typename Q >
+int GenericGraphAlgorithms< T, Q > :: minimumDistance(Q *distance, bool *viewed) {
+    int index;
+    Q minimum = INT64_MAX;
+    for(int i = 0; i < graph -> getVertexNumber(); ++i) {
+        if(!viewed[i] && distance[i] <= minimum) {
+            index = i;
+            minimum = distance[i];
+        }
+    }    
+    return index;
+}
+
+/*
+    EFECTO: encuentra el camino más corto entre todo par de vertices
+    REQUIERE: grafo creado y no vacío
+    MODIFICA: no hace modificaciones 
+*/
+template < typename T, typename Q >
+void GenericGraphAlgorithms< T, Q > :: nDijkstra() {
+    Vertex< T, Q > *temp;
+    for(int i = 0; i < graph -> getVertexNumber(); ++i) {
+        temp = graph -> getVertexByNumber(i);
+        Dijkstra(temp, graph -> getVertexNumber());
+    }
 }
 
 /*
@@ -256,7 +341,29 @@ void GenericGraphAlgorithms< T, Q > :: Floyd() {
 */
 template < typename T, typename Q >
 void GenericGraphAlgorithms< T, Q > :: lowestCostHamiltonCircuit() {
-
+    Q initialWeight;
+    int vertexNumber = graph -> getVertexNumber();
+    Vertex< T, Q > *origin;
+    Vertex< T, Q > *destiny;
+    Set< int > *adjacentSet[vertexNumber];
+    Dictionary< int > *bestDictionary = new Dictionary< int >(vertexNumber+1);
+    bestDictionary -> create();
+    for(int i = 0; i < vertexNumber; ++i){
+        adjacentSet[i] = new Set< int >(vertexNumber);
+        adjacentSet[i] -> create();
+        origin = graph -> getVertexByNumber(i);
+        bestDictionary -> addElement(i);
+        for(int j = 0; j < vertexNumber; ++j) {
+            destiny = graph -> getVertexByNumber(j);
+            if(graph -> arista(origin, destiny)) {
+                initialWeight += graph -> weight(origin, destiny);
+                adjacentSet[i] -> addElement(j);
+            }
+        }
+    }
+    lowestCostHamiltonCircuitRecursive(0,initialWeight,adjacentSet,bestDictionary);
+    bestDictionary -> print();
+    cout << endl;
 }
 
 /*
@@ -265,8 +372,38 @@ void GenericGraphAlgorithms< T, Q > :: lowestCostHamiltonCircuit() {
     MODIFICA: no hace modificaciones
 */
 template < typename T, typename Q >
-void GenericGraphAlgorithms< T, Q > :: lowestCostHamiltonCircuitRecursive() {
-    
+void GenericGraphAlgorithms< T, Q > :: lowestCostHamiltonCircuitRecursive(int vertex, Q bestWeight,
+                                                                          Set< int >** adjacentSet, 
+                                                                          Dictionary< int >* bestDictionary){
+    Set< int > *temp = new Set< int >(graph -> getVertexNumber());
+    Dictionary< int >* currentDictionary = new Dictionary< int >(graph -> getVertexNumber());
+    currentDictionary -> create();
+    Q weight = 0;
+    for(int i = 0; i < adjacentSet[vertex] -> getElementNumber()-1; ++i){
+        temp = adjacentSet[vertex];
+        if(currentDictionary -> getElementNumber() != graph -> getVertexNumber() 
+           || adjacentSet[vertex] -> elementExist(0)){
+            if(!currentDictionary -> elementExist(temp -> getElementByNumber(i)))
+                currentDictionary -> addElement(temp -> getElementByNumber(i));
+
+            if( currentDictionary -> getElementNumber() == graph -> getVertexNumber() 
+                && adjacentSet[vertex] -> elementExist(0)){
+                for(int j = 0 ; j < graph -> getVertexNumber()-1; j++){
+                    weight += graph -> weight(graph -> getVertexByNumber(currentDictionary -> getElementByNumber(j))
+                                             ,graph -> getVertexByNumber(currentDictionary -> getElementByNumber(j+1)));
+                }
+                if(weight < bestWeight){
+                    bestWeight = weight;
+                    bestDictionary = currentDictionary;
+                }
+            }
+            else
+                lowestCostHamiltonCircuitRecursive(temp -> getElementByNumber(i), bestWeight, adjacentSet, bestDictionary);
+            if(currentDictionary -> elementExist(temp -> getElementByNumber(i)))
+                currentDictionary -> deleteElement(temp -> getElementByNumber(i));
+            weight = 0;
+        }
+    }
 }
 
 /*
@@ -336,31 +473,5 @@ void GenericGraphAlgorithms< T, Q > :: paintGraphRecursive(int number, Set< int 
     minimumUsedColors -> print();
     cout << endl;
 }
-
-/*
-    EFECTO: crea un arreglo de conjuntos con los adyacentes de cada vertice indexado
-    REQUIERE: grafo creado y no vacío
-    MODIFICA: no hace modificaciones 
-*/
-/*template < typename T, typename Q >
-Set< int >** GenericGraphAlgorithms< T, Q > :: getAdjacentSetArray() {
-    Vertex< T, Q > *origin;
-    Vertex< T, Q > *destiny;
-    int vertexNumber = graph -> getVertexNumber();
-    Set< int > *array[vertexNumber];
-    for(int i = 0; i < vertexNumber; ++i) {
-        array[i] = new Set< int >(vertexNumber);
-        array[i] -> create();
-    }
-    for(int i = 0; i < vertexNumber; ++i) {
-        origin = graph -> getVertexByNumber(i);
-        for(int j = 0; j < vertexNumber; ++j) {
-            destiny = graph -> getVertexByNumber(j);
-            if(graph -> arista(origin, destiny))
-                array[i] -> addElement(j);
-        }
-    }
-    return array;
-}*/ 
 
 #endif //GENERICGRAPHALGORITHMS_H

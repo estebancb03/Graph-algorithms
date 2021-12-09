@@ -1,8 +1,8 @@
 #ifndef MENU_H
 #define MENU_H
 #include <iostream>
-#include "../Graphs/AdjacencyListGraph.h"
-//#include "../Graphs/AdjacencyMatrixGraph.h"
+//#include "../Graphs/AdjacencyListGraph.h"
+#include "../Graphs/AdjacencyMatrixGraph.h"
 #include "../Graphs/GenericGraphAlgorithms.h"
 using namespace std;
 
@@ -342,7 +342,20 @@ void Menu< T, Q > :: principalManu() {
                     cout << "Error: grafo vacio" << endl << endl;
             }   break;
             case 23: {
-                
+                if(!graph -> empty()) {
+                    T tag;
+                    cout << "Vertice: "; cin >> tag;
+                    Vertex< T, Q > *vertex = graphAlgoritms -> searchTag(tag);
+                    if(vertex) {
+                        cout << endl;
+                        graphAlgoritms -> Dijkstra(vertex, graph -> getVertexNumber());
+                        cout << endl;
+                    }
+                    else
+                        cout << "Error: vertice no existe" << endl << endl;
+                }
+                else 
+                    cout << "Error: grafo vacio" << endl << endl;
             }   break;
             case 24: {
                 if(!graph -> empty()) {
@@ -353,7 +366,12 @@ void Menu< T, Q > :: principalManu() {
                     cout << "Error: grafo vacio" << endl << endl;
             }   break;
             case 25: {
-                
+                if(!graph -> empty()) {
+                    graphAlgoritms -> nDijkstra();
+                    cout << endl;
+                }
+                else
+                    cout << "Error: grafo vacio" << endl << endl;
             }   break;
             case 26: {
                 if(!graph -> empty()) {
