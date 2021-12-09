@@ -191,21 +191,21 @@ void GenericGraphAlgorithms< T, Q > :: Dijkstra(Vertex< T, Q > *origin, int fina
     bool viewed[vertexNumber];
     Vertex< T, Q > *temp;
     Vertex< T, Q > *temp2;
-    Dictionary< T > *path[vertexNumber][vertexNumber];
+    Dictionary< T > *path[vertexNumber];
     for(int i = 0; i < vertexNumber; ++i) {
         distance[i] = INF;
         viewed[i] = false;
+        path[i] = new Dictionary< T >(vertexNumber);
+        path[i] -> create();
         temp = graph -> getVertexByNumber(i);
         for(int j = 0; j < vertexNumber; ++j) {
-            path[i][j] = new Dictionary< T >(vertexNumber);
-            path[i][j] -> create();
             temp2 = graph -> getVertexByNumber(j);
-            if(graph -> arista(temp, temp2))
+            if(graph -> arista(temp, temp2)) 
                 matrix[i][j] = graph -> weight(temp, temp2);
             else {
-                if(i == j)
+                if(i == j) 
                     matrix[i][j] = 0;
-                else
+                else 
                     matrix[i][j] = INF;
             }
         }
@@ -215,14 +215,11 @@ void GenericGraphAlgorithms< T, Q > :: Dijkstra(Vertex< T, Q > *origin, int fina
         minimum = minimumDistance(distance, viewed);
         viewed[minimum] = true;
         for(int j = 0; j < vertexNumber; ++j) {
-            if(minimum != finalPosition) {
-                if(!viewed[j] && matrix[minimum][j] && distance[minimum] != INF && distance[minimum] + matrix[minimum][j] < distance[j]) {
-                    distance[j] = distance[minimum] + matrix[minimum][j];
-                    path[graph -> getVertexPosition(origin)][j] -> addElement(minimum);
-                }
+            if(!viewed[j] && matrix[minimum][j] && distance[minimum] != INF && distance[minimum] + matrix[minimum][j] < distance[j]) {
+                distance[j] = distance[minimum] + matrix[minimum][j];
+                if(!path[j] -> elementExist(graph -> getVertexByNumber(j) -> getTag()))
+                    path[j] -> addElement(graph -> getVertexByNumber(j) -> getTag());
             }
-            else
-                i = vertexNumber;
         }   
     }
     for(int i = 0; i < finalPosition; ++i) {
@@ -231,8 +228,7 @@ void GenericGraphAlgorithms< T, Q > :: Dijkstra(Vertex< T, Q > *origin, int fina
             cout << "(costo: " << distance[i] << "): ";
         else
             cout << "(costo: Infinito): ";
-        for(int j = 0; j < vertexNumber; ++j)
-            path[graph -> getVertexPosition(origin)][j] -> print();
+        path[i] -> print();
         cout << endl;
     }
 }
@@ -309,9 +305,9 @@ void GenericGraphAlgorithms< T, Q > :: Floyd() {
             for(destiny = 0; destiny < vertexNumber; ++destiny) {
                 if(distance[beginning][destiny] > distance[beginning][middle] + distance[middle][destiny]) {
                     distance[beginning][destiny] = distance[beginning][middle] + distance[middle][destiny];
-                    for(k = beginning + 1; k < destiny; ++k)
+                    for(k = beginning + 1; k < destiny; ++k) 
                         dictionary[beginning][destiny] -> addElement(graph -> getVertexByNumber(k) -> getTag());
-                    for(k = destiny - 1; k > beginning; --k)
+                    for(k = destiny - 1; k > beginning; --k) 
                         dictionary[destiny][beginning] -> addElement(graph -> getVertexByNumber(k) -> getTag());
                 }
             }
