@@ -18,6 +18,7 @@ class GenericGraphAlgorithms {
         Vertex< T, Q > *searchTag(T);
         void Dijkstra(Vertex< T, Q >*, int);
         void nDijkstra();
+        void printPath(int, int*);
         int minimumDistance(Q*, bool*);
         void Floyd();
         void lowestCostHamiltonCircuit();
@@ -188,15 +189,14 @@ void GenericGraphAlgorithms< T, Q > :: Dijkstra(Vertex< T, Q > *origin, int fina
     Q INF = INT64_MAX;
     Q matrix[vertexNumber][vertexNumber];
     Q distance[vertexNumber];
+    int path[vertexNumber];
     bool viewed[vertexNumber];
     Vertex< T, Q > *temp;
     Vertex< T, Q > *temp2;
-    Dictionary< T > *path[vertexNumber];
     for(int i = 0; i < vertexNumber; ++i) {
+        path[i] = -1;
         distance[i] = INF;
         viewed[i] = false;
-        path[i] = new Dictionary< T >(vertexNumber);
-        path[i] -> create();
         temp = graph -> getVertexByNumber(i);
         for(int j = 0; j < vertexNumber; ++j) {
             temp2 = graph -> getVertexByNumber(j);
@@ -216,9 +216,8 @@ void GenericGraphAlgorithms< T, Q > :: Dijkstra(Vertex< T, Q > *origin, int fina
         viewed[minimum] = true;
         for(int j = 0; j < vertexNumber; ++j) {
             if(!viewed[j] && matrix[minimum][j] && distance[minimum] != INF && distance[minimum] + matrix[minimum][j] < distance[j]) {
+                path[j] = minimum;
                 distance[j] = distance[minimum] + matrix[minimum][j];
-                if(!path[j] -> elementExist(graph -> getVertexByNumber(j) -> getTag()))
-                    path[j] -> addElement(graph -> getVertexByNumber(j) -> getTag());
             }
         }   
     }
@@ -228,7 +227,7 @@ void GenericGraphAlgorithms< T, Q > :: Dijkstra(Vertex< T, Q > *origin, int fina
             cout << "(costo: " << distance[i] << "): ";
         else
             cout << "(costo: Infinito): ";
-        path[i] -> print();
+        printPath(i, path);
         cout << endl;
     }
 }
@@ -249,6 +248,18 @@ int GenericGraphAlgorithms< T, Q > :: minimumDistance(Q *distance, bool *viewed)
         }
     }    
     return index;
+}
+
+/*
+    EFECTO: imprime los recorridos entre vértices
+    REQUIERE: grafo creado 
+    MODIFICA: no hace modificaciones 
+*/
+template < typename T, typename Q >
+void GenericGraphAlgorithms< T, Q > :: printPath(int number, int *array) {
+    if(array[number] != -1)
+        printPath(array[number], array);
+    cout << graph -> getVertexByNumber(number) -> getTag() << " -> ";
 }
 
 /*
@@ -278,40 +289,38 @@ void GenericGraphAlgorithms< T, Q > :: Floyd() {
     int middle = 0;
     int destiny = 0;
     int beginning = 0;
-    Q INF = 100000;
+    Q INF = INT64_MAX;
     Vertex< T, Q > *vertexI = nullptr;
     Vertex< T, Q > *vertexJ = nullptr;
     int vertexNumber = graph -> getVertexNumber();
-    Dictionary< T > *dictionary[vertexNumber][vertexNumber];
-    Q distance[vertexNumber][vertexNumber];
-    for(i = 0; i < vertexNumber; ++i) {
+    int cubeElements[vertexNumber][vertexNumber][vertexNumber];
+    Q distance[vertexNumber][vertexNumber];    
+    for(i = 0; i < vertexNumber; ++i){
         vertexI = graph -> getVertexByNumber(i);
-        for(j = 0; j < vertexNumber; ++j) {
+        for(j = 0; j < vertexNumber; ++j){
             vertexJ = graph -> getVertexByNumber(j);
-            dictionary[i][j] = new Dictionary< T >(vertexNumber);
-            dictionary[i][j] -> create();
             if(graph -> arista(vertexI, vertexJ)) 
                 distance[i][j] = graph -> weight(vertexI, vertexJ);
-            else {
+            else{
                 if(i == j) 
                     distance[i][j] = 0;
                 else 
                     distance[i][j] = INF;
             }
-        }
-    }
-    for(middle = 0; middle < vertexNumber; ++middle) {
-        for(beginning = 0; beginning < vertexNumber; ++beginning) {
-            for(destiny = 0; destiny < vertexNumber; ++destiny) {
-                if(distance[beginning][destiny] > distance[beginning][middle] + distance[middle][destiny]) {
-                    distance[beginning][destiny] = distance[beginning][middle] + distance[middle][destiny];
-                    for(k = beginning + 1; k < destiny; ++k) 
-                        dictionary[beginning][destiny] -> addElement(graph -> getVertexByNumber(k) -> getTag());
-                    for(k = destiny - 1; k > beginning; --k) 
-                        dictionary[destiny][beginning] -> addElement(graph -> getVertexByNumber(k) -> getTag());
-                }
+            for(int k = 0; k < vertexNumber; k++){
+                cubeElements[i][j][k] = -1;
             }
         }
+    }
+    for(middle = 0; middle < vertexNumber; ++middle){
+        for(beginning = 0; beginning < vertexNumber; ++beginning){
+            for(destiny = 0; destiny < vertexNumber; ++destiny){
+                if(distance[beginning][destiny] > distance[beginning][middle] + distance[middle][destiny]){
+                    distance[beginning][destiny] = distance[beginning][middle] + distance[middle][destiny];
+                    cubeElements[middle][beginning][destiny] = middle;
+                }
+            }
+        } 
     }
     for(i = 0; i < vertexNumber; ++i) {
         vertexI = graph -> getVertexByNumber(i);
@@ -320,12 +329,13 @@ void GenericGraphAlgorithms< T, Q > :: Floyd() {
             cout << "[" << vertexI -> getTag() << " -> " << vertexJ -> getTag() << "] (costo: ";
             distance[i][j] != INF ? cout << distance[i][j] : cout << "Infinito";
             cout << "): ";
-            if(vertexI != vertexJ && distance[i][j] != INF) {
-                cout << vertexI -> getTag() << " -> ";
-                dictionary[i][j] -> print(); 
-                cout << vertexJ -> getTag();
+            if(i != j){
+                cout << graph -> getVertexByNumber(i) -> getTag() << " -> ";
+                printPath(j, cubeElements[i][j]);
+                cout << "end";
             }
             cout << endl;
+            
         }
     }
 }
