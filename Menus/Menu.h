@@ -387,6 +387,7 @@ void Menu< T, Q > :: principalManu() {
             }   break;
             case 27: {
                 if(!graph -> empty()) {
+                    cout << "Cantidad de colores usados: ";
                     graphAlgoritms -> paintGraph();
                     cout << endl;
                 }

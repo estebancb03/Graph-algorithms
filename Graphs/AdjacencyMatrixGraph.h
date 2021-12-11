@@ -1,6 +1,7 @@
 #ifndef ADJACENCYMATRIXGRAPH_H
 #define ADJACENCYMATRIXGRAPH_H
 #include "../Vertex/Vertex2.h"
+#include <vector>
 using namespace std;
 
 template < class T, class Q >
@@ -29,7 +30,6 @@ class Graph {
         bool arista(Vertex< T, Q >*, Vertex< T, Q >*);
         int getVertexNumber();
         //Auxiliares
-        void print(); //Provisional
         Vertex< T, Q > *getVertexByNumber(int);
         int getVertexPosition(Vertex< T, Q >*);
 };
@@ -51,7 +51,7 @@ void Graph< T, Q > :: create() {
 */
 template < typename T, typename Q >
 void Graph< T, Q > :: destroy() {
-    delete this;
+    create();
 }
 
 /*
@@ -284,22 +284,6 @@ bool Graph< T, Q > :: arista(Vertex< T, Q > *vertex, Vertex< T, Q > *vertex2) {
 template < typename T, typename Q >
 int Graph< T, Q > :: getVertexNumber() {
     return vertexNumber;
-}
-
-
-/*
-    EFECTO: imprime la matriz de adyacencia
-    REQUIERE: grafo creado
-    MODIFICA: no hace modificaciones
-*/
-template < typename T, typename Q >
-void Graph< T, Q > :: print() {
-    for(int i = 0; i < vertexNumber; ++i) {
-        for (int j = 0; j < vertexNumber; ++j)
-            cout << adjacencyMatrix[i][j] << " ";
-        cout << endl << endl;
-    }
-    cout << endl << endl;   
 }
 
 /*

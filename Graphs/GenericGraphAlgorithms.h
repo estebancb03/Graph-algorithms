@@ -307,17 +307,16 @@ void GenericGraphAlgorithms< T, Q > :: Floyd() {
                 else 
                     distance[i][j] = INF;
             }
-            for(int k = 0; k < vertexNumber; k++){
+            for(int k = 0; k < vertexNumber; k++)
                 cubeElements[i][j][k] = -1;
-            }
         }
     }
-    for(middle = 0; middle < vertexNumber; ++middle){
-        for(beginning = 0; beginning < vertexNumber; ++beginning){
+    for(middle = 0; middle < vertexNumber; ++middle) {
+        for(beginning = 0; beginning < vertexNumber; ++beginning) {
             for(destiny = 0; destiny < vertexNumber; ++destiny){
                 if(distance[beginning][destiny] > distance[beginning][middle] + distance[middle][destiny]){
                     distance[beginning][destiny] = distance[beginning][middle] + distance[middle][destiny];
-                    cubeElements[middle][beginning][destiny] = middle;
+                    cubeElements[beginning][destiny][destiny] = middle;
                 }
             }
         } 
@@ -329,10 +328,9 @@ void GenericGraphAlgorithms< T, Q > :: Floyd() {
             cout << "[" << vertexI -> getTag() << " -> " << vertexJ -> getTag() << "] (costo: ";
             distance[i][j] != INF ? cout << distance[i][j] : cout << "Infinito";
             cout << "): ";
-            if(i != j){
+            if(i != j) {
                 cout << graph -> getVertexByNumber(i) -> getTag() << " -> ";
                 printPath(j, cubeElements[i][j]);
-                cout << "end";
             }
             cout << endl;
             
@@ -457,16 +455,14 @@ void GenericGraphAlgorithms< T, Q > :: paintGraphRecursive(int number, Set< int 
         paintedSets[i] = new Set< int >(vertexNumber);
         paintedSets[i] -> create();
     }
-    //--------------------------------------------------------
     for(int i = 0; i < vertexNumber; ++i) {
         if(adjacentSets[number] -> getRepeatedNumber(paintedSets[i]) == 0) {
             paintedSets[i] -> addElement(number);
             if(!usedColors -> elementExist(i))
                 usedColors -> addElement(i);
             if(number == vertexNumber) {
-                if(usedColors -> getElementNumber() < minimumUsedColors -> getElementNumber()) {
-                    minimumUsedColors -> copySet(usedColors); //Actualiza
-                }
+                if(usedColors -> getElementNumber() < minimumUsedColors -> getElementNumber()) 
+                    minimumUsedColors -> copySet(usedColors); 
             }
             else
                 paintGraphRecursive(number + 1,adjacentSets,usedColors,minimumUsedColors);
@@ -475,9 +471,6 @@ void GenericGraphAlgorithms< T, Q > :: paintGraphRecursive(int number, Set< int 
             paintedSets[i] -> deleteElement(number);
         }
     }
-    cout << "Colores minimos actualizados[" << number << "] :";
-    minimumUsedColors -> print();
-    cout << endl;
 }
 
 #endif //GENERICGRAPHALGORITHMS_H

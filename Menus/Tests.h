@@ -15,16 +15,26 @@ class Tests {
         void createMediumGraph();
 };
 
+/*
+    EFECTO: mide el tiempo en ejecución de un algoritmo
+    REQUIERE: grafo creado
+    MODIFICA: no hace modificaciones
+*/
 template < typename T, typename Q >
 void Tests< T, Q > :: test() {
-    createBigGraph();
+    createMediumGraph();
     auto start = std :: chrono :: system_clock :: now();
-    graphAlgoritms -> nDijkstra();
+    graphAlgoritms -> cycles();
     auto end = std :: chrono :: system_clock :: now();
     std :: chrono :: duration< float > enlapsed_seconds = end - start;
     std :: cout << endl << endl << "Tiempo: " << enlapsed_seconds.count() << " segundos" << endl;
 }
 
+/*
+    EFECTO: crea grafo de tamaño grande
+    REQUIERE: grafo no creado
+    MODIFICA: grafo
+*/
 template < typename T, typename Q >
 void Tests< T, Q > :: createBigGraph() {
     char character;
@@ -53,6 +63,11 @@ void Tests< T, Q > :: createBigGraph() {
     cout << "Vertices: " << graph -> getVertexNumber();
 }
 
+/*
+    EFECTO: crea grafo de tamaño pequeño
+    REQUIERE: grafo no creado
+    MODIFICA: grafo
+*/
 template < typename T, typename Q >
 void Tests< T, Q > :: createSmallGraph() {
     char character;
@@ -81,6 +96,11 @@ void Tests< T, Q > :: createSmallGraph() {
     cout << "Vertices: " << graph -> getVertexNumber();
 }
 
+/*
+    EFECTO: crea grafo de tamaño medio
+    REQUIERE: grafo no creado
+    MODIFICA: grafo
+*/
 template < typename T, typename Q >
 void Tests< T, Q > :: createMediumGraph() {
     char character;
